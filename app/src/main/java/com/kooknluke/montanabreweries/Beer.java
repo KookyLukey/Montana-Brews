@@ -9,12 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 
 public class Beer extends ActionBarActivity {
 
     String str;
+    RadioButton rbAle = (RadioButton) findViewById(R.id.rbAle);
+    RadioButton rbLager = (RadioButton) findViewById(R.id.rbLager);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

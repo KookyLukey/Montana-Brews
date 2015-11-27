@@ -1,17 +1,51 @@
 package com.kooknluke.montanabreweries;
 
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 
 public class Beer extends ActionBarActivity {
+
+    String str;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beer);
+
+        final Context context = this;
+
+        TestAdapter mDbHelper = new TestAdapter(context);
+        mDbHelper.createDatabase();
+        mDbHelper.open();
+
+        final Cursor testdata = mDbHelper.getTestData();
+
+        if (testdata.moveToFirst()) {
+            str = testdata.getString(testdata.getColumnIndex("content"));
+        }
+
+        mDbHelper.close();
+
+        final Button btnBeerSearch = (Button) findViewById(R.id.btnBeerSearch);
+        final TextView testDisplay = (TextView) findViewById(R.id.txtBeerTestDisplay);
+
+        btnBeerSearch.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                testDisplay.setText(str);
+
+            }
+        });
     }
 
 

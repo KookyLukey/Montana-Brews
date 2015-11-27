@@ -20,6 +20,11 @@ public class Home extends ActionBarActivity {
         final Context context = this;
 
         final Button btnBeer = (Button) findViewById(R.id.btn_beer);
+        final Button btnBreweries = (Button) findViewById(R.id.btn_breweries);
+        final Button btnTown = (Button) findViewById(R.id.btn_town);
+        final Button btnState = (Button) findViewById(R.id.btn_state);
+        final Button btnNutrition = (Button) findViewById(R.id.btn_nutrition);
+        final Button btnSeason = (Button) findViewById(R.id.btn_season);
 
         btnBeer.setOnClickListener(new View.OnClickListener() {
 
@@ -27,6 +32,51 @@ public class Home extends ActionBarActivity {
             public void onClick(View v) {
                 Intent intentBeer = new Intent(context, Beer.class);
                 startActivity(intentBeer);
+            }
+        });
+
+        btnBreweries.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intentBreweries = new Intent(context, Breweries.class);
+                startActivity(intentBreweries);
+            }
+        });
+
+        btnTown.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intentTown = new Intent(context, Town.class);
+                startActivity(intentTown);
+            }
+        });
+
+        btnState.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intentState = new Intent(context, State.class);
+                startActivity(intentState);
+            }
+        });
+
+        btnSeason.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intentSeason = new Intent(context, Seasons.class);
+                startActivity(intentSeason);
+            }
+        });
+
+        btnNutrition.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intentNutrition = new Intent(context, Nutrition.class);
+                startActivity(intentNutrition);
             }
         });
     }

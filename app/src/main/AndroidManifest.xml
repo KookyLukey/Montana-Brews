@@ -24,6 +24,46 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.kooknluke.montanabreweries.Home" />
         </activity>
+        <activity
+            android:name=".Breweries"
+            android:label="@string/title_activity_breweries"
+            android:parentActivityName=".Home" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.kooknluke.montanabreweries.Home" />
+        </activity>
+        <activity
+            android:name=".Town"
+            android:label="@string/title_activity_town"
+            android:parentActivityName=".Home" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.kooknluke.montanabreweries.Home" />
+        </activity>
+        <activity
+            android:name=".State"
+            android:label="@string/title_activity_state"
+            android:parentActivityName=".Home" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.kooknluke.montanabreweries.Home" />
+        </activity>
+        <activity
+            android:name=".Seasons"
+            android:label="@string/title_activity_seasons"
+            android:parentActivityName=".Home" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.kooknluke.montanabreweries.Home" />
+        </activity>
+        <activity
+            android:name=".Nutrition"
+            android:label="@string/title_activity_nutrition"
+            android:parentActivityName=".Home" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.kooknluke.montanabreweries.Home" />
+        </activity>
     </application>
 
 </manifest>

@@ -676,4 +676,124 @@ public class TestAdapter
             throw mSQLException;
         }
     }
+
+    public Cursor getOktoberfest5()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Oktoberfest%' AND ABV < 5";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getOktoberfest6()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Oktoberfest%' AND ABV < 6";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getOktoberfest7()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Oktoberfest%' AND ABV < 7";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getOktoberfest8()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Oktoberfest%' AND ABV < 8";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getOktoberfest9()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Oktoberfest%' AND ABV < 9";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getOktoberfest10()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Oktoberfest%' AND ABV < 10";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
 }

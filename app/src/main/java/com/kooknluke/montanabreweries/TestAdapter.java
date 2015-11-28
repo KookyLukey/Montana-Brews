@@ -81,7 +81,347 @@ public class TestAdapter
     {
         try
         {
-            String sql ="SELECT * FROM Beer";
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Ale%' AND ABV < 5";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getAle6()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Ale%' AND ABV < 6";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getAle7()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Ale%' AND ABV < 7";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getAle8()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Ale%' AND ABV < 8";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getAle9()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Ale%' AND ABV < 9";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getAle10()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Ale%' AND ABV < 10";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getStout5()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Stout%' AND ABV < 5";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getStout6()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Stout%' AND ABV < 6";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getStout7()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Stout%' AND ABV < 7";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getStout8()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Stout%' AND ABV < 8";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getStout9()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Stout%' AND ABV < 9";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getStout10()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Stout%' AND ABV < 10";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getLager5()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Lager%' AND ABV < 5";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getLager6()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Lager%' AND ABV < 6";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getLager7()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Lager%' AND ABV < 7";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getLager8()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Lager%' AND ABV < 8";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getLager9()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Lager%' AND ABV < 9";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getLager10()
+    {
+        try
+        {
+            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Lager%' AND ABV < 10";
 
             Cursor mCur = mDb.rawQuery(sql, null);
             if (mCur!=null)

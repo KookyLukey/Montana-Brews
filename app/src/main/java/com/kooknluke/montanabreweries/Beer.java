@@ -17,6 +17,8 @@ public class Beer extends ActionBarActivity {
 
     String str;
     String str2;
+    String type;
+    String abv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +41,13 @@ public class Beer extends ActionBarActivity {
                 mDbHelper.createDatabase();
                 mDbHelper.open();
 
-                final Cursor testdata = mDbHelper.getTestData();
+                final Cursor testdata = mDbHelper.getBeerData("Beer", type, abv);
 
                 if (testdata.moveToFirst()) {
                     str = testdata.getString(testdata.getColumnIndex("_id"));
-                    str2 = testdata.getString(testdata.getColumnIndex("address"));
+                    str2 = testdata.getString(testdata.getColumnIndex("type_of_beer"));
                 }
+
                 testDisplay.setText(str + " -> ");
                 testDisplay.append(str2);
 
@@ -61,6 +64,7 @@ public class Beer extends ActionBarActivity {
                 if (checked) {
                     // AC is checked
                     TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
+                    type = "Ale";
                     tv.setText("You have chosen Ale");
                 }
                 break;
@@ -68,6 +72,7 @@ public class Beer extends ActionBarActivity {
                 if (checked) {
                     // DF is checked
                     TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
+                    type = "Stout";
                     tv.setText("You have chosen Stout");
                 }
                 break;
@@ -75,6 +80,7 @@ public class Beer extends ActionBarActivity {
                 if (checked) {
                     // GJ is checked
                     TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
+                    type = "Lager";
                     tv.setText("You have chosen Lager");
                 }
                 break;
@@ -82,6 +88,7 @@ public class Beer extends ActionBarActivity {
                 if (checked) {
                     // KO is checked
                     TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
+                    type = "Weizen";
                     tv.setText("You have chosen Weizen");
                 }
                 break;
@@ -89,6 +96,7 @@ public class Beer extends ActionBarActivity {
                 if (checked) {
                     // PR is checked
                     TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
+                    type = "IPA";
                     tv.setText("You have chosen IPA");
                 }
                 break;
@@ -96,6 +104,7 @@ public class Beer extends ActionBarActivity {
                 if (checked) {
                     // SV is checked
                     TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
+                    type = "Oktoberest";
                     tv.setText("You have chosen Oktoberfest");
                 }
                 break;
@@ -103,6 +112,7 @@ public class Beer extends ActionBarActivity {
                 if (checked) {
                     // WZ is checked
                     TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
+                    type = "Porter";
                     tv.setText("You have chosen Porter");
                 }
                 break;
@@ -110,6 +120,7 @@ public class Beer extends ActionBarActivity {
                 if (checked) {
                     // WZ is checked
                     TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
+                    type = "Helles";
                     tv.setText("You have chosen Helles");
                 }
                 break;
@@ -117,6 +128,7 @@ public class Beer extends ActionBarActivity {
                 if (checked) {
                     // WZ is checked
                     TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
+                    abv = "5";
                     tv.setText("You have chosen 5%");
                 }
                 break;
@@ -124,6 +136,7 @@ public class Beer extends ActionBarActivity {
                 if (checked) {
                     // WZ is checked
                     TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
+                    abv = "6";
                     tv.setText("You have chosen 6%");
                 }
                 break;
@@ -131,6 +144,7 @@ public class Beer extends ActionBarActivity {
                 if (checked) {
                     // WZ is checked
                     TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
+                    abv = "7";
                     tv.setText("You have chosen 7%");
                 }
                 break;
@@ -138,6 +152,7 @@ public class Beer extends ActionBarActivity {
                 if (checked) {
                     // WZ is checked
                     TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
+                    abv = "8";
                     tv.setText("You have chosen 8%");
                 }
                 break;
@@ -145,6 +160,7 @@ public class Beer extends ActionBarActivity {
                 if (checked) {
                     // WZ is checked
                     TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
+                    abv = "9";
                     tv.setText("You have chosen 9%");
                 }
                 break;
@@ -152,6 +168,7 @@ public class Beer extends ActionBarActivity {
                 if (checked) {
                     // WZ is checked
                     TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
+                    abv = "10";
                     tv.setText("You have chosen 10%");
                 }
                 break;

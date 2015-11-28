@@ -25,7 +25,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="36dp"
-        android:checked="false" />
+        android:checked="false"
+        android:onClick="onRadioButtonClicked"/>
 
     <RadioButton
         android:layout_width="wrap_content"
@@ -35,7 +36,8 @@
         android:layout_below="@+id/rb100"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:checked="false" />
+        android:checked="false"
+        android:onClick="onRadioButtonClicked"/>
 
     <RadioButton
         android:layout_width="wrap_content"
@@ -45,7 +47,8 @@
         android:layout_below="@+id/rb150"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:checked="false" />
+        android:checked="false"
+        android:onClick="onRadioButtonClicked"/>
 
     <RadioButton
         android:layout_width="wrap_content"
@@ -55,5 +58,6 @@
         android:layout_below="@+id/rb200"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:checked="false" />
+        android:checked="false"
+        android:onClick="onRadioButtonClicked" />
 </RelativeLayout>

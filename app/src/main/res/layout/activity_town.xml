@@ -32,42 +32,48 @@
             android:layout_height="wrap_content"
             android:text="Bozeman"
             android:id="@+id/rbBozeman"
-            android:checked="false" />
+            android:checked="false"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Missoula"
             android:id="@+id/rbMissoula"
-            android:checked="false" />
+            android:checked="false"
+            android:onClick="onRadioButtonClicked" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Billings"
             android:id="@+id/rbBillings"
-            android:checked="false" />
+            android:checked="false"
+            android:onClick="onRadioButtonClicked" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Helena"
             android:id="@+id/rbHelena"
-            android:checked="false" />
+            android:checked="false"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Wibaux"
             android:id="@+id/rbWibaux"
-            android:checked="false" />
+            android:checked="false"
+            android:onClick="onRadioButtonClicked" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kalispell"
             android:id="@+id/rbKalispell"
-            android:checked="false" />
+            android:checked="false"
+            android:onClick="onRadioButtonClicked" />
 
         <RadioButton
             android:layout_width="wrap_content"

@@ -4,6 +4,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 
 public class State extends ActionBarActivity {
@@ -14,6 +17,20 @@ public class State extends ActionBarActivity {
         setContentView(R.layout.activity_state);
     }
 
+    public void onRadioButtonClicked(View view) {
+
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch(view.getId()) {
+            case R.id.rbMontana:
+                if (checked) {
+                    // AC is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchByState);
+                    tv.setText("You have chosen Montana");
+                }
+                break;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

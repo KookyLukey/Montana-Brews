@@ -1,9 +1,13 @@
 package com.kooknluke.montanabreweries;
 
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 
 public class Breweries extends ActionBarActivity {
@@ -12,6 +16,63 @@ public class Breweries extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_breweries);
+    }
+
+    public void onRadioButtonClicked(View view) {
+
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch(view.getId()) {
+            case R.id.rbAC:
+                if (checked) {
+                    // AC is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchByBreweries);
+                    tv.setText("You have chosen A-C");
+                }
+                break;
+            case R.id.rbDF:
+                if (checked) {
+                    // DF is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchByBreweries);
+                    tv.setText("You have chosen D-F");
+                }
+                break;
+            case R.id.rbGJ:
+                if (checked) {
+                    // GJ is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchByBreweries);
+                    tv.setText("You have chosen G-J");
+                }
+                break;
+            case R.id.rbKO:
+                if (checked) {
+                    // KO is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchByBreweries);
+                    tv.setText("You have chosen K-O");
+                }
+                break;
+            case R.id.rbPR:
+                if (checked) {
+                    // PR is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchByBreweries);
+                    tv.setText("You have chosen P-R");
+                }
+                break;
+            case R.id.rbSV:
+                if (checked) {
+                    // SV is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchByBreweries);
+                    tv.setText("You have chosen S-V");
+                }
+                break;
+            case R.id.rbWZ:
+                if (checked) {
+                    // WZ is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchByBreweries);
+                    tv.setText("You have chosen W-Z");
+                }
+                break;
+        }
     }
 
 

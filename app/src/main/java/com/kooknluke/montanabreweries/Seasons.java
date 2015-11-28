@@ -4,6 +4,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 
 public class Seasons extends ActionBarActivity {
@@ -14,6 +17,41 @@ public class Seasons extends ActionBarActivity {
         setContentView(R.layout.activity_seasons);
     }
 
+    public void onRadioButtonClicked(View view) {
+
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch(view.getId()) {
+            case R.id.rbSpring:
+                if (checked) {
+                    // AC is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBySeason);
+                    tv.setText("You have chosen Spring");
+                }
+                break;
+            case R.id.rbSummer:
+                if (checked) {
+                    // DF is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBySeason);
+                    tv.setText("You have chosen Summer");
+                }
+                break;
+            case R.id.rbAutumn:
+                if (checked) {
+                    // GJ is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBySeason);
+                    tv.setText("You have chosen Autumn");
+                }
+                break;
+            case R.id.rbWinter:
+                if (checked) {
+                    // KO is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBySeason);
+                    tv.setText("You have chosen Winter");
+                }
+                break;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

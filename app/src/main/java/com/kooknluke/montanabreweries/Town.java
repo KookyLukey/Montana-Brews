@@ -4,6 +4,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 
 public class Town extends ActionBarActivity {
@@ -14,7 +17,55 @@ public class Town extends ActionBarActivity {
         setContentView(R.layout.activity_town);
     }
 
+    public void onRadioButtonClicked(View view) {
 
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch(view.getId()) {
+            case R.id.rbBozeman:
+                if (checked) {
+                    // AC is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
+                    tv.setText("You have chosen Bozeman");
+                }
+                break;
+            case R.id.rbBillings:
+                if (checked) {
+                    // DF is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
+                    tv.setText("You have chosen Billings");
+                }
+                break;
+            case R.id.rbHelena:
+                if (checked) {
+                    // GJ is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
+                    tv.setText("You have chosen Helena");
+                }
+                break;
+            case R.id.rbKalispell:
+                if (checked) {
+                    // KO is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
+                    tv.setText("You have chosen Kalispell");
+                }
+                break;
+            case R.id.rbMissoula:
+                if (checked) {
+                    // KO is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
+                    tv.setText("You have chosen Missoula");
+                }
+                break;
+            case R.id.rbWibaux:
+                if (checked) {
+                    // KO is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
+                    tv.setText("You have chosen Wibaux");
+                }
+                break;
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

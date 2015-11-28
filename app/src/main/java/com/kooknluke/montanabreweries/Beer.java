@@ -51,6 +51,112 @@ public class Beer extends ActionBarActivity {
         });
     }
 
+    public void onRadioButtonClicked(View view) {
+
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch(view.getId()) {
+            case R.id.rbAle:
+                if (checked) {
+                    // AC is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBeer);
+                    tv.setText("You have chosen Ale");
+                }
+                break;
+            case R.id.rbStout:
+                if (checked) {
+                    // DF is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBeer);
+                    tv.setText("You have chosen Stout");
+                }
+                break;
+            case R.id.rbLager:
+                if (checked) {
+                    // GJ is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBeer);
+                    tv.setText("You have chosen Lager");
+                }
+                break;
+            case R.id.rbWeizen:
+                if (checked) {
+                    // KO is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBeer);
+                    tv.setText("You have chosen Weizen");
+                }
+                break;
+            case R.id.rbIPA:
+                if (checked) {
+                    // PR is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBeer);
+                    tv.setText("You have chosen IPA");
+                }
+                break;
+            case R.id.rbOktoberfest:
+                if (checked) {
+                    // SV is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBeer);
+                    tv.setText("You have chosen Oktoberfest");
+                }
+                break;
+            case R.id.rbPorter:
+                if (checked) {
+                    // WZ is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBeer);
+                    tv.setText("You have chosen Porter");
+                }
+                break;
+            case R.id.rbHelles:
+                if (checked) {
+                    // WZ is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBeer);
+                    tv.setText("You have chosen Helles");
+                }
+                break;
+            case R.id.rb5:
+                if (checked) {
+                    // WZ is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBeer);
+                    tv.setText("You have chosen 5%");
+                }
+                break;
+            case R.id.rb6:
+                if (checked) {
+                    // WZ is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBeer);
+                    tv.setText("You have chosen 6%");
+                }
+                break;
+            case R.id.rb7:
+                if (checked) {
+                    // WZ is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBeer);
+                    tv.setText("You have chosen 7%");
+                }
+                break;
+            case R.id.rb8:
+                if (checked) {
+                    // WZ is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBeer);
+                    tv.setText("You have chosen 8%");
+                }
+                break;
+            case R.id.rb9:
+                if (checked) {
+                    // WZ is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBeer);
+                    tv.setText("You have chosen 9%");
+                }
+                break;
+            case R.id.rb10:
+                if (checked) {
+                    // WZ is checked
+                    TextView tv = (TextView) findViewById(R.id.txtSearchBeer);
+                    tv.setText("You have chosen 10%");
+                }
+                break;
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

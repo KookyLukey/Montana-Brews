@@ -57,11 +57,31 @@ public class TestAdapter
         mDbHelper.close();
     }
 
-    public Cursor getBeerData(String table, String arg1, String arg2)
+    public Cursor getBeerData(String table, String arg1, Double arg2)
     {
         try
         {
-            String sql ="SELECT * FROM " + table + " WHERE type_of_beer LIKE '%" + arg1 + "%' AND ABV <= " + arg2 ;
+            String sql ="SELECT * FROM " + table + " WHERE type_of_beer LIKE '%" + arg1 + "%' AND ABV <= " + arg2;
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getBreweriesData(String table, String arg1, Double arg2)
+    {
+        try
+        {
+            String sql ="SELECT * FROM " + table + " WHERE _id LIKE '" + arg1 + "%' AND ABV <= " + arg2;
 
             Cursor mCur = mDb.rawQuery(sql, null);
             if (mCur!=null)

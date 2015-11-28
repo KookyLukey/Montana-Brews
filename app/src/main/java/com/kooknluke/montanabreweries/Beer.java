@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class Beer extends ActionBarActivity {
 
@@ -24,6 +27,8 @@ public class Beer extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beer);
+
+        final ArrayList<String> list = new ArrayList<>();
 
         final Context context = this;
 
@@ -41,7 +46,7 @@ public class Beer extends ActionBarActivity {
                 mDbHelper.createDatabase();
                 mDbHelper.open();
 
-                final Cursor testdata = mDbHelper.getBeerData("Beer", type, abv);
+                final Cursor testdata = mDbHelper.getBeerData();
 
                 if (testdata.moveToFirst()) {
                     str = testdata.getString(testdata.getColumnIndex("_id"));
@@ -50,6 +55,16 @@ public class Beer extends ActionBarActivity {
 
                 testDisplay.setText(str + " -> ");
                 testDisplay.append(str2);
+
+                while (testdata.isAfterLast() == false) {
+                    String name = testdata.getString(testdata
+                            .getColumnIndex("_id"));
+
+                    list.add(name);
+                    testdata.moveToNext();
+                }
+                }
+                testDisplay.setText(Arrays.toString(list.toArray()));
 
                 mDbHelper.close();
             }

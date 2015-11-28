@@ -796,4 +796,5 @@ public class TestAdapter
             throw mSQLException;
         }
     }
+
 }

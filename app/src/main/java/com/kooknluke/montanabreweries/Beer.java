@@ -24,16 +24,6 @@ public class Beer extends ActionBarActivity {
 
         final Context context = this;
 
-        //TestAdapter mDbHelper = new TestAdapter(context);
-        //mDbHelper.createDatabase();
-        //mDbHelper.open();
-
-//        final Cursor testdata = mDbHelper.getTestData();
-//
-//        if (testdata.moveToFirst()) {
-//            str = testdata.getString(testdata.getColumnIndex("content"));
-//        }
-
         //mDbHelper.close();
 
         final Button btnBeerSearch = (Button) findViewById(R.id.btnBeerSearch);
@@ -44,6 +34,16 @@ public class Beer extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
+                final TestAdapter mDbHelper = new TestAdapter(context);
+                mDbHelper.createDatabase();
+                mDbHelper.open();
+                final Cursor testdata = mDbHelper.getTestData();
+
+                if (testdata.moveToFirst()) {
+                    str = testdata.getString(testdata.getColumnIndex("content"));
+                }
+                testDisplay.setText(str);
+                mDbHelper.close();
             }
         });
     }

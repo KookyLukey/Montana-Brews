@@ -61,7 +61,7 @@ public class TestAdapter
     {
         try
         {
-            String sql ="SELECT * FROM Beer";
+            String sql ="SELECT * FROM Breweries";
 
             Cursor mCur = mDb.rawQuery(sql, null);
             if (mCur!=null)

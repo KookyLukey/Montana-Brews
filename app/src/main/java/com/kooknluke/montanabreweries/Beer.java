@@ -16,6 +16,7 @@ import android.widget.TextView;
 public class Beer extends ActionBarActivity {
 
     String str;
+    String str2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +38,16 @@ public class Beer extends ActionBarActivity {
                 final TestAdapter mDbHelper = new TestAdapter(context);
                 mDbHelper.createDatabase();
                 mDbHelper.open();
+
                 final Cursor testdata = mDbHelper.getTestData();
 
                 if (testdata.moveToFirst()) {
-                    str = testdata.getString(testdata.getColumnIndex("type_of_beer"));
+                    str = testdata.getString(testdata.getColumnIndex("_id"));
+                    str2 = testdata.getString(testdata.getColumnIndex("address"));
                 }
-                testDisplay.setText(str);
+                testDisplay.setText(str + " -> ");
+                testDisplay.append(str2);
+
                 mDbHelper.close();
             }
         });

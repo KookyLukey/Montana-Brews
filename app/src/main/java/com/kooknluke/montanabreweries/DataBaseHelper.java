@@ -1,6 +1,7 @@
 package com.kooknluke.montanabreweries;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -109,4 +110,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     }
 
+//    public Cursor query(String table,String[] columns, String selection,String[] selectionArgs,String groupBy,String having,String orderBy){
+//        return mDataBase.query("EMP_TABLE", null, null, null, null, null, null);
+//    }
 }

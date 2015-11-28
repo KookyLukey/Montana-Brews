@@ -63,7 +63,6 @@ public class Beer extends ActionBarActivity {
                     list.add(name);
                     testdata.moveToNext();
                 }
-                }
                 testDisplay.setText(Arrays.toString(list.toArray()));
 
                 mDbHelper.close();

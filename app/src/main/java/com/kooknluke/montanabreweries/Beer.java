@@ -40,7 +40,7 @@ public class Beer extends ActionBarActivity {
                 final Cursor testdata = mDbHelper.getTestData();
 
                 if (testdata.moveToFirst()) {
-                    str = testdata.getString(testdata.getColumnIndex("content"));
+                    str = testdata.getString(testdata.getColumnIndex("type_of_beer"));
                 }
                 testDisplay.setText(str);
                 mDbHelper.close();

@@ -31,6 +31,7 @@ public class Breweries extends ActionBarActivity {
         final Button btnShowBeers = (Button) findViewById(R.id.btnShowBeers);
         final Button btnShowAddress = (Button) findViewById(R.id.btnShowAddress);
         final EditText etSearchBreweries = (EditText) findViewById(R.id.etSearchBreweries);
+        final TextView txtTestBreweries = (TextView) findViewById(R.id.txtTestBreweries);
 
         btnShowBeers.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +52,7 @@ public class Breweries extends ActionBarActivity {
                         list.add(name);
                         testdata.moveToNext();
                     }
-//                    testDisplay.setText(Arrays.toString(list.toArray()));
+                    txtTestBreweries.setText(Arrays.toString(list.toArray()));
                 }
 
 //                testDisplay.setText(str + " -> ");

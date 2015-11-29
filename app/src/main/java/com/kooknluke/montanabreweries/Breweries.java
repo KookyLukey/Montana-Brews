@@ -2,6 +2,7 @@ package com.kooknluke.montanabreweries;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -55,12 +56,12 @@ public class Breweries extends ActionBarActivity {
                     txtTestBreweries.setText(Arrays.toString(list.toArray()));
                 }
 
-//                testDisplay.setText(str + " -> ");
-//                testDisplay.append(str2);
-
-                list.clear();
-
                 mDbHelper.close();
+
+                Intent i = new Intent(context, breweryBeerList.class);
+                i.putStringArrayListExtra("breweryBeer", list);
+                startActivity(i);
+                list.clear();
                 
             }
         });

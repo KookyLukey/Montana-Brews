@@ -7,19 +7,18 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
-public class beerList extends ActionBarActivity {
+public class breweryBeerList extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_beer_list);
+        setContentView(R.layout.activity_brewery_beer_list);
 
-        final ListView lv = (ListView) findViewById(R.id.lvBeerList);
-        List<String> beerList = getIntent().getStringArrayListExtra("beer");
+        final ListView lv = (ListView) findViewById(R.id.lvBreweryBeerList);
+        List<String> beerList = getIntent().getStringArrayListExtra("breweryBeer");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,
@@ -33,7 +32,7 @@ public class beerList extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_beer_list, menu);
+        getMenuInflater().inflate(R.menu.menu_brewery_beer_list, menu);
         return true;
     }
 

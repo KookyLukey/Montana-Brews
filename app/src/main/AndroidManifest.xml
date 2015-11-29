@@ -64,6 +64,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.kooknluke.montanabreweries.Home" />
         </activity>
+        <activity
+            android:name=".beerList"
+            android:label="@string/title_activity_beer_list"
+            android:parentActivityName=".Beer" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.kooknluke.montanabreweries.Beer" />
+        </activity>
     </application>
 
 </manifest>

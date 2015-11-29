@@ -58,13 +58,12 @@ public class Beer extends ActionBarActivity {
                     }
                     testDisplay.setText(Arrays.toString(list.toArray()));
                 }
-
-//                testDisplay.setText(str + " -> ");
-//                testDisplay.append(str2);
-
-                list.clear();
-
                 mDbHelper.close();
+
+                Intent intentBeerList = new Intent(context, beerList.class);
+                intentBeerList.putStringArrayListExtra("beer", list);
+                startActivity(intentBeerList);
+                list.clear();
             }
         });
     }

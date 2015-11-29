@@ -42,7 +42,7 @@ public class Breweries extends ActionBarActivity {
                 mDbHelper.createDatabase();
                 mDbHelper.open();
 
-                final Cursor testdata = mDbHelper.getBreweriesBeerData("Breweries", userInput);
+                final Cursor testdata = mDbHelper.getBreweriesBeerData("Beer", userInput);
 
                 if (testdata.moveToFirst()) {
                     while (testdata.isAfterLast() == false) {
@@ -69,7 +69,27 @@ public class Breweries extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                String userInput = etSearchBreweries.getText().toString();
+            String userInput = etSearchBreweries.getText().toString();
+            final TestAdapter mDbHelper = new TestAdapter(context);
+            mDbHelper.createDatabase();
+            mDbHelper.open();
+
+            final Cursor testdata = mDbHelper.getBreweriesAddressData("Breweries", userInput);
+
+            if (testdata.moveToFirst()) {
+                while (testdata.isAfterLast() == false) {
+                    String name = testdata.getString(testdata
+                            .getColumnIndex("address"));
+
+                    list.add(name);
+                    testdata.moveToNext();
+                }
+                txtTestBreweries.setText(Arrays.toString(list.toArray()));
+            }
+
+            list.clear();
+
+            mDbHelper.close();
 
             }
         });

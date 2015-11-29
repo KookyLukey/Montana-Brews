@@ -81,7 +81,27 @@ public class TestAdapter
     {
         try
         {
-            String sql ="SELECT * FROM " + table + " WHERE brewery_name = " + arg1;
+            String sql ="SELECT * FROM " + table + " WHERE brewery_name LIKE '%" + arg1 + "%'";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getBreweriesAddressData(String table, String arg1)
+    {
+        try
+        {
+            String sql ="SELECT * FROM " + table + " WHERE _id LIKE '%" + arg1 + "%'";
 
             Cursor mCur = mDb.rawQuery(sql, null);
             if (mCur!=null)

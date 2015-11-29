@@ -1,12 +1,18 @@
 package com.kooknluke.montanabreweries;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Town extends ActionBarActivity {
@@ -17,6 +23,41 @@ public class Town extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_town);
+
+        final ArrayList<String> list = new ArrayList<>();
+
+        final Context context = this;
+
+        final Button btnSearchTwn = (Button) findViewById(R.id.btnSearchTwn);
+        final TextView textView = (TextView) findViewById(R.id.townTextView);
+
+        btnSearchTwn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                final TestAdapter mDbHelper = new TestAdapter(context);
+                mDbHelper.createDatabase();
+                mDbHelper.open();
+
+                final Cursor testdata = mDbHelper.getTownData("Breweries", zipcode);
+
+                if (testdata.moveToFirst()) {
+                    while (testdata.isAfterLast() == false) {
+                        String name = testdata.getString(testdata
+                                .getColumnIndex("_id"));
+
+                        list.add(name);
+                        testdata.moveToNext();
+                    }
+                    textView.setText(Arrays.toString(list.toArray()));
+                }
+
+                list.clear();
+
+                mDbHelper.close();
+            }
+        });
     }
 
     public void onRadioButtonClicked(View view) {

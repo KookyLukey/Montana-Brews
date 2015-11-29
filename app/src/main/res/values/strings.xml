@@ -12,4 +12,5 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_brewery_beer_list">Beer List by Brewery</string>
+    <string name="title_activity_seasons_beer_list">seasonsBeerList</string>
 </resources>

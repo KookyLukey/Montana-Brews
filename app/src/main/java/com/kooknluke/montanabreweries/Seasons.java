@@ -1,6 +1,7 @@
 package com.kooknluke.montanabreweries;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -53,9 +54,12 @@ public class Seasons extends ActionBarActivity {
                     textView.setText(Arrays.toString(list.toArray()));
                 }
 
-                list.clear();
-
                 mDbHelper.close();
+
+                Intent i = new Intent(context, seasonsBeerList.class);
+                i.putStringArrayListExtra("beer", list);
+                startActivity(i);
+                list.clear();
             }
         });
     }

@@ -2,6 +2,7 @@ package com.kooknluke.montanabreweries;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +13,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class Breweries extends ActionBarActivity {
 
@@ -19,6 +23,8 @@ public class Breweries extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_breweries);
+
+        final ArrayList<String> list = new ArrayList<>();
 
         final Context context = this;
 
@@ -31,6 +37,29 @@ public class Breweries extends ActionBarActivity {
             public void onClick(View v) {
 
                 String userInput = etSearchBreweries.getText().toString();
+                final TestAdapter mDbHelper = new TestAdapter(context);
+                mDbHelper.createDatabase();
+                mDbHelper.open();
+
+                final Cursor testdata = mDbHelper.getBreweriesBeerData("Breweries", userInput);
+
+                if (testdata.moveToFirst()) {
+                    while (testdata.isAfterLast() == false) {
+                        String name = testdata.getString(testdata
+                                .getColumnIndex("_id"));
+
+                        list.add(name);
+                        testdata.moveToNext();
+                    }
+//                    testDisplay.setText(Arrays.toString(list.toArray()));
+                }
+
+//                testDisplay.setText(str + " -> ");
+//                testDisplay.append(str2);
+
+                list.clear();
+
+                mDbHelper.close();
                 
             }
         });

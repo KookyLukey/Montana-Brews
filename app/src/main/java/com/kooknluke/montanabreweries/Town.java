@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 public class Town extends ActionBarActivity {
 
+    Integer zipcode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,7 @@ public class Town extends ActionBarActivity {
                 if (checked) {
                     // AC is checked
                     TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
+                    zipcode = 59715;
                     tv.setText("You have chosen Bozeman");
                 }
                 break;
@@ -33,6 +36,7 @@ public class Town extends ActionBarActivity {
                 if (checked) {
                     // DF is checked
                     TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
+                    zipcode = 59101;
                     tv.setText("You have chosen Billings");
                 }
                 break;
@@ -40,6 +44,7 @@ public class Town extends ActionBarActivity {
                 if (checked) {
                     // GJ is checked
                     TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
+                    zipcode = 59601;
                     tv.setText("You have chosen Helena");
                 }
                 break;
@@ -47,6 +52,7 @@ public class Town extends ActionBarActivity {
                 if (checked) {
                     // KO is checked
                     TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
+                    zipcode = 59903;
                     tv.setText("You have chosen Kalispell");
                 }
                 break;
@@ -54,6 +60,7 @@ public class Town extends ActionBarActivity {
                 if (checked) {
                     // KO is checked
                     TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
+                    zipcode = 59801;
                     tv.setText("You have chosen Missoula");
                 }
                 break;
@@ -61,6 +68,7 @@ public class Town extends ActionBarActivity {
                 if (checked) {
                     // KO is checked
                     TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
+                    zipcode = 59353;
                     tv.setText("You have chosen Wibaux");
                 }
                 break;

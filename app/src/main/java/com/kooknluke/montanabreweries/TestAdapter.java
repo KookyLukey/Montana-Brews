@@ -97,6 +97,46 @@ public class TestAdapter
         }
     }
 
+    public Cursor getTownData(String table, Integer arg1)
+    {
+        try
+        {
+            String sql ="SELECT * FROM " + table + " WHERE name_of_town = " + arg1;
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getRegionData(String table, Integer arg1)
+    {
+        try
+        {
+            String sql ="SELECT * FROM " + table + " WHERE name_of_town = " + arg1;
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
     public Cursor getAle5()
     {
         try

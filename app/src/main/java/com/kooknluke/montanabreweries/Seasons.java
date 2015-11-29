@@ -85,8 +85,8 @@ public class Seasons extends ActionBarActivity {
                 if (checked) {
                     // GJ is checked
                     TextView tv = (TextView) findViewById(R.id.txtSeasonsTest);
-                    season = "Autumn";
-                    tv.setText("You have chosen Autumn");
+                    season = "Fall";
+                    tv.setText("You have chosen Fall");
                 }
                 break;
             case R.id.rbWinter:

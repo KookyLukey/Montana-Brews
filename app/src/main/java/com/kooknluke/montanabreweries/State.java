@@ -1,32 +1,74 @@
 package com.kooknluke.montanabreweries;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class State extends ActionBarActivity {
 
+    String state;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_state);
+
+        final ArrayList<String> list = new ArrayList<>();
+
+        final Context context = this;
+
+        //mDbHelper.close();
+
+        final Button btnSearch = (Button) findViewById(R.id.btnSearchState);
+        final TextView testDisplay = (TextView) findViewById(R.id.txtStateTest);
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                final TestAdapter mDbHelper = new TestAdapter(context);
+                mDbHelper.createDatabase();
+                mDbHelper.open();
+
+                final Cursor testdata = mDbHelper.getStateData("Breweries", state);
+
+                if (testdata.moveToFirst()) {
+                    while (testdata.isAfterLast() == false) {
+                        String name = testdata.getString(testdata
+                                .getColumnIndex("_id"));
+
+                        list.add(name);
+                        testdata.moveToNext();
+                    }
+                    testDisplay.setText(Arrays.toString(list.toArray()));
+                }
+
+                list.clear();
+
+                mDbHelper.close();
+            }
+        });
     }
 
     public void onRadioButtonClicked(View view) {
-
         boolean checked = ((RadioButton) view).isChecked();
 
         switch(view.getId()) {
             case R.id.rbMontana:
                 if (checked) {
                     // AC is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByState);
-                    tv.setText("You have chosen Montana");
+                    state = "Montana";
                 }
                 break;
         }

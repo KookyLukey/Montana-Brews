@@ -157,6 +157,47 @@ public class TestAdapter
         }
     }
 
+    public Cursor getNutritionData(String table, String arg1)
+    {
+        try
+        {
+            String sql ="SELECT * FROM " + table + " WHERE _id LIKE '%" + arg1 + "%'";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
+    public Cursor getStateData(String table, String arg1)
+    {
+        try
+        {
+            String sql ="SELECT Breweries._id FROM " + table
+                    + " JOIN Town ON Breweries.zipCode = Town._id WHERE Town.zipCode = '" + arg1 + "'";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
     public Cursor getRegionData(String table, Integer arg1)
     {
         try

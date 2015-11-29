@@ -1,12 +1,19 @@
 package com.kooknluke.montanabreweries;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Nutrition extends ActionBarActivity {
@@ -15,44 +22,55 @@ public class Nutrition extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nutrition);
+
+        final ArrayList<String> list = new ArrayList<>();
+
+        final Context context = this;
+
+        final Button btnNutrition = (Button) findViewById(R.id.btnNutritionSearch);
+        final EditText etSearchNutrition = (EditText) findViewById(R.id.etNutritionSearch);
+        final TextView txtTestNutrition = (TextView) findViewById(R.id.txtSearchNutrition);
+
+        btnNutrition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String userInput = etSearchNutrition.getText().toString();
+                final TestAdapter mDbHelper = new TestAdapter(context);
+                mDbHelper.createDatabase();
+                mDbHelper.open();
+
+                final Cursor testdata = mDbHelper.getNutritionData("Nutrition", userInput);
+
+                if (testdata.moveToFirst()) {
+                    while (testdata.isAfterLast() == false) {
+                        String name = testdata.getString(testdata
+                                .getColumnIndex("_id"));
+                        String ss = testdata.getString(testdata
+                                .getColumnIndex("serving_size"));
+                        String cal = testdata.getString(testdata
+                                .getColumnIndex("calories"));
+                        String fat = testdata.getString(testdata
+                                .getColumnIndex("fat"));
+                        list.add(name);
+                        list.add("Serving Size:" + ss);
+                        list.add("Calories: " + cal);
+                        list.add("Fat: " + fat);
+                        testdata.moveToNext();
+                    }
+                    txtTestNutrition.setText(Arrays.toString(list.toArray()));
+                }
+
+//                testDisplay.setText(str + " -> ");
+//                testDisplay.append(str2);
+
+                list.clear();
+
+                mDbHelper.close();
+
+            }
+        });
     }
-
-    public void onRadioButtonClicked(View view) {
-
-        boolean checked = ((RadioButton) view).isChecked();
-
-        switch(view.getId()) {
-            case R.id.rb100:
-                if (checked) {
-                    // AC is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByNutrition);
-                    tv.setText("You have chosen < 100");
-                }
-                break;
-            case R.id.rb150:
-                if (checked) {
-                    // DF is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByNutrition);
-                    tv.setText("You have chosen < 150");
-                }
-                break;
-            case R.id.rb200:
-                if (checked) {
-                    // GJ is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByNutrition);
-                    tv.setText("You have chosen < 200");
-                }
-                break;
-            case R.id.rb250:
-                if (checked) {
-                    // KO is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByNutrition);
-                    tv.setText("You have chosen < 250");
-                }
-                break;
-        }
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

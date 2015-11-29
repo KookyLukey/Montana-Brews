@@ -35,7 +35,7 @@ public class Beer extends ActionBarActivity {
         //mDbHelper.close();
 
         final Button btnBeerSearch = (Button) findViewById(R.id.btnBeerSearch);
-        final TextView testDisplay = (TextView) findViewById(R.id.txtBeerTestDisplay);
+//        final TextView testDisplay = (TextView) findViewById(R.id.txtBeerTestDisplay);
 
         btnBeerSearch.setOnClickListener(new View.OnClickListener() {
 
@@ -56,7 +56,7 @@ public class Beer extends ActionBarActivity {
                         list.add(name);
                         testdata.moveToNext();
                     }
-                    testDisplay.setText(Arrays.toString(list.toArray()));
+//                    testDisplay.setText(Arrays.toString(list.toArray()));
                 }
                 mDbHelper.close();
 

@@ -12,5 +12,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_brewery_beer_list">Beer List by Brewery</string>
-    <string name="title_activity_seasons_beer_list">seasonsBeerList</string>
+    <string name="title_activity_seasons_beer_list">Beer List by Season</string>
+    <string name="title_activity_town_beer_list">Breweries by Town</string>
+    <string name="title_activity_state_beer_list">Breweries by State</string>
+    <string name="title_activity_nutrition_beer_list">Nutritional Info of Beer</string>
 </resources>

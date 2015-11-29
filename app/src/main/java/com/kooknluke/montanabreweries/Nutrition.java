@@ -1,6 +1,7 @@
 package com.kooknluke.montanabreweries;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -29,7 +30,7 @@ public class Nutrition extends ActionBarActivity {
 
         final Button btnNutrition = (Button) findViewById(R.id.btnNutritionSearch);
         final EditText etSearchNutrition = (EditText) findViewById(R.id.etNutritionSearch);
-        final TextView txtTestNutrition = (TextView) findViewById(R.id.txtSearchNutrition);
+//        final TextView txtTestNutrition = (TextView) findViewById(R.id.txtSearchNutrition);
 
         btnNutrition.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,16 +59,15 @@ public class Nutrition extends ActionBarActivity {
                         list.add("Fat: " + fat);
                         testdata.moveToNext();
                     }
-                    txtTestNutrition.setText(Arrays.toString(list.toArray()));
+//                    txtTestNutrition.setText(Arrays.toString(list.toArray()));
                 }
-
-//                testDisplay.setText(str + " -> ");
-//                testDisplay.append(str2);
-
-                list.clear();
 
                 mDbHelper.close();
 
+                Intent i = new Intent(context, nutritionBeerList.class);
+                i.putStringArrayListExtra("beer", list);
+                startActivity(i);
+                list.clear();
             }
         });
     }

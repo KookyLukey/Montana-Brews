@@ -1,6 +1,7 @@
 package com.kooknluke.montanabreweries;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ public class State extends ActionBarActivity {
         //mDbHelper.close();
 
         final Button btnSearch = (Button) findViewById(R.id.btnSearchState);
-        final TextView testDisplay = (TextView) findViewById(R.id.txtStateTest);
+//        final TextView testDisplay = (TextView) findViewById(R.id.txtStateTest);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
 
@@ -51,12 +52,15 @@ public class State extends ActionBarActivity {
                         list.add(name);
                         testdata.moveToNext();
                     }
-                    testDisplay.setText(Arrays.toString(list.toArray()));
+//                    testDisplay.setText(Arrays.toString(list.toArray()));
                 }
 
-                list.clear();
-
                 mDbHelper.close();
+
+                Intent i = new Intent(context, townBeerList.class);
+                i.putStringArrayListExtra("beer", list);
+                startActivity(i);
+                list.clear();
             }
         });
     }

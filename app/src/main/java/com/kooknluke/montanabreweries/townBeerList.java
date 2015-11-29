@@ -10,14 +10,14 @@ import android.widget.ListView;
 import java.util.List;
 
 
-public class seasonsBeerList extends ActionBarActivity {
+public class townBeerList extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_seasons_beer_list);
+        setContentView(R.layout.activity_town_beer_list);
 
-        final ListView lv = (ListView) findViewById(R.id.lvSeasons);
+        final ListView lv = (ListView) findViewById(R.id.lvTown);
         List<String> beerList = getIntent().getStringArrayListExtra("beer");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
@@ -31,7 +31,7 @@ public class seasonsBeerList extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_seasons_beer_list, menu);
+        getMenuInflater().inflate(R.menu.menu_town_beer_list, menu);
         return true;
     }
 

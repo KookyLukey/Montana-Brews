@@ -23,7 +23,7 @@
         android:layout_below="@+id/txtSearchByNutrition"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="Enter Name of Beer"
+        android:hint="Enter Name of Beer"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 

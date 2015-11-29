@@ -53,7 +53,7 @@ public class Breweries extends ActionBarActivity {
                         list.add(name);
                         testdata.moveToNext();
                     }
-                    txtTestBreweries.setText(Arrays.toString(list.toArray()));
+//                    txtTestBreweries.setText(Arrays.toString(list.toArray()));
                 }
 
                 mDbHelper.close();

@@ -137,6 +137,26 @@ public class TestAdapter
         }
     }
 
+    public Cursor getSeasonsData(String table, String arg1)
+    {
+        try
+        {
+            String sql ="SELECT * FROM " + table + " WHERE season = '" + arg1 + "'";
+
+            Cursor mCur = mDb.rawQuery(sql, null);
+            if (mCur!=null)
+            {
+                mCur.moveToNext();
+            }
+            return mCur;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+    }
+
     public Cursor getRegionData(String table, Integer arg1)
     {
         try

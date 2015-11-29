@@ -1,11 +1,14 @@
 package com.kooknluke.montanabreweries;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -16,63 +19,30 @@ public class Breweries extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_breweries);
-    }
 
-    public void onRadioButtonClicked(View view) {
+        final Context context = this;
 
-        boolean checked = ((RadioButton) view).isChecked();
+        final Button btnShowBeers = (Button) findViewById(R.id.btnShowBeers);
+        final Button btnShowAddress = (Button) findViewById(R.id.btnShowAddress);
+        final EditText etSearchBreweries = (EditText) findViewById(R.id.etSearchBreweries);
 
-        switch(view.getId()) {
-            case R.id.rbAC:
-                if (checked) {
-                    // AC is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByBreweries);
-                    tv.setText("You have chosen A-C");
-                }
-                break;
-            case R.id.rbDF:
-                if (checked) {
-                    // DF is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByBreweries);
-                    tv.setText("You have chosen D-F");
-                }
-                break;
-            case R.id.rbGJ:
-                if (checked) {
-                    // GJ is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByBreweries);
-                    tv.setText("You have chosen G-J");
-                }
-                break;
-            case R.id.rbKO:
-                if (checked) {
-                    // KO is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByBreweries);
-                    tv.setText("You have chosen K-O");
-                }
-                break;
-            case R.id.rbPR:
-                if (checked) {
-                    // PR is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByBreweries);
-                    tv.setText("You have chosen P-R");
-                }
-                break;
-            case R.id.rbSV:
-                if (checked) {
-                    // SV is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByBreweries);
-                    tv.setText("You have chosen S-V");
-                }
-                break;
-            case R.id.rbWZ:
-                if (checked) {
-                    // WZ is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByBreweries);
-                    tv.setText("You have chosen W-Z");
-                }
-                break;
-        }
+        btnShowBeers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String userInput = etSearchBreweries.getText().toString();
+                
+            }
+        });
+
+        btnShowAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String userInput = etSearchBreweries.getText().toString();
+
+            }
+        });
     }
 
 

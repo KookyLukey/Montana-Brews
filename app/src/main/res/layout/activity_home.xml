@@ -62,4 +62,12 @@
         android:id="@+id/btn_nutrition"
         android:layout_below="@+id/btn_season"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Beer History"
+        android:id="@+id/btnBeerHistory"
+        android:layout_below="@+id/btn_nutrition"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

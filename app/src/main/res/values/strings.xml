@@ -16,4 +16,7 @@
     <string name="title_activity_town_beer_list">Breweries by Town</string>
     <string name="title_activity_state_beer_list">Breweries by State</string>
     <string name="title_activity_nutrition_beer_list">Nutritional Info of Beer</string>
+
+    <color name="background">#F7941E</color>
+    <string name="title_activity_beer_history">Beer History</string>
 </resources>

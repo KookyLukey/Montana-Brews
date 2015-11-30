@@ -46,7 +46,7 @@ public class Beer extends ActionBarActivity {
                 mDbHelper.createDatabase();
                 mDbHelper.open();
 
-                final Cursor testdata = mDbHelper.getBeerData("Beer",type,abv);
+                final Cursor testdata = mDbHelper.getBeerData("beer",type,abv);
 
                 if (testdata.moveToFirst()) {
                     while (testdata.isAfterLast() == false) {
@@ -60,10 +60,18 @@ public class Beer extends ActionBarActivity {
                 }
                 mDbHelper.close();
 
-                Intent intentBeerList = new Intent(context, beerList.class);
-                intentBeerList.putStringArrayListExtra("beer", list);
-                startActivity(intentBeerList);
-                list.clear();
+                Intent i = new Intent(context, beerList.class);
+                if (list.isEmpty()) {
+                    list.add("No Beer Found");
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                }
+                else {
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                }
             }
         });
     }
@@ -74,114 +82,72 @@ public class Beer extends ActionBarActivity {
         switch(view.getId()) {
             case R.id.rbAle:
                 if (checked) {
-                    // AC is checked
-                    TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
                     type = "Ale";
-                    tv.setText("You have chosen Ale");
                 }
                 break;
             case R.id.rbStout:
                 if (checked) {
-                    // DF is checked
-                    TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
                     type = "Stout";
-                    tv.setText("You have chosen Stout");
                 }
                 break;
             case R.id.rbLager:
                 if (checked) {
-                    // GJ is checked
-                    TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
                     type = "Lager";
-                    tv.setText("You have chosen Lager");
                 }
                 break;
             case R.id.rbWeizen:
                 if (checked) {
-                    // KO is checked
-                    TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
                     type = "Weizen";
-                    tv.setText("You have chosen Weizen");
                 }
                 break;
             case R.id.rbIPA:
                 if (checked) {
-                    // PR is checked
-                    TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
                     type = "IPA";
-                    tv.setText("You have chosen IPA");
                 }
                 break;
             case R.id.rbOktoberfest:
                 if (checked) {
-                    // SV is checked
-                    TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
                     type = "Oktoberest";
-                    tv.setText("You have chosen Oktoberfest");
                 }
                 break;
             case R.id.rbPorter:
                 if (checked) {
-                    // WZ is checked
-                    TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
                     type = "Porter";
-                    tv.setText("You have chosen Porter");
                 }
                 break;
             case R.id.rbHelles:
                 if (checked) {
-                    // WZ is checked
-                    TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
                     type = "Helles";
-                    tv.setText("You have chosen Helles");
                 }
                 break;
             case R.id.rb5:
                 if (checked) {
-                    // WZ is checked
-                    TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
                     abv = 5.0;
-                    tv.setText("You have chosen 5%");
                 }
                 break;
             case R.id.rb6:
                 if (checked) {
-                    // WZ is checked
-                    TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
                     abv = 6.0;
-                    tv.setText("You have chosen 6%");
                 }
                 break;
             case R.id.rb7:
                 if (checked) {
-                    // WZ is checked
-                    TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
                     abv = 7.0;
-                    tv.setText("You have chosen 7%");
                 }
                 break;
             case R.id.rb8:
                 if (checked) {
-                    // WZ is checked
-                    TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
                     abv = 8.0;
-                    tv.setText("You have chosen 8%");
                 }
                 break;
             case R.id.rb9:
                 if (checked) {
-                    // WZ is checked
-                    TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
                     abv = 9.0;
-                    tv.setText("You have chosen 9%");
                 }
                 break;
             case R.id.rb10:
                 if (checked) {
-                    // WZ is checked
-                    TextView tv = (TextView) findViewById(R.id.txtBeerTestDisplay);
                     abv = 9.9;
-                    tv.setText("You have chosen 10%");
                 }
                 break;
         }

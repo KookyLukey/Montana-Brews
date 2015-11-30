@@ -42,7 +42,7 @@ public class State extends ActionBarActivity {
                 mDbHelper.createDatabase();
                 mDbHelper.open();
 
-                final Cursor testdata = mDbHelper.getStateData("Breweries", state);
+                final Cursor testdata = mDbHelper.getStateData("breweries", state);
 
                 if (testdata.moveToFirst()) {
                     while (testdata.isAfterLast() == false) {
@@ -58,9 +58,17 @@ public class State extends ActionBarActivity {
                 mDbHelper.close();
 
                 Intent i = new Intent(context, townBeerList.class);
-                i.putStringArrayListExtra("beer", list);
-                startActivity(i);
-                list.clear();
+                if (list.isEmpty()) {
+                    list.add("No Brewery Found");
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                }
+                else {
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                }
             }
         });
     }

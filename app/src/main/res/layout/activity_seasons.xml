@@ -72,13 +72,4 @@
 
     </RadioGroup>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtSeasonsTest"
-        android:layout_gravity="right"
-        android:layout_alignBottom="@+id/radioGroup"
-        android:layout_toRightOf="@+id/radioGroup"
-        android:layout_toEndOf="@+id/radioGroup" />
-
 </RelativeLayout>

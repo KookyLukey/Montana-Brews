@@ -30,7 +30,6 @@ public class Seasons extends ActionBarActivity {
         final Context context = this;
 
         final Button btnSearch = (Button) findViewById(R.id.btnSeasonSearch);
-        final TextView textView = (TextView) findViewById(R.id.txtSeasonsTest);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
 
@@ -41,7 +40,7 @@ public class Seasons extends ActionBarActivity {
                 mDbHelper.createDatabase();
                 mDbHelper.open();
 
-                final Cursor testdata = mDbHelper.getSeasonsData("Seasons", season);
+                final Cursor testdata = mDbHelper.getSeasonsData("seasons", season);
 
                 if (testdata.moveToFirst()) {
                     while (testdata.isAfterLast() == false) {
@@ -51,15 +50,22 @@ public class Seasons extends ActionBarActivity {
                         list.add(name);
                         testdata.moveToNext();
                     }
-                    textView.setText(Arrays.toString(list.toArray()));
                 }
 
                 mDbHelper.close();
 
                 Intent i = new Intent(context, seasonsBeerList.class);
-                i.putStringArrayListExtra("beer", list);
-                startActivity(i);
-                list.clear();
+                if (list.isEmpty()) {
+                    list.add("No Beer Found");
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                }
+                else {
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                }
             }
         });
     }

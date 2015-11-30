@@ -59,9 +59,17 @@ public class Breweries extends ActionBarActivity {
                 mDbHelper.close();
 
                 Intent i = new Intent(context, breweryBeerList.class);
-                i.putStringArrayListExtra("breweryBeer", list);
-                startActivity(i);
-                list.clear();
+                if (list.isEmpty()) {
+                    list.add("No Beer Found for Brewery");
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                }
+                else {
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                }
                 
             }
         });
@@ -75,7 +83,7 @@ public class Breweries extends ActionBarActivity {
             mDbHelper.createDatabase();
             mDbHelper.open();
 
-            final Cursor testdata = mDbHelper.getBreweriesAddressData("Breweries", userInput);
+            final Cursor testdata = mDbHelper.getBreweriesAddressData("breweries", userInput);
 
             if (testdata.moveToFirst()) {
                 while (testdata.isAfterLast() == false) {

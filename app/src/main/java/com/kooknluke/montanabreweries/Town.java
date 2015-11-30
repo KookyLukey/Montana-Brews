@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 public class Town extends ActionBarActivity {
 
-    Integer zipcode;
+    String town;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,6 @@ public class Town extends ActionBarActivity {
         final Context context = this;
 
         final Button btnSearchTwn = (Button) findViewById(R.id.btnSearchTwn);
-        final TextView textView = (TextView) findViewById(R.id.townTextView);
 
         btnSearchTwn.setOnClickListener(new View.OnClickListener() {
 
@@ -41,7 +40,7 @@ public class Town extends ActionBarActivity {
                 mDbHelper.createDatabase();
                 mDbHelper.open();
 
-                final Cursor testdata = mDbHelper.getTownData("Breweries", zipcode);
+                final Cursor testdata = mDbHelper.getTownData("breweries", town);
 
                 if (testdata.moveToFirst()) {
                     while (testdata.isAfterLast() == false) {
@@ -51,15 +50,22 @@ public class Town extends ActionBarActivity {
                         list.add(name);
                         testdata.moveToNext();
                     }
-                    textView.setText(Arrays.toString(list.toArray()));
                 }
 
                 mDbHelper.close();
 
                 Intent i = new Intent(context, townBeerList.class);
-                i.putStringArrayListExtra("beer", list);
-                startActivity(i);
-                list.clear();
+                if (list.isEmpty()) {
+                    list.add("No Brewery Found");
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                }
+                else {
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                }
             }
         });
     }
@@ -69,52 +75,45 @@ public class Town extends ActionBarActivity {
         boolean checked = ((RadioButton) view).isChecked();
 
         switch(view.getId()) {
+            case R.id.rbBelgrade:
+                if (checked) {
+                    town = "Belgrade";
+                }
             case R.id.rbBozeman:
                 if (checked) {
-                    // AC is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
-                    zipcode = 59715;
-                    tv.setText("You have chosen Bozeman");
+                    town = "Bozeman";
                 }
                 break;
             case R.id.rbBillings:
                 if (checked) {
-                    // DF is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
-                    zipcode = 59101;
-                    tv.setText("You have chosen Billings");
+                    town = "Billings";
                 }
                 break;
+            case R.id.rbHamilton:
+                if (checked) {
+                    town = "Hamilton";
+                }
             case R.id.rbHelena:
                 if (checked) {
-                    // GJ is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
-                    zipcode = 59601;
-                    tv.setText("You have chosen Helena");
+                    town = "Helena";
                 }
                 break;
-            case R.id.rbKalispell:
+            case R.id.rbLivingston:
                 if (checked) {
-                    // KO is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
-                    zipcode = 59903;
-                    tv.setText("You have chosen Kalispell");
+                    town = "Livingston";
                 }
-                break;
             case R.id.rbMissoula:
                 if (checked) {
-                    // KO is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
-                    zipcode = 59801;
-                    tv.setText("You have chosen Missoula");
+                    town = "Missoula";
                 }
                 break;
+            case R.id.rbStevensville:
+                if (checked) {
+                    town = "Stevensville";
+                }
             case R.id.rbWibaux:
                 if (checked) {
-                    // KO is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSearchByTown);
-                    zipcode = 59353;
-                    tv.setText("You have chosen Wibaux");
+                    town = "Wibaux";
                 }
                 break;
         }

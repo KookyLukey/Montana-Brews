@@ -41,7 +41,7 @@ public class Nutrition extends ActionBarActivity {
                 mDbHelper.createDatabase();
                 mDbHelper.open();
 
-                final Cursor testdata = mDbHelper.getNutritionData("Nutrition", userInput);
+                final Cursor testdata = mDbHelper.getNutritionData("nutrition", userInput);
 
                 if (testdata.moveToFirst()) {
                     while (testdata.isAfterLast() == false) {
@@ -65,9 +65,17 @@ public class Nutrition extends ActionBarActivity {
                 mDbHelper.close();
 
                 Intent i = new Intent(context, nutritionBeerList.class);
-                i.putStringArrayListExtra("beer", list);
-                startActivity(i);
-                list.clear();
+                if (list.isEmpty()) {
+                    list.add("No Beer Data Found");
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                }
+                else {
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                }
             }
         });
     }

@@ -8,934 +8,162 @@ import android.util.Log;
 
 import java.io.IOException;
 
-public class TestAdapter
-{
+public class TestAdapter {
     protected static final String TAG = "DataAdapter";
 
     private final Context mContext;
     private SQLiteDatabase mDb;
     private DataBaseHelper mDbHelper;
 
-    public TestAdapter(Context context)
-    {
+    public TestAdapter(Context context) {
         this.mContext = context;
         mDbHelper = new DataBaseHelper(mContext);
     }
 
-    public TestAdapter createDatabase() throws SQLException
-    {
-        try
-        {
+    public TestAdapter createDatabase() throws SQLException {
+        try {
             mDbHelper.createDataBase();
-        }
-        catch (IOException mIOException)
-        {
+        } catch (IOException mIOException) {
             Log.e(TAG, mIOException.toString() + "  UnableToCreateDatabase");
             throw new Error("UnableToCreateDatabase");
         }
         return this;
     }
 
-    public TestAdapter open() throws SQLException
-    {
-        try
-        {
+    public TestAdapter open() throws SQLException {
+        try {
             mDbHelper.openDataBase();
             mDbHelper.close();
             mDb = mDbHelper.getReadableDatabase();
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "open >>"+ mSQLException.toString());
+        } catch (SQLException mSQLException) {
+            Log.e(TAG, "open >>" + mSQLException.toString());
             throw mSQLException;
         }
         return this;
     }
 
-    public void close()
-    {
+    public void close() {
         mDbHelper.close();
     }
 
-    public Cursor getBeerData(String table, String arg1, Double arg2)
-    {
-        try
-        {
-            String sql ="SELECT * FROM " + table + " WHERE type_of_beer LIKE '%" + arg1 + "%' AND ABV <= " + arg2;
+    public Cursor getBeerData(String table, String arg1, Double arg2) {
+        try {
+            String sql = "SELECT * FROM " + table + " WHERE type_of_beer LIKE '%" + arg1 + "%' AND ABV <= " + arg2;
 
             Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
+            if (mCur != null) {
                 mCur.moveToNext();
             }
             return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+        } catch (SQLException mSQLException) {
+            Log.e(TAG, "getTestData >>" + mSQLException.toString());
             throw mSQLException;
         }
     }
 
-    public Cursor getBreweriesBeerData(String table, String arg1)
-    {
-        try
-        {
-            String sql ="SELECT * FROM " + table + " WHERE brewery_name LIKE '%" + arg1 + "%'";
+    public Cursor getBreweriesBeerData(String table, String arg1) {
+        try {
+            String sql = "SELECT * FROM " + table + " WHERE brewery_name LIKE '%" + arg1 + "%'";
 
             Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
+            if (mCur != null) {
                 mCur.moveToNext();
             }
             return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+        } catch (SQLException mSQLException) {
+            Log.e(TAG, "getTestData >>" + mSQLException.toString());
             throw mSQLException;
         }
     }
 
-    public Cursor getBreweriesAddressData(String table, String arg1)
-    {
-        try
-        {
-            String sql ="SELECT * FROM " + table + " WHERE _id LIKE '%" + arg1 + "%'";
+    public Cursor getBreweriesAddressData(String table, String arg1) {
+        try {
+            String sql = "SELECT * FROM " + table + " WHERE _id LIKE '%" + arg1 + "%'";
 
             Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
+            if (mCur != null) {
                 mCur.moveToNext();
             }
             return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+        } catch (SQLException mSQLException) {
+            Log.e(TAG, "getTestData >>" + mSQLException.toString());
             throw mSQLException;
         }
     }
 
-    public Cursor getTownData(String table, Integer arg1)
-    {
-        try
-        {
-            String sql ="SELECT * FROM " + table + " WHERE name_of_town = " + arg1;
+    public Cursor getTownData(String table, String arg1) {
+        try {
+            String sql = "SELECT * FROM " + table + " WHERE name_of_town = '" + arg1 + "'";
 
             Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
+            if (mCur != null) {
                 mCur.moveToNext();
             }
             return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+        } catch (SQLException mSQLException) {
+            Log.e(TAG, "getTestData >>" + mSQLException.toString());
             throw mSQLException;
         }
     }
 
-    public Cursor getSeasonsData(String table, String arg1)
-    {
-        try
-        {
-            String sql ="SELECT * FROM " + table + " WHERE season = '" + arg1 + "'";
+    public Cursor getSeasonsData(String table, String arg1) {
+        try {
+            String sql = "SELECT * FROM " + table + " WHERE season = '" + arg1 + "'";
 
             Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
+            if (mCur != null) {
                 mCur.moveToNext();
             }
             return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+        } catch (SQLException mSQLException) {
+            Log.e(TAG, "getTestData >>" + mSQLException.toString());
             throw mSQLException;
         }
     }
 
-    public Cursor getNutritionData(String table, String arg1)
-    {
-        try
-        {
-            String sql ="SELECT * FROM " + table + " WHERE _id LIKE '%" + arg1 + "%'";
+    public Cursor getNutritionData(String table, String arg1) {
+        try {
+            String sql = "SELECT * FROM " + table + " WHERE _id LIKE '%" + arg1 + "%'";
 
             Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
+            if (mCur != null) {
                 mCur.moveToNext();
             }
             return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+        } catch (SQLException mSQLException) {
+            Log.e(TAG, "getTestData >>" + mSQLException.toString());
             throw mSQLException;
         }
     }
 
-    public Cursor getStateData(String table, String arg1)
-    {
-        try
-        {
-            String sql ="SELECT Breweries._id FROM " + table
-                    + " JOIN Town ON Breweries.zipCode = Town._id WHERE Town.zipCode = '" + arg1 + "'";
+    public Cursor getStateData(String table, String arg1) {
+        try {
+            String sql = "SELECT breweries._id FROM " + table
+                    + " JOIN towns ON breweries.name_of_town = towns._id WHERE towns._id = '" + arg1 + "'";
 
             Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
+            if (mCur != null) {
                 mCur.moveToNext();
             }
             return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+        } catch (SQLException mSQLException) {
+            Log.e(TAG, "getTestData >>" + mSQLException.toString());
             throw mSQLException;
         }
     }
 
-    public Cursor getRegionData(String table, Integer arg1)
-    {
-        try
-        {
-            String sql ="SELECT * FROM " + table + " WHERE name_of_town = " + arg1;
+    public Cursor getRegionData(String table, Integer arg1) {
+        try {
+            String sql = "SELECT * FROM " + table + " WHERE name_of_town = " + arg1;
 
             Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
+            if (mCur != null) {
                 mCur.moveToNext();
             }
             return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+        } catch (SQLException mSQLException) {
+            Log.e(TAG, "getTestData >>" + mSQLException.toString());
             throw mSQLException;
         }
     }
-
-    public Cursor getAle5()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Ale%' AND ABV < 5";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getAle6()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Ale%' AND ABV < 6";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getAle7()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Ale%' AND ABV < 7";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getAle8()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Ale%' AND ABV < 8";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getAle9()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Ale%' AND ABV < 9";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getAle10()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Ale%' AND ABV < 10";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getStout5()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Stout%' AND ABV < 5";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getStout6()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Stout%' AND ABV < 6";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getStout7()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Stout%' AND ABV < 7";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getStout8()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Stout%' AND ABV < 8";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getStout9()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Stout%' AND ABV < 9";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getStout10()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Stout%' AND ABV < 10";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getLager5()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Lager%' AND ABV < 5";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getLager6()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Lager%' AND ABV < 6";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getLager7()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Lager%' AND ABV < 7";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getLager8()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Lager%' AND ABV < 8";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getLager9()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Lager%' AND ABV < 9";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getLager10()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Lager%' AND ABV < 10";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getWeizen5()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%weizen%' AND ABV < 5";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getWeizen6()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%weizen%' AND ABV < 6";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getWeizen7()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%weizen%' AND ABV < 7";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getWeizen8()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%weizen%' AND ABV < 8";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getWeizen9()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%weizen%' AND ABV < 9";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getWeizen10()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%weizen%' AND ABV < 10";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getIPA5()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%India Pale Ale%' AND ABV < 5";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getIPA6()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%India Pale Ale%' AND ABV < 6";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getIPA7()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%India Pale Ale%' AND ABV < 7";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getIPA8()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%India Pale Ale%' AND ABV < 8";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getIPA9()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%India Pale Ale%' AND ABV < 9";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getIPA10()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%India Pale Ale%' AND ABV < 10";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getOktoberfest5()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Oktoberfest%' AND ABV < 5";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getOktoberfest6()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Oktoberfest%' AND ABV < 6";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getOktoberfest7()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Oktoberfest%' AND ABV < 7";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getOktoberfest8()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Oktoberfest%' AND ABV < 8";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getOktoberfest9()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Oktoberfest%' AND ABV < 9";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
-    public Cursor getOktoberfest10()
-    {
-        try
-        {
-            String sql ="SELECT _id, ABV FROM Beer WHERE B_Name LIKE '%Oktoberfest%' AND ABV < 10";
-
-            Cursor mCur = mDb.rawQuery(sql, null);
-            if (mCur!=null)
-            {
-                mCur.moveToNext();
-            }
-            return mCur;
-        }
-        catch (SQLException mSQLException)
-        {
-            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-            throw mSQLException;
-        }
-    }
-
 }

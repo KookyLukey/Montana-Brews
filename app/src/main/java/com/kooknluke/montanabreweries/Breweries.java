@@ -43,7 +43,7 @@ public class Breweries extends ActionBarActivity {
                 mDbHelper.createDatabase();
                 mDbHelper.open();
 
-                final Cursor testdata = mDbHelper.getBreweriesBeerData("Beer", userInput);
+                final Cursor testdata = mDbHelper.getBreweriesBeerData("beer", userInput);
 
                 if (testdata.moveToFirst()) {
                     while (testdata.isAfterLast() == false) {
@@ -53,7 +53,6 @@ public class Breweries extends ActionBarActivity {
                         list.add(name);
                         testdata.moveToNext();
                     }
-//                    txtTestBreweries.setText(Arrays.toString(list.toArray()));
                 }
 
                 mDbHelper.close();

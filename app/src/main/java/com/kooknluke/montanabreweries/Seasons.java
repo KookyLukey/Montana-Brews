@@ -77,34 +77,22 @@ public class Seasons extends ActionBarActivity {
         switch(view.getId()) {
             case R.id.rbSpring:
                 if (checked) {
-                    // AC is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSeasonsTest);
                     season = "Spring";
-                    tv.setText("You have chosen Spring");
                 }
                 break;
             case R.id.rbSummer:
                 if (checked) {
-                    // DF is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSeasonsTest);
                     season = "Summer";
-                    tv.setText("You have chosen Summer");
                 }
                 break;
             case R.id.rbAutumn:
                 if (checked) {
-                    // GJ is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSeasonsTest);
                     season = "Fall";
-                    tv.setText("You have chosen Fall");
                 }
                 break;
             case R.id.rbWinter:
                 if (checked) {
-                    // KO is checked
-                    TextView tv = (TextView) findViewById(R.id.txtSeasonsTest);
                     season = "Winter";
-                    tv.setText("You have chosen Winter");
                 }
                 break;
         }

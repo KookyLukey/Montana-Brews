@@ -18,7 +18,7 @@ public class breweryBeerList extends ActionBarActivity {
         setContentView(R.layout.activity_brewery_beer_list);
 
         final ListView lv = (ListView) findViewById(R.id.lvBreweryBeerList);
-        List<String> beerList = getIntent().getStringArrayListExtra("breweryBeer");
+        List<String> beerList = getIntent().getStringArrayListExtra("beer");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,

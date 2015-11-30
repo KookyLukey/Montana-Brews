@@ -139,7 +139,7 @@ public class TestAdapter {
     public Cursor getStateData(String table, String arg1) {
         try {
             String sql = "SELECT breweries._id FROM " + table
-                    + " JOIN towns ON breweries.name_of_town = towns._id WHERE towns._id = '" + arg1 + "'";
+                    + " JOIN towns ON breweries.name_of_town = towns._id WHERE towns.state = '" + arg1 + "'";
 
             Cursor mCur = mDb.rawQuery(sql, null);
             if (mCur != null) {

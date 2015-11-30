@@ -79,6 +79,7 @@ public class Town extends ActionBarActivity {
                 if (checked) {
                     town = "Belgrade";
                 }
+                break;
             case R.id.rbBozeman:
                 if (checked) {
                     town = "Bozeman";
@@ -93,6 +94,7 @@ public class Town extends ActionBarActivity {
                 if (checked) {
                     town = "Hamilton";
                 }
+                break;
             case R.id.rbHelena:
                 if (checked) {
                     town = "Helena";
@@ -102,6 +104,7 @@ public class Town extends ActionBarActivity {
                 if (checked) {
                     town = "Livingston";
                 }
+                break;
             case R.id.rbMissoula:
                 if (checked) {
                     town = "Missoula";
@@ -111,6 +114,7 @@ public class Town extends ActionBarActivity {
                 if (checked) {
                     town = "Stevensville";
                 }
+                break;
             case R.id.rbWibaux:
                 if (checked) {
                     town = "Wibaux";

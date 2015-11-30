@@ -152,9 +152,9 @@ public class TestAdapter {
         }
     }
 
-    public Cursor getRegionData(String table, Integer arg1) {
+    public Cursor getBeerHistoryData(String table, String arg1) {
         try {
-            String sql = "SELECT * FROM " + table + " WHERE name_of_town = " + arg1;
+            String sql = "SELECT * FROM " + table + " WHERE _id = '" + arg1 + "'";
 
             Cursor mCur = mDb.rawQuery(sql, null);
             if (mCur != null) {
@@ -166,4 +166,5 @@ public class TestAdapter {
             throw mSQLException;
         }
     }
+
 }

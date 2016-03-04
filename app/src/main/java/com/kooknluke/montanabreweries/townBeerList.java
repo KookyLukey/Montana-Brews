@@ -1,5 +1,8 @@
 package com.kooknluke.montanabreweries;
 
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,6 +24,9 @@ public class townBeerList extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_town_beer_list);
+
+        final Context context = this;
+        final ArrayList<String> list = new ArrayList<>();
 
         final ListView lv = (ListView) findViewById(R.id.lvTown);
         List<String> beerList = getIntent().getStringArrayListExtra("beer");
@@ -34,9 +41,40 @@ public class townBeerList extends ActionBarActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = ((TextView)view).getText().toString();
+                String brewery = ((TextView)view).getText().toString();
+                Toast.makeText(getBaseContext(), brewery, Toast.LENGTH_LONG).show();
 
-                Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+                final TestAdapter mDbHelper = new TestAdapter(context);
+                mDbHelper.createDatabase();
+                mDbHelper.open();
+
+                final Cursor testdata = mDbHelper.getBreweriesBeerData("beer", brewery);
+
+                if (testdata.moveToFirst()) {
+                    while (testdata.isAfterLast() == false) {
+                        String name = testdata.getString(testdata
+                                .getColumnIndex("_id"));
+
+                        list.add(name);
+                        testdata.moveToNext();
+                    }
+                }
+
+                mDbHelper.close();
+
+                Intent i = new Intent(context, breweryBeerList.class);
+                if (list.isEmpty()) {
+                    list.add("No Beer Found for Brewery");
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                }
+                else {
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                }
+
             }
         });
     }

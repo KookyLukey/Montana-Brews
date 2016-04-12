@@ -26,9 +26,10 @@ public class Home extends ActionBarActivity {
         final Button btnNutrition = (Button) findViewById(R.id.btn_nutrition);
         final Button btnSeason = (Button) findViewById(R.id.btn_season);
         final Button btnBeerHistory = (Button) findViewById(R.id.btnBeerHistory);
+        final Button btnConnection = (Button) findViewById(R.id.btnConnect);
 
-        RemoteDatabaseHelper  rbh = new RemoteDatabaseHelper();
-        rbh.mysqlReturn();
+//        RemoteDatabaseHelper  rbh = new RemoteDatabaseHelper();
+//        rbh.mysqlReturn();
 
         btnBeer.setOnClickListener(new View.OnClickListener() {
 
@@ -92,8 +93,15 @@ public class Home extends ActionBarActivity {
                 startActivity(i);
             }
         });
-    }
 
+        btnConnection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, Connection.class);
+                startActivity(i);
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

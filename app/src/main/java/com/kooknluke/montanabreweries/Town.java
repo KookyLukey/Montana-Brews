@@ -11,6 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,23 +41,25 @@ public class Town extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                final TestAdapter mDbHelper = new TestAdapter(context);
-                mDbHelper.createDatabase();
-                mDbHelper.open();
+                String query = "SELECT+*+FROM+breweries+WHERE+name_of_town+%3D+%27" + town + "%27";
 
-                final Cursor testdata = mDbHelper.getTownData("breweries", town);
-
-                if (testdata.moveToFirst()) {
-                    while (testdata.isAfterLast() == false) {
-                        String name = testdata.getString(testdata
-                                .getColumnIndex("_id"));
-
-                        list.add(name);
-                        testdata.moveToNext();
+                try {
+                    Connection conn = new Connection();
+                    JSONArray arr = conn.connect(query);
+                    if (arr == null) {
+                        list.add("NULL");
+                    }
+                    else {
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject sys = arr.getJSONObject(i);
+                            String temp = sys.getString("_id");
+                            list.add(temp);
+                        }
                     }
                 }
-
-                mDbHelper.close();
+                catch (JSONException e){
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
 
                 Intent i = new Intent(context, townBeerList.class);
                 if (list.isEmpty()) {

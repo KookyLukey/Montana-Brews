@@ -84,12 +84,12 @@ public class beerHistory extends ActionBarActivity {
         switch (view.getId()) {
             case R.id.rbBHBarleyWine:
                 if (checked) {
-                    beerType = "Barley Wine";
+                    beerType = "Barley%20Wine";
                 }
                 break;
             case R.id.rbBHDoubleIPA:
                 if (checked) {
-                    beerType = "Double IPA";
+                    beerType = "Double%20IPA";
                 }
                 break;
             case R.id.rbBHHelles:
@@ -109,7 +109,7 @@ public class beerHistory extends ActionBarActivity {
                 break;
             case R.id.rbBHPaleAle:
                 if (checked) {
-                    beerType = "Pale Ale";
+                    beerType = "Pale%20Ale";
                 }
                 break;
             case R.id.rbBHPorter:

@@ -14,6 +14,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,29 +46,31 @@ public class townBeerList extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String brewery = ((TextView)view).getText().toString();
+                String[] temporary = brewery.split(" ");
+                String input = temporary[0];
                 Toast.makeText(getBaseContext(), brewery, Toast.LENGTH_LONG).show();
 
-                final TestAdapter mDbHelper = new TestAdapter(context);
-                mDbHelper.createDatabase();
-                mDbHelper.open();
+                String query = "SELECT%20*%20FROM%20beer%20WHERE%20brewery_name%20LIKE%20%27%25" + input + "%25%27";
 
-                final Cursor testdata = mDbHelper.getBreweriesBeerData("beer", brewery);
-
-                if (testdata.moveToFirst()) {
-                    while (testdata.isAfterLast() == false) {
-                        String name = testdata.getString(testdata
-                                .getColumnIndex("_id"));
-
-                        list.add(name);
-                        testdata.moveToNext();
+                try {
+                    Connection conn = new Connection();
+                    JSONArray arr = conn.connect(query);
+                    if (arr == null) {
+                        list.add("NULL");
+                    } else {
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject sys = arr.getJSONObject(i);
+                            String temp = sys.getString("_id");
+                            list.add(temp);
+                        }
                     }
+                } catch (JSONException e){
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
-                mDbHelper.close();
-
-                Intent i = new Intent(context, breweryBeerList.class);
+                Intent i = new Intent(context, beerList.class);
                 if (list.isEmpty()) {
-                    list.add("No Beer Found for Brewery");
+                    list.add("No Brewery Found");
                     i.putStringArrayListExtra("beer", list);
                     startActivity(i);
                     list.clear();
@@ -74,7 +80,6 @@ public class townBeerList extends ActionBarActivity {
                     startActivity(i);
                     list.clear();
                 }
-
             }
         });
     }

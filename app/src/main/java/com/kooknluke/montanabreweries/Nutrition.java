@@ -34,7 +34,6 @@ public class Nutrition extends ActionBarActivity {
 
         final Button btnNutrition = (Button) findViewById(R.id.btnNutritionSearch);
         final EditText etSearchNutrition = (EditText) findViewById(R.id.etNutritionSearch);
-//        final TextView txtTestNutrition = (TextView) findViewById(R.id.txtSearchNutrition);
 
         btnNutrition.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,32 +59,6 @@ public class Nutrition extends ActionBarActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-//                final TestAdapter mDbHelper = new TestAdapter(context);
-//                mDbHelper.createDatabase();
-//                mDbHelper.open();
-//
-//                final Cursor testdata = mDbHelper.getNutritionData("nutrition", userInput);
-//
-//                if (testdata.moveToFirst()) {
-//                    while (testdata.isAfterLast() == false) {
-//                        String name = testdata.getString(testdata
-//                                .getColumnIndex("_id"));
-//                        String ss = testdata.getString(testdata
-//                                .getColumnIndex("serving_size"));
-//                        String cal = testdata.getString(testdata
-//                                .getColumnIndex("calories"));
-//                        String fat = testdata.getString(testdata
-//                                .getColumnIndex("fat"));
-//                        list.add(name);
-//                        list.add("Serving Size:" + ss);
-//                        list.add("Calories: " + cal);
-//                        list.add("Fat: " + fat);
-//                        testdata.moveToNext();
-//                    }
-//                    txtTestNutrition.setText(Arrays.toString(list.toArray()));
-//                }
-//
-//                mDbHelper.close();
 
                 Intent i = new Intent(context, nutritionBeerList.class);
                 if (list.isEmpty()) {

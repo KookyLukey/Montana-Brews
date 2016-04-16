@@ -39,10 +39,7 @@ public class Beer extends ActionBarActivity {
 
         final Context context = this;
 
-        //mDbHelper.close();
-
         final Button btnBeerSearch = (Button) findViewById(R.id.btnBeerSearch);
-//        final TextView testDisplay = (TextView) findViewById(R.id.txtBeerTestDisplay);
 
         btnBeerSearch.setOnClickListener(new View.OnClickListener() {
 
@@ -54,7 +51,6 @@ public class Beer extends ActionBarActivity {
                 try {
                     Connection conn = new Connection();
                     JSONArray arr = conn.connect(query);
-//                    Toast.makeText(getApplicationContext(), arr.get(0).toString(), Toast.LENGTH_LONG).show();
                     if (arr == null) {
                         list.add("NULL");
                     }
@@ -63,7 +59,6 @@ public class Beer extends ActionBarActivity {
                             JSONObject sys = arr.getJSONObject(i);
                             String temp = sys.getString("_id");
                             list.add(temp);
-//                            Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
                         }
                     }
                 }

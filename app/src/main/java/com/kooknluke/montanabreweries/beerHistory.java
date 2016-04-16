@@ -32,8 +32,6 @@ public class beerHistory extends ActionBarActivity {
 
         final Context context = this;
 
-        //mDbHelper.close();
-
         final Button btnBeerSearch = (Button) findViewById(R.id.btnBeerHistorySearch);
 
         btnBeerSearch.setOnClickListener(new View.OnClickListener() {

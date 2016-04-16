@@ -32,22 +32,6 @@ public class Connection extends ActionBarActivity {
         setContentView(R.layout.activity_connection);
 
         final TextView viewCon = (TextView) findViewById(R.id.tvConnection);
-
-//        String type = "Ale";
-//        String abv = "9.9";
-//        String query = "SELECT+*+FROM+beer+WHERE+type_of_beer+LIKE+%27%25" + type + "%25%27+AND+ABV+%3C%3D"+ abv;
-//
-//        JSONArray arr = connect(query);
-//        for (int i = 0; i < arr.length(); i++){
-//            try {
-//                JSONObject obj = arr.getJSONObject(i);
-//                String beer = obj.getString("_id");
-//                viewCon.append(beer + "\n");
-//            } catch (JSONException e) {
-//                viewCon.setText(e.getMessage());
-//                Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
-//            }
-//        }
     }
 
     public JSONArray connect(String query) {
@@ -101,9 +85,7 @@ public class Connection extends ActionBarActivity {
 
             switch (status) {
                 case 200:
-//                    Toast.makeText(getApplicationContext(), "==> " + status, Toast.LENGTH_LONG).show();
                 case 201:
-//                    Toast.makeText(getApplicationContext(),"Worked", Toast.LENGTH_LONG).show();
                     BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
                     String line;
                     while ((line = br.readLine()) != null) {

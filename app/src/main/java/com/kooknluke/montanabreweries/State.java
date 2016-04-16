@@ -34,7 +34,6 @@ public class State extends ActionBarActivity {
         final Context context = this;
 
         final Button btnSearch = (Button) findViewById(R.id.btnSearchState);
-//        final TextView testDisplay = (TextView) findViewById(R.id.txtStateTest);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
 

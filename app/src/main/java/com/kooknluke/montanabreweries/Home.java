@@ -32,9 +32,6 @@ public class Home extends ActionBarActivity {
         final Button btnBeerHistory = (Button) findViewById(R.id.btnBeerHistory);
         final Button btnConnection = (Button) findViewById(R.id.btnConnect);
 
-//        RemoteDatabaseHelper  rbh = new RemoteDatabaseHelper();
-//        rbh.mysqlReturn();
-
         btnBeer.setOnClickListener(new View.OnClickListener() {
 
             @Override

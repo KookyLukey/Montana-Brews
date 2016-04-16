@@ -11,6 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,23 +41,23 @@ public class Seasons extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                final TestAdapter mDbHelper = new TestAdapter(context);
-                mDbHelper.createDatabase();
-                mDbHelper.open();
+                String query = "SELECT+*+FROM+seasons+WHERE+season+%3D+%27"+season+"%27";
 
-                final Cursor testdata = mDbHelper.getSeasonsData("seasons", season);
-
-                if (testdata.moveToFirst()) {
-                    while (testdata.isAfterLast() == false) {
-                        String name = testdata.getString(testdata
-                                .getColumnIndex("_id"));
-
-                        list.add(name);
-                        testdata.moveToNext();
+                try {
+                    Connection conn = new Connection();
+                    JSONArray arr = conn.connect(query);
+                    if (arr == null) {
+                        list.add("NULL");
+                    } else {
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject sys = arr.getJSONObject(i);
+                            String temp = sys.getString("_id");
+                            list.add(temp);
+                        }
                     }
+                } catch (JSONException e){
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-
-                mDbHelper.close();
 
                 Intent i = new Intent(context, seasonsBeerList.class);
                 if (list.isEmpty()) {

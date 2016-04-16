@@ -10,6 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -36,28 +41,29 @@ public class beerHistory extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                final TestAdapter mDbHelper = new TestAdapter(context);
-                mDbHelper.createDatabase();
-                mDbHelper.open();
+                String query = "SELECT+*+FROM+beer_history+WHERE+_id+%3D+%27" + beerType + "%27";
 
-                final Cursor testdata = mDbHelper.getBeerHistoryData("beer_history", beerType);
-
-                if (testdata.moveToFirst()) {
-                    while (testdata.isAfterLast() == false) {
-                        String name = testdata.getString(testdata
-                                .getColumnIndex("_id"));
-                        String time = testdata.getString(testdata
-                                .getColumnIndex("time"));
-                        String poo = testdata.getString(testdata
-                                .getColumnIndex("place_of_origin"));
-
-                        list.add(name);
-                        list.add("Relative Time of Appearance: " + time);
-                        list.add("Place of Origin: " + poo);
-                        testdata.moveToNext();
+                try {
+                    Connection conn = new Connection();
+                    JSONArray arr = conn.connect(query);
+                    if (arr == null) {
+                        list.add("NULL");
+                    }
+                    else {
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject sys = arr.getJSONObject(i);
+                            String temp = sys.getString("_id");
+                            list.add(temp);
+                            temp = sys.getString("place_of_origin");
+                            list.add("Place of Origin: " + temp);
+                            temp = sys.getString("time");
+                            list.add("Time: " + temp);
+                        }
                     }
                 }
-                mDbHelper.close();
+                catch (JSONException e){
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
 
                 Intent i = new Intent(context, beerHistoryList.class);
                 if (list.isEmpty()) {

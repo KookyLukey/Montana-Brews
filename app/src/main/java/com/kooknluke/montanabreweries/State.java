@@ -11,6 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,8 +33,6 @@ public class State extends ActionBarActivity {
 
         final Context context = this;
 
-        //mDbHelper.close();
-
         final Button btnSearch = (Button) findViewById(R.id.btnSearchState);
 //        final TextView testDisplay = (TextView) findViewById(R.id.txtStateTest);
 
@@ -38,24 +41,23 @@ public class State extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                final TestAdapter mDbHelper = new TestAdapter(context);
-                mDbHelper.createDatabase();
-                mDbHelper.open();
+                String query = "SELECT+breweries._id+FROM+breweries+JOIN+towns+ON+breweries.name_of_town+%3D+towns._id+WHERE+towns.state+%3D+%27"+state+"%27";
 
-                final Cursor testdata = mDbHelper.getStateData("breweries", state);
-
-                if (testdata.moveToFirst()) {
-                    while (testdata.isAfterLast() == false) {
-                        String name = testdata.getString(testdata
-                                .getColumnIndex("_id"));
-
-                        list.add(name);
-                        testdata.moveToNext();
+                try {
+                    Connection conn = new Connection();
+                    JSONArray arr = conn.connect(query);
+                    if (arr == null) {
+                        list.add("NULL");
+                    } else {
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject sys = arr.getJSONObject(i);
+                            String temp = sys.getString("_id");
+                            list.add(temp);
+                        }
                     }
-//                    testDisplay.setText(Arrays.toString(list.toArray()));
+                } catch (JSONException e){
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-
-                mDbHelper.close();
 
                 Intent i = new Intent(context, townBeerList.class);
                 if (list.isEmpty()) {

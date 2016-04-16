@@ -13,6 +13,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -37,32 +41,51 @@ public class Nutrition extends ActionBarActivity {
             public void onClick(View v) {
 
                 String userInput = etSearchNutrition.getText().toString();
-                final TestAdapter mDbHelper = new TestAdapter(context);
-                mDbHelper.createDatabase();
-                mDbHelper.open();
 
-                final Cursor testdata = mDbHelper.getNutritionData("nutrition", userInput);
+                String query = "SELECT+*+FROM+nutrition+WHERE+_id+LIKE+%27%25" + userInput + "%25%27";
 
-                if (testdata.moveToFirst()) {
-                    while (testdata.isAfterLast() == false) {
-                        String name = testdata.getString(testdata
-                                .getColumnIndex("_id"));
-                        String ss = testdata.getString(testdata
-                                .getColumnIndex("serving_size"));
-                        String cal = testdata.getString(testdata
-                                .getColumnIndex("calories"));
-                        String fat = testdata.getString(testdata
-                                .getColumnIndex("fat"));
-                        list.add(name);
-                        list.add("Serving Size:" + ss);
-                        list.add("Calories: " + cal);
-                        list.add("Fat: " + fat);
-                        testdata.moveToNext();
-                    }
-//                    txtTestNutrition.setText(Arrays.toString(list.toArray()));
+                Connection conn = new Connection();
+                JSONArray arr = conn.connect(query);
+
+                try {
+                    JSONObject sys = arr.getJSONObject(0);
+                    String temp = sys.getString("_id");
+                    list.add(temp);
+                    temp = sys.getString("serving_size");
+                    list.add("Serving Size: " + temp);
+                    temp = sys.getString("calories");
+                    list.add("Calories: " + temp);
+                    temp = sys.getString("fat");
+                    list.add("Fat: " + temp);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-
-                mDbHelper.close();
+//                final TestAdapter mDbHelper = new TestAdapter(context);
+//                mDbHelper.createDatabase();
+//                mDbHelper.open();
+//
+//                final Cursor testdata = mDbHelper.getNutritionData("nutrition", userInput);
+//
+//                if (testdata.moveToFirst()) {
+//                    while (testdata.isAfterLast() == false) {
+//                        String name = testdata.getString(testdata
+//                                .getColumnIndex("_id"));
+//                        String ss = testdata.getString(testdata
+//                                .getColumnIndex("serving_size"));
+//                        String cal = testdata.getString(testdata
+//                                .getColumnIndex("calories"));
+//                        String fat = testdata.getString(testdata
+//                                .getColumnIndex("fat"));
+//                        list.add(name);
+//                        list.add("Serving Size:" + ss);
+//                        list.add("Calories: " + cal);
+//                        list.add("Fat: " + fat);
+//                        testdata.moveToNext();
+//                    }
+//                    txtTestNutrition.setText(Arrays.toString(list.toArray()));
+//                }
+//
+//                mDbHelper.close();
 
                 Intent i = new Intent(context, nutritionBeerList.class);
                 if (list.isEmpty()) {

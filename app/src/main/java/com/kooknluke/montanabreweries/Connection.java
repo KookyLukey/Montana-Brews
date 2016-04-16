@@ -1,5 +1,6 @@
 package com.kooknluke.montanabreweries;
 
+import android.content.Context;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,6 +9,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
@@ -27,18 +31,34 @@ public class Connection extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        final TextView viewCon = (TextView) findViewById(R.id.tvConnection);
 
-        final TextView txtConn = (TextView) findViewById(R.id.txtConnection);
+//        String type = "Ale";
+//        String abv = "9.9";
+//        String query = "SELECT+*+FROM+beer+WHERE+type_of_beer+LIKE+%27%25" + type + "%25%27+AND+ABV+%3C%3D"+ abv;
+//
+//        JSONArray arr = connect(query);
+//        for (int i = 0; i < arr.length(); i++){
+//            try {
+//                JSONObject obj = arr.getJSONObject(i);
+//                String beer = obj.getString("_id");
+//                viewCon.append(beer + "\n");
+//            } catch (JSONException e) {
+//                viewCon.setText(e.getMessage());
+//                Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+//            }
+//        }
+    }
 
-        String list = null;
+    public JSONArray connect(String query) {
         try {
-            list = connection();
-            txtConn.setText(list);
+            JSONArray arr = connection(query);
+
+            return arr;
         } catch (MalformedURLException e) {
             Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
+        return null;
     }
 
     @Override
@@ -63,8 +83,8 @@ public class Connection extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public String connection() throws MalformedURLException {
-        URL url = new URL("http://www.mtbrews.net/images/getBeers.php");
+    public JSONArray connection(String query) throws MalformedURLException {
+        URL url = new URL("http://www.mtbrews.net/images/getBeers.php?q=" + query);
         StringBuilder list = new StringBuilder();
         HttpURLConnection c = null;
 
@@ -81,16 +101,17 @@ public class Connection extends ActionBarActivity {
 
             switch (status) {
                 case 200:
-                    Toast.makeText(getApplicationContext(), "==> " + status, Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "==> " + status, Toast.LENGTH_LONG).show();
                 case 201:
-                    Toast.makeText(getApplicationContext(),"Worked", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(),"Worked", Toast.LENGTH_LONG).show();
                     BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
                     String line;
                     while ((line = br.readLine()) != null) {
                         list.append(line+"\n");
                     }
                     br.close();
-                    return list.toString();
+                    JSONArray arr = new JSONArray(list.toString());
+                    return arr;
 
             }
         } catch (IOException e) {

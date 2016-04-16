@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -39,23 +43,28 @@ public class Breweries extends ActionBarActivity {
             public void onClick(View v) {
 
                 String userInput = etSearchBreweries.getText().toString();
-                final TestAdapter mDbHelper = new TestAdapter(context);
-                mDbHelper.createDatabase();
-                mDbHelper.open();
 
-                final Cursor testdata = mDbHelper.getBreweriesBeerData("beer", userInput);
+                String query = "SELECT+*+FROM+beer+WHERE+brewery_name+LIKE+%27%25" + userInput + "%25%27";
 
-                if (testdata.moveToFirst()) {
-                    while (testdata.isAfterLast() == false) {
-                        String name = testdata.getString(testdata
-                                .getColumnIndex("_id"));
+                Connection conn = new Connection();
+                JSONArray arr = conn.connect(query);
 
-                        list.add(name);
-                        testdata.moveToNext();
+                if (arr == null) {
+                    list.add("NULL");
+                }
+                else {
+                    for (int i = 0; i < arr.length(); i++) {
+                        JSONObject sys = null;
+                        try {
+                            sys = arr.getJSONObject(i);
+                            String temp = sys.getString("_id");
+                            list.add(temp);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
 
-                mDbHelper.close();
 
                 Intent i = new Intent(context, breweryBeerList.class);
                 if (list.isEmpty()) {
@@ -78,27 +87,19 @@ public class Breweries extends ActionBarActivity {
             public void onClick(View v) {
 
             String userInput = etSearchBreweries.getText().toString();
-            final TestAdapter mDbHelper = new TestAdapter(context);
-            mDbHelper.createDatabase();
-            mDbHelper.open();
 
-            final Cursor testdata = mDbHelper.getBreweriesAddressData("breweries", userInput);
+            String query = "SELECT+*+FROM+breweries+WHERE+_id+LIKE+%27%25" + userInput + "%25%27";
 
-            if (testdata.moveToFirst()) {
-                while (testdata.isAfterLast() == false) {
-                    String name = testdata.getString(testdata
-                            .getColumnIndex("address"));
+            Connection conn = new Connection();
+            JSONArray arr = conn.connect(query);
 
-                    list.add(name);
-                    testdata.moveToNext();
-                }
-                txtTestBreweries.setText(Arrays.toString(list.toArray()));
+            try {
+                JSONObject sys = arr.getJSONObject(0);
+                String temp = sys.getString("address");
+                txtTestBreweries.setText(temp);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-
-            list.clear();
-
-            mDbHelper.close();
-
             }
         });
     }

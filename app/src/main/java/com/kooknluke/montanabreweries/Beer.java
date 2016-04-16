@@ -3,6 +3,7 @@ package com.kooknluke.montanabreweries;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,7 +12,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -21,7 +28,7 @@ public class Beer extends ActionBarActivity {
     String str;
     String str2;
     String type;
-    Double abv;
+    String abv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,35 +49,39 @@ public class Beer extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                final TestAdapter mDbHelper = new TestAdapter(context);
-                mDbHelper.createDatabase();
-                mDbHelper.open();
+                String query = "SELECT+*+FROM+beer+WHERE+type_of_beer+LIKE+%27%25" + type + "%25%27+AND+ABV+%3C%3D"+ abv;
 
-                final Cursor testdata = mDbHelper.getBeerData("beer",type,abv);
-
-                if (testdata.moveToFirst()) {
-                    while (testdata.isAfterLast() == false) {
-                        String name = testdata.getString(testdata
-                                .getColumnIndex("_id"));
-
-                        list.add(name);
-                        testdata.moveToNext();
+                try {
+                    Connection conn = new Connection();
+                    JSONArray arr = conn.connect(query);
+//                    Toast.makeText(getApplicationContext(), arr.get(0).toString(), Toast.LENGTH_LONG).show();
+                    if (arr == null) {
+                        list.add("NULL");
                     }
-//                    testDisplay.setText(Arrays.toString(list.toArray()));
+                    else {
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject sys = arr.getJSONObject(i);
+                            String temp = sys.getString("_id");
+                            list.add(temp);
+//                            Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_LONG).show();
+                        }
+                    }
                 }
-                mDbHelper.close();
-
-                Intent i = new Intent(context, beerList.class);
-                if (list.isEmpty()) {
-                    list.add("No Beer Found");
-                    i.putStringArrayListExtra("beer", list);
-                    startActivity(i);
-                    list.clear();
+                catch (JSONException e){
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-                else {
-                    i.putStringArrayListExtra("beer", list);
-                    startActivity(i);
-                    list.clear();
+                finally {
+                    Intent i = new Intent(context, beerList.class);
+                    if (list.isEmpty()) {
+                        list.add("No Beer Found");
+                        i.putStringArrayListExtra("beer", list);
+                        startActivity(i);
+                        list.clear();
+                    } else {
+                        i.putStringArrayListExtra("beer", list);
+                        startActivity(i);
+                        list.clear();
+                    }
                 }
             }
         });
@@ -122,32 +133,32 @@ public class Beer extends ActionBarActivity {
                 break;
             case R.id.rb5:
                 if (checked) {
-                    abv = 5.0;
+                    abv = "5.0";
                 }
                 break;
             case R.id.rb6:
                 if (checked) {
-                    abv = 6.0;
+                    abv = "6.0";
                 }
                 break;
             case R.id.rb7:
                 if (checked) {
-                    abv = 7.0;
+                    abv = "7.0";
                 }
                 break;
             case R.id.rb8:
                 if (checked) {
-                    abv = 8.0;
+                    abv = "8.0";
                 }
                 break;
             case R.id.rb9:
                 if (checked) {
-                    abv = 9.0;
+                    abv = "9.0";
                 }
                 break;
             case R.id.rb10:
                 if (checked) {
-                    abv = 9.9;
+                    abv = "9.9";
                 }
                 break;
         }

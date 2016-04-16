@@ -9,6 +9,34 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txtConnection" />
+        android:text="Name: "
+        android:id="@+id/tvConnection" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ABV: "
+        android:id="@+id/tvABV"
+        android:layout_below="@+id/tvConnection"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type Of Beer: "
+        android:id="@+id/tvToB"
+        android:layout_below="@+id/tvABV"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Brewery: "
+        android:id="@+id/tvBrewery"
+        android:layout_below="@+id/tvToB"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

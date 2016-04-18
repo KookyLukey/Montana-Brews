@@ -43,6 +43,8 @@ public class Town extends ActionBarActivity {
 
                 String query = "SELECT+*+FROM+breweries+WHERE+name_of_town+%3D+%27" + town + "%27";
 
+                btnSearchTwn.setEnabled(false);
+
                 try {
                     Connection conn = new Connection();
                     JSONArray arr = conn.connect(query);

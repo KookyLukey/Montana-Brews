@@ -43,6 +43,8 @@ public class Seasons extends ActionBarActivity {
 
                 String query = "SELECT+*+FROM+seasons+WHERE+season+%3D+%27"+season+"%27";
 
+                btnSearch.setEnabled(false);
+
                 try {
                     Connection conn = new Connection();
                     JSONArray arr = conn.connect(query);

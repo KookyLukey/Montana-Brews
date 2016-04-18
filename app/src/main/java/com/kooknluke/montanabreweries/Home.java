@@ -30,7 +30,6 @@ public class Home extends ActionBarActivity {
         final Button btnNutrition = (Button) findViewById(R.id.btn_nutrition);
         final Button btnSeason = (Button) findViewById(R.id.btn_season);
         final Button btnBeerHistory = (Button) findViewById(R.id.btnBeerHistory);
-        final Button btnConnection = (Button) findViewById(R.id.btnConnect);
 
         btnBeer.setOnClickListener(new View.OnClickListener() {
 
@@ -91,14 +90,6 @@ public class Home extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, beerHistory.class);
-                startActivity(i);
-            }
-        });
-
-        btnConnection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, Connection.class);
                 startActivity(i);
             }
         });

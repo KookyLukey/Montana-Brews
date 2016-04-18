@@ -43,6 +43,8 @@ public class Nutrition extends ActionBarActivity {
 
                 String query = "SELECT+*+FROM+nutrition+WHERE+_id+LIKE+%27%25" + userInput + "%25%27";
 
+                btnNutrition.setEnabled(false);
+
                 Connection conn = new Connection();
                 JSONArray arr = conn.connect(query);
 

@@ -49,6 +49,7 @@ public class Beer extends ActionBarActivity {
                 String query = "SELECT+*+FROM+beer+WHERE+type_of_beer+LIKE+%27%25" + type + "%25%27+AND+ABV+%3C%3D"+ abv;
 
                 try {
+                    btnBeerSearch.setEnabled(false);
                     Connection conn = new Connection();
                     JSONArray arr = conn.connect(query);
                     if (arr == null) {

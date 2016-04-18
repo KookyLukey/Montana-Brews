@@ -42,6 +42,8 @@ public class State extends ActionBarActivity {
 
                 String query = "SELECT+breweries._id+FROM+breweries+JOIN+towns+ON+breweries.name_of_town+%3D+towns._id+WHERE+towns.state+%3D+%27"+state+"%27";
 
+                btnSearch.setEnabled(false);
+
                 try {
                     Connection conn = new Connection();
                     JSONArray arr = conn.connect(query);

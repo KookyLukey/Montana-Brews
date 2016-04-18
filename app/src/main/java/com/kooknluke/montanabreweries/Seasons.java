@@ -23,7 +23,8 @@ import java.util.Arrays;
 
 public class Seasons extends ActionBarActivity {
 
-    String season;
+    private String season;
+    private Button btnSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class Seasons extends ActionBarActivity {
 
         final Context context = this;
 
-        final Button btnSearch = (Button) findViewById(R.id.btnSeasonSearch);
+        btnSearch = (Button) findViewById(R.id.btnSeasonSearch);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
 
@@ -85,21 +86,33 @@ public class Seasons extends ActionBarActivity {
             case R.id.rbSpring:
                 if (checked) {
                     season = "Spring";
+                    if (!btnSearch.isEnabled()) {
+                        btnSearch.setEnabled(true);
+                    }
                 }
                 break;
             case R.id.rbSummer:
                 if (checked) {
                     season = "Summer";
+                    if (!btnSearch.isEnabled()) {
+                        btnSearch.setEnabled(true);
+                    }
                 }
                 break;
             case R.id.rbAutumn:
                 if (checked) {
                     season = "Fall";
+                    if (!btnSearch.isEnabled()) {
+                        btnSearch.setEnabled(true);
+                    }
                 }
                 break;
             case R.id.rbWinter:
                 if (checked) {
                     season = "Winter";
+                    if (!btnSearch.isEnabled()) {
+                        btnSearch.setEnabled(true);
+                    }
                 }
                 break;
         }

@@ -48,7 +48,7 @@ public class State extends ActionBarActivity {
                     Connection conn = new Connection();
                     JSONArray arr = conn.connect(query);
                     if (arr == null) {
-                        list.add("NULL");
+                        list.add("No Brewery Found");
                     } else {
                         for (int i = 0; i < arr.length(); i++) {
                             JSONObject sys = arr.getJSONObject(i);

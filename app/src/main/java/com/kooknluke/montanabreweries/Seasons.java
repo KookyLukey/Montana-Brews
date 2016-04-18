@@ -49,7 +49,7 @@ public class Seasons extends ActionBarActivity {
                     Connection conn = new Connection();
                     JSONArray arr = conn.connect(query);
                     if (arr == null) {
-                        list.add("NULL");
+                        list.add("No Beer Found for " + season);
                     } else {
                         for (int i = 0; i < arr.length(); i++) {
                             JSONObject sys = arr.getJSONObject(i);
@@ -61,9 +61,9 @@ public class Seasons extends ActionBarActivity {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
-                Intent i = new Intent(context, seasonsBeerList.class);
+                Intent i = new Intent(context, beerList.class);
                 if (list.isEmpty()) {
-                    list.add("No Beer Found");
+                    list.add("No Beer Found for " + season);
                     i.putStringArrayListExtra("beer", list);
                     startActivity(i);
                     list.clear();

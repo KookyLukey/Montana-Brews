@@ -58,7 +58,7 @@ public class Breweries extends ActionBarActivity {
                 JSONArray arr = conn.connect(query);
 
                 if (arr == null) {
-                    list.add("NULL");
+                    list.add("No Beer Found for Brewery");
                 }
                 else {
                     for (int i = 0; i < arr.length(); i++) {

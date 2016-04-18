@@ -49,15 +49,20 @@ public class Nutrition extends ActionBarActivity {
                 JSONArray arr = conn.connect(query);
 
                 try {
-                    JSONObject sys = arr.getJSONObject(0);
-                    String temp = sys.getString("_id");
-                    list.add(temp);
-                    temp = sys.getString("serving_size");
-                    list.add("Serving Size: " + temp);
-                    temp = sys.getString("calories");
-                    list.add("Calories: " + temp);
-                    temp = sys.getString("fat");
-                    list.add("Fat: " + temp);
+                    if (arr == null) {
+                        list.add("No Beer Data Found");
+                    }
+                    else {
+                        JSONObject sys = arr.getJSONObject(0);
+                        String temp = sys.getString("_id");
+                        list.add(temp);
+                        temp = sys.getString("serving_size");
+                        list.add("Serving Size: " + temp);
+                        temp = sys.getString("calories");
+                        list.add("Calories: " + temp);
+                        temp = sys.getString("fat");
+                        list.add("Fat: " + temp);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

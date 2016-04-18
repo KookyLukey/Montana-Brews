@@ -10,6 +10,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -25,20 +28,26 @@ public class beerInfo extends ActionBarActivity {
         final ImageView imageView = (ImageView) findViewById(R.id.ivBeerImage);
         final TextView description = (TextView) findViewById(R.id.tvBeerDescription);
 
-        final String beerName = getIntent().getStringExtra("beerName");
+        String beerName = getIntent().getStringExtra("beerName");
 
         Connection conn = new Connection();
 
         JSONArray arr = conn.connect(beerName);
 
         try {
+            beerName = URLDecoder.decode(beerName, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        try {
             if (arr == null) {
-                name.setText("Not Found");
+                name.setText(beerName);
                 imageView.setImageResource(R.drawable.imageunavailable);
                 description.setText("Not Found");
             }
-            else if (arr.length() == 2) {
-                    name.setText(arr.getString(0));
+            else if (arr.getString(0).contains("null")) {
+                    name.setText(beerName);
                     imageView.setImageResource(R.drawable.imageunavailable);
                     description.setText("Not Found");
             }

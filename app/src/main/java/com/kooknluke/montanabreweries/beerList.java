@@ -50,10 +50,9 @@ public class beerList extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
                     String beer = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
-                    String query = "Image";
 
                     Intent i = new Intent(context, beerInfo.class);
-                    i.putExtra("beerName", query);
+                    i.putExtra("beerName", beer);
                     startActivity(i);
 
 //                    beerList.clear();

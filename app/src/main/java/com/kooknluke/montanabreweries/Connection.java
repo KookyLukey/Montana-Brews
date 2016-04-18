@@ -71,11 +71,11 @@ public class Connection extends ActionBarActivity {
         URL url = null;
         HttpURLConnection c = null;
         StringBuilder list = new StringBuilder();
-        if (query.contains("SELECT")) {
+        if (!query.contains("SELECT")) {
             url = new URL("http://www.mtbrews.net/images/getBeers.php?q=" + query);
         }
-        else if (query.contains("Image")) {
-            url = new URL("http://www.mtbrews.net/images/getImage.php");
+        else {
+            url = new URL("http://www.mtbrews.net/images/getBeers.php?q=" + query);
         }
 
         try {

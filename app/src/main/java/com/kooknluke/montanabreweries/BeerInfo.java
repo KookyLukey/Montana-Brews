@@ -7,16 +7,11 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class beerInfo extends ActionBarActivity {
@@ -36,12 +31,19 @@ public class beerInfo extends ActionBarActivity {
 
         JSONArray arr = conn.connect(beerName);
 
-        if (arr == null) {
-            name.setText("Not Found");
-            description.setText("Not Found");
-        }
-        else {
-            try {
+        try {
+            if (arr == null) {
+                name.setText("Not Found");
+                imageView.setImageResource(R.drawable.imageunavailable);
+                description.setText("Not Found");
+            }
+            else if (arr.length() == 2) {
+                    name.setText(arr.getString(0));
+                    imageView.setImageResource(R.drawable.imageunavailable);
+                    description.setText("Not Found");
+            }
+            else {
+
                 name.setText(arr.getString(0));
 
                 byte[] decodedString = Base64.decode(arr.getString(1), Base64.DEFAULT);
@@ -49,9 +51,10 @@ public class beerInfo extends ActionBarActivity {
                 imageView.setImageBitmap(decodedByte);
 
                 description.setText(arr.getString(2));
-            } catch (JSONException e) {
-                e.printStackTrace();
+
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

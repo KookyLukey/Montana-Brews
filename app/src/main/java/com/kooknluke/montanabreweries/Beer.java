@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,10 +42,18 @@ public class Beer extends ActionBarActivity {
 
         final Button btnBeerSearch = (Button) findViewById(R.id.btnBeerSearch);
 
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.pbBeer);
+
+        progressBar.setVisibility(View.GONE);
+
         btnBeerSearch.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+
+                if (progressBar.getVisibility() == View.GONE) {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
 
                 String query = "SELECT+*+FROM+beer+WHERE+type_of_beer+LIKE+%27%25" + type + "%25%27+AND+ABV+%3C%3D"+ abv;
 
@@ -71,11 +80,13 @@ public class Beer extends ActionBarActivity {
                     if (list.isEmpty()) {
                         list.add("No Beer Found");
                         i.putStringArrayListExtra("beer", list);
+                        progressBar.setVisibility(View.GONE);
                         startActivity(i);
                         list.clear();
                     } else {
                         i.putStringArrayListExtra("beer", list);
                         startActivity(i);
+                        progressBar.setVisibility(View.GONE);
                         list.clear();
                     }
                 }

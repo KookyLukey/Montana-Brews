@@ -97,7 +97,8 @@
         android:layout_height="fill_parent"
         android:layout_alignTop="@+id/radioGroup"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="200dp">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -164,5 +165,13 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pbBeer"
+        android:layout_alignBottom="@+id/radioGroup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="75dp" />
 
 </RelativeLayout>

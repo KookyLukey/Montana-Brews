@@ -24,6 +24,7 @@ import java.util.Arrays;
 
 public class Breweries extends ActionBarActivity {
 
+    private Button btnShowBeers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +34,12 @@ public class Breweries extends ActionBarActivity {
 
         final Context context = this;
 
-        final Button btnShowBeers = (Button) findViewById(R.id.btnShowBeers);
+        btnShowBeers = (Button) findViewById(R.id.btnShowBeers);
         final Button btnShowAddress = (Button) findViewById(R.id.btnShowAddress);
         final EditText etSearchBreweries = (EditText) findViewById(R.id.etSearchBreweries);
         final TextView txtTestBreweries = (TextView) findViewById(R.id.txtTestBreweries);
+
+        btnShowBeers.setEnabled(true);
 
         btnShowBeers.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +49,10 @@ public class Breweries extends ActionBarActivity {
 
                 String query = "SELECT+*+FROM+beer+WHERE+brewery_name+LIKE+%27%25" + userInput + "%25%27";
 
-                btnShowBeers.setEnabled(false);
+
+                if (btnShowBeers.isEnabled() == true) {
+                    btnShowBeers.setEnabled(false);
+                }
 
                 Connection conn = new Connection();
                 JSONArray arr = conn.connect(query);
@@ -68,7 +74,7 @@ public class Breweries extends ActionBarActivity {
                 }
 
 
-                Intent i = new Intent(context, breweryBeerList.class);
+                Intent i = new Intent(context, beerList.class);
                 if (list.isEmpty()) {
                     list.add("No Beer Found for Brewery");
                     i.putStringArrayListExtra("beer", list);
@@ -107,6 +113,14 @@ public class Breweries extends ActionBarActivity {
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (btnShowBeers.isEnabled() == false) {
+            btnShowBeers.setEnabled(true);
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

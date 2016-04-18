@@ -72,7 +72,7 @@ public class Connection extends ActionBarActivity {
         HttpURLConnection c = null;
         StringBuilder list = new StringBuilder();
         if (!query.contains("SELECT")) {
-            url = new URL("http://www.mtbrews.net/images/getBeers.php?q=" + query);
+            url = new URL("http://www.mtbrews.net/images/getImage.php?q=" + query);
         }
         else {
             url = new URL("http://www.mtbrews.net/images/getBeers.php?q=" + query);

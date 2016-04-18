@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
-
+//Todo: Remove because of Dead Code
 public class stateBeerList extends ActionBarActivity {
 
     @Override

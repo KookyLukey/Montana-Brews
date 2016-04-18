@@ -68,9 +68,15 @@ public class Connection extends ActionBarActivity {
     }
 
     public JSONArray connection(String query) throws MalformedURLException {
-        URL url = new URL("http://www.mtbrews.net/images/getBeers.php?q=" + query);
-        StringBuilder list = new StringBuilder();
+        URL url = null;
         HttpURLConnection c = null;
+        StringBuilder list = new StringBuilder();
+        if (query.contains("SELECT")) {
+            url = new URL("http://www.mtbrews.net/images/getBeers.php?q=" + query);
+        }
+        else if (query.contains("Image")) {
+            url = new URL("http://www.mtbrews.net/images/getImage.php");
+        }
 
         try {
             c = (HttpURLConnection) url.openConnection();

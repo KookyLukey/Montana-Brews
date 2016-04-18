@@ -20,6 +20,6 @@
     <color name="background">#F7941E</color>
     <string name="title_activity_beer_history">Beer History</string>
     <string name="title_activity_beer_history_list">History Info of Beer</string>
-    <string name="title_activity_beer_info">BeerInfo</string>
+    <string name="title_activity_beer_info">Beer Info</string>
     <string name="title_activity_connection">Connection</string>
 </resources>

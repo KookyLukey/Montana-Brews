@@ -52,7 +52,7 @@ public class Beer extends ActionBarActivity {
                     Connection conn = new Connection();
                     JSONArray arr = conn.connect(query);
                     if (arr == null) {
-                        list.add("NULL");
+                        list.add("No Beer Found");
                     }
                     else {
                         for (int i = 0; i < arr.length(); i++) {

@@ -48,7 +48,6 @@ public class townBeerList extends ActionBarActivity {
                 String brewery = ((TextView)view).getText().toString();
                 String[] temporary = brewery.split(" ");
                 String input = temporary[0];
-                Toast.makeText(getBaseContext(), brewery, Toast.LENGTH_LONG).show();
 
                 String query = "SELECT%20*%20FROM%20beer%20WHERE%20brewery_name%20LIKE%20%27%25" + input + "%25%27";
 

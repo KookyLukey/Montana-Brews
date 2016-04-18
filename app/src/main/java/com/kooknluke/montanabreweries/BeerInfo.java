@@ -1,17 +1,58 @@
 package com.kooknluke.montanabreweries;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class BeerInfo extends ActionBarActivity {
+public class beerInfo extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beer_info);
+
+        final TextView name = (TextView) findViewById(R.id.tvBeerDescriptionName);
+        final ImageView imageView = (ImageView) findViewById(R.id.ivBeerImage);
+        final TextView description = (TextView) findViewById(R.id.tvBeerDescription);
+
+        final String beerName = getIntent().getStringExtra("beerName");
+
+        Connection conn = new Connection();
+
+        JSONArray arr = conn.connect(beerName);
+
+        if (arr == null) {
+            name.setText("Not Found");
+            description.setText("Not Found");
+        }
+        else {
+            try {
+                name.setText(arr.getString(0));
+
+                byte[] decodedString = Base64.decode(arr.getString(1), Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                imageView.setImageBitmap(decodedByte);
+
+                description.setText(arr.getString(2));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

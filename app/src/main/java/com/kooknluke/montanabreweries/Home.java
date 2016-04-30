@@ -1,10 +1,11 @@
 package com.kooknluke.montanabreweries;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ public class Home extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hideActionBar();
         setContentView(R.layout.activity_home);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -27,9 +29,9 @@ public class Home extends ActionBarActivity {
         final Button btnBreweries = (Button) findViewById(R.id.btn_breweries);
         final Button btnTown = (Button) findViewById(R.id.btn_town);
         final Button btnState = (Button) findViewById(R.id.btn_state);
-        final Button btnNutrition = (Button) findViewById(R.id.btn_nutrition);
+        //final Button btnNutrition = (Button) findViewById(R.id.btn_nutrition);
         final Button btnSeason = (Button) findViewById(R.id.btn_season);
-        final Button btnBeerHistory = (Button) findViewById(R.id.btnBeerHistory);
+        //final Button btnBeerHistory = (Button) findViewById(R.id.btnBeerHistory);
 
         btnBeer.setOnClickListener(new View.OnClickListener() {
 
@@ -75,24 +77,6 @@ public class Home extends ActionBarActivity {
                 startActivity(intentSeason);
             }
         });
-
-        btnNutrition.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intentNutrition = new Intent(context, Nutrition.class);
-                startActivity(intentNutrition);
-            }
-        });
-
-        btnBeerHistory.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, beerHistory.class);
-                startActivity(i);
-            }
-        });
     }
 
     @Override
@@ -115,5 +99,16 @@ public class Home extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void hideActionBar(){
+        View decorView = getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+        // Remember that you should never show the action bar if the
+        // status bar is hidden, so hide that too if necessary.
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
     }
 }

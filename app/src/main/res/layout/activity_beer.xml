@@ -4,7 +4,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.kooknluke.montanabreweries.Beer">
+    tools:context="com.kooknluke.montanabreweries.Beer"
+    android:background="#3B5998">
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,7 +15,8 @@
         android:id="@+id/txtSearchBeer"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="#ffffff" />
 
     <RadioGroup
         android:layout_width="fill_parent"
@@ -33,7 +35,8 @@
             android:text="Ale"
             android:id="@+id/rbAle"
             android:checked="false"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="#ffffff" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -41,7 +44,8 @@
             android:text="Stout"
             android:id="@+id/rbStout"
             android:checked="false"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="#ffffff" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -49,7 +53,8 @@
             android:text="Lager"
             android:id="@+id/rbLager"
             android:checked="false"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="#ffffff" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -57,7 +62,8 @@
             android:text="Weizen"
             android:id="@+id/rbWeizen"
             android:checked="false"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="#ffffff" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -65,7 +71,8 @@
             android:text="India Pale Ale"
             android:id="@+id/rbIPA"
             android:checked="false"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="#ffffff" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -73,7 +80,8 @@
             android:text="Oktoberfest"
             android:id="@+id/rbOktoberfest"
             android:checked="false"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="#ffffff" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -81,7 +89,8 @@
             android:text="Porter"
             android:id="@+id/rbPorter"
             android:checked="false"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="#ffffff" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -89,7 +98,8 @@
             android:text="Helles"
             android:id="@+id/rbHelles"
             android:checked="false"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="#ffffff" />
     </RadioGroup>
 
     <RadioGroup
@@ -107,7 +117,8 @@
             android:id="@+id/rb5"
             android:layout_gravity="right"
             android:checked="false"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="#ffffff" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -116,7 +127,8 @@
             android:id="@+id/rb6"
             android:layout_gravity="right"
             android:checked="false"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="#ffffff" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -125,7 +137,8 @@
             android:id="@+id/rb7"
             android:layout_gravity="right"
             android:checked="false"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="#ffffff" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -134,7 +147,8 @@
             android:id="@+id/rb8"
             android:layout_gravity="right"
             android:checked="false"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="#ffffff" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -143,7 +157,8 @@
             android:id="@+id/rb9"
             android:layout_gravity="right"
             android:checked="false"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="#ffffff" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -152,7 +167,8 @@
             android:id="@+id/rb10"
             android:layout_gravity="right"
             android:checked="false"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="#ffffff" />
 
     </RadioGroup>
 
@@ -164,7 +180,8 @@
         android:layout_gravity="right"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/custom_button" />
 
     <ProgressBar
         android:layout_width="wrap_content"

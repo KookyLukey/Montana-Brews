@@ -22,4 +22,5 @@
     <string name="title_activity_beer_history_list">History Info of Beer</string>
     <string name="title_activity_beer_info">Beer Info</string>
     <string name="title_activity_connection">Connection</string>
+    <string name="title_activity_map">Map</string>
 </resources>

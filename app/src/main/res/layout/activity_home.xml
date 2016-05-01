@@ -69,4 +69,14 @@
         android:background="@drawable/custom_button"
        android:layout_marginTop="20dp" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Map"
+        android:id="@+id/btnMap"
+        android:layout_below="@+id/btn_season"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/custom_button"
+        android:layout_marginTop="20dp" />
+
 </RelativeLayout>

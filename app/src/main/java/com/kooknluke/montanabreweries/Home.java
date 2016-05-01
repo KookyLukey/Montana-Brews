@@ -29,9 +29,8 @@ public class Home extends ActionBarActivity {
         final Button btnBreweries = (Button) findViewById(R.id.btn_breweries);
         final Button btnTown = (Button) findViewById(R.id.btn_town);
         final Button btnState = (Button) findViewById(R.id.btn_state);
-        //final Button btnNutrition = (Button) findViewById(R.id.btn_nutrition);
         final Button btnSeason = (Button) findViewById(R.id.btn_season);
-        //final Button btnBeerHistory = (Button) findViewById(R.id.btnBeerHistory);
+        final Button btnMap = (Button) findViewById(R.id.btnMap);
 
         btnBeer.setOnClickListener(new View.OnClickListener() {
 
@@ -75,6 +74,15 @@ public class Home extends ActionBarActivity {
             public void onClick(View v) {
                 Intent intentSeason = new Intent(context, Seasons.class);
                 startActivity(intentSeason);
+            }
+        });
+
+        btnMap.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intentBeer = new Intent(context, Map.class);
+                startActivity(intentBeer);
             }
         });
     }

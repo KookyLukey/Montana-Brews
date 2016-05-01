@@ -3,12 +3,17 @@ package com.kooknluke.montanabreweries;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +22,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -31,91 +38,80 @@ public class Seasons extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seasons);
 
+        final Context context = this;
+        final ListView lv = (ListView) findViewById(R.id.lvSeasons);
         final ArrayList<String> list = new ArrayList<>();
 
-        final Context context = this;
+        ArrayList<String> townList = new ArrayList<>();
+        townList.add(0, "Spring");
+        townList.add(1, "Summer");
+        townList.add(2, "Fall");
+        townList.add(3, "Winter");
 
-        btnSearch = (Button) findViewById(R.id.btnSeasonSearch);
-
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                townList){
 
             @Override
-            public void onClick(View v) {
+            public View getView(int position, View convertView,
+                                ViewGroup parent) {
+                View view =super.getView(position, convertView, parent);
 
-                String query = "SELECT+*+FROM+seasons+WHERE+season+%3D+%27"+season+"%27";
+                TextView textView=(TextView) view.findViewById(android.R.id.text1);
 
-                btnSearch.setEnabled(false);
+            /*YOUR CHOICE OF COLOR*/
+                textView.setTextColor(Color.WHITE);
 
+                return view;
+            }
+        };
+
+        lv.setAdapter(arrayAdapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    Connection conn = new Connection();
-                    JSONArray arr = conn.connect(query);
-                    if (arr == null) {
-                        list.add("No Beer Found for " + season);
-                    } else {
-                        for (int i = 0; i < arr.length(); i++) {
-                            JSONObject sys = arr.getJSONObject(i);
-                            String temp = sys.getString("_id");
-                            list.add(temp);
+                    String season = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
+
+                    String query = "SELECT+*+FROM+seasons+WHERE+season+%3D+%27"+season+"%27";
+
+                    try {
+                        Connection conn = new Connection();
+                        JSONArray arr = conn.connect(query);
+                        if (arr == null) {
+                            list.add("No Season Found");
+                        }
+                        else {
+                            for (int i = 0; i < arr.length(); i++) {
+                                JSONObject sys = arr.getJSONObject(i);
+                                String temp = sys.getString("_id");
+                                list.add(temp);
+                            }
                         }
                     }
-                } catch (JSONException e){
+                    catch (JSONException e){
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                }
+                    }
 
-                Intent i = new Intent(context, beerList.class);
-                if (list.isEmpty()) {
-                    list.add("No Beer Found for " + season);
-                    i.putStringArrayListExtra("beer", list);
-                    startActivity(i);
-                    list.clear();
-                }
-                else {
-                    i.putStringArrayListExtra("beer", list);
-                    startActivity(i);
-                    list.clear();
+                    Intent i = new Intent(context, beerList.class);
+                    if (list.isEmpty()) {
+                        list.add("No Season Found");
+                        i.putStringArrayListExtra("beer", list);
+                        startActivity(i);
+                        list.clear();
+                    }
+                    else {
+                        i.putStringArrayListExtra("beer", list);
+                        startActivity(i);
+                        list.clear();
+                    }
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                 }
             }
         });
-    }
-
-    public void onRadioButtonClicked(View view) {
-
-        boolean checked = ((RadioButton) view).isChecked();
-
-        switch(view.getId()) {
-            case R.id.rbSpring:
-                if (checked) {
-                    season = "Spring";
-                    if (!btnSearch.isEnabled()) {
-                        btnSearch.setEnabled(true);
-                    }
-                }
-                break;
-            case R.id.rbSummer:
-                if (checked) {
-                    season = "Summer";
-                    if (!btnSearch.isEnabled()) {
-                        btnSearch.setEnabled(true);
-                    }
-                }
-                break;
-            case R.id.rbAutumn:
-                if (checked) {
-                    season = "Fall";
-                    if (!btnSearch.isEnabled()) {
-                        btnSearch.setEnabled(true);
-                    }
-                }
-                break;
-            case R.id.rbWinter:
-                if (checked) {
-                    season = "Winter";
-                    if (!btnSearch.isEnabled()) {
-                        btnSearch.setEnabled(true);
-                    }
-                }
-                break;
-        }
     }
 
     @Override

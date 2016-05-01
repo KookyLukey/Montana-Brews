@@ -4,7 +4,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.kooknluke.montanabreweries.beerList">
+    tools:context="com.kooknluke.montanabreweries.beerList"
+    android:background="#3B5998">
 
     <ListView
         android:layout_width="wrap_content"
@@ -12,5 +13,6 @@
         android:id="@+id/lvBeerList"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        />
 </RelativeLayout>

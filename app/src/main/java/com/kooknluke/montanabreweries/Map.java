@@ -12,10 +12,9 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.text.BreakIterator;
 
 public class Map extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -48,10 +47,25 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
             longLoc = mLastLocation.getLongitude();
             LatLng location = new LatLng(latLoc, longLoc);
 
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(location, 10);
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(location, 6);
             mMap.animateCamera(cameraUpdate);
             mMap.addMarker(new MarkerOptions().position(new LatLng(latLoc, longLoc)).title("You"));
+            addMarkers();
         }
+    }
+
+    protected void addMarkers(){
+        MarkerOptions bayernMarker = new MarkerOptions().position(new LatLng(46.872688, -114.020256)).title("Bayern Brewing");
+        bayernMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+        mMap.addMarker(bayernMarker);
+
+        MarkerOptions madisonMarker = new MarkerOptions().position(new LatLng(45.771451, -111.168387)).title("Madison River Brewing");
+        madisonMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+        mMap.addMarker(madisonMarker);
+
+        MarkerOptions f06Marker = new MarkerOptions().position(new LatLng(45.692962, -111.034365)).title("Madison River Brewing");
+        f06Marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+        mMap.addMarker(f06Marker);
     }
 
     protected void onStart() {

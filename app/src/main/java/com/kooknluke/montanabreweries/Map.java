@@ -1,5 +1,8 @@
 package com.kooknluke.montanabreweries;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,12 +19,21 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Map extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     GoogleApiClient mGoogleApiClient = null;
     Double latLoc;
     Double longLoc;
+    final ArrayList<Double> latList = new ArrayList<>();
+    final ArrayList<Double> longList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +62,7 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(location, 6);
             mMap.animateCamera(cameraUpdate);
             mMap.addMarker(new MarkerOptions().position(new LatLng(latLoc, longLoc)).title("You"));
-            addMarkers();
+            addBreweryMarkers();
         }
     }
 
@@ -63,9 +75,50 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
         madisonMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         mMap.addMarker(madisonMarker);
 
-        MarkerOptions f06Marker = new MarkerOptions().position(new LatLng(45.692962, -111.034365)).title("Madison River Brewing");
+        MarkerOptions f06Marker = new MarkerOptions().position(new LatLng(45.692962, -111.034365)).title("406 Brewing Co");
         f06Marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         mMap.addMarker(f06Marker);
+    }
+
+    protected void addBreweryMarkers(){
+
+        String latitudeQuery = "SELECT+latitude+FROM+breweries";
+        String longitudeQuery = "SELECT+longitude+FROM+breweries";
+
+        Connection conn = new Connection();
+        JSONArray arr = conn.connect(latitudeQuery);
+
+        try {
+            for (int i = 0; i < arr.length(); i++) {
+                JSONObject sys = arr.getJSONObject(i);
+                Double temp = sys.getDouble("latitude");
+                latList.add(temp);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Connection conn2 = new Connection();
+        JSONArray longArr = conn2.connect(longitudeQuery);
+
+        try {
+            for (int i = 0; i < longArr.length(); i++) {
+                JSONObject sys = longArr.getJSONObject(i);
+                Double tempN = sys.getDouble("longitude");
+                longList.add(tempN);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        for(int i = 0; i < latList.size(); i++){
+            LatLng brewLatLng = new LatLng(latList.get(i), longList.get(i));
+
+            MarkerOptions brewMarker = new MarkerOptions().position(brewLatLng).title("temp");
+            brewMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+            mMap.addMarker(brewMarker);
+        }
+
     }
 
     protected void onStart() {
@@ -84,42 +137,13 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
         setUpMapIfNeeded();
     }
 
-    /**
-     * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
-     * installed) and the map has not already been instantiated.. This will ensure that we only ever
-     * call {@link #setUpMap()} once when {@link #mMap} is not null.
-     * <p/>
-     * If it isn't installed {@link SupportMapFragment} (and
-     * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
-     * install/update the Google Play services APK on their device.
-     * <p/>
-     * A user can return to this FragmentActivity after following the prompt and correctly
-     * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
-     * have been completely destroyed during this process (it is likely that it would only be
-     * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
-     * method in {@link #onResume()} to guarantee that it will be called.
-     */
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-
-            }
         }
-    }
-
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
-     * just add a marker near Africa.
-     * <p/>
-     * This should only be called once and when we are sure that {@link #mMap} is not null.
-     */
-    private void setUpMap() {
-
     }
 
     @Override

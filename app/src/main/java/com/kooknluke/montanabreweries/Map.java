@@ -1,12 +1,14 @@
 package com.kooknluke.montanabreweries;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -17,12 +19,15 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +39,9 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
     Double longLoc;
     final ArrayList<Double> latList = new ArrayList<>();
     final ArrayList<Double> longList = new ArrayList<>();
+    final ArrayList<String> nameList = new ArrayList<>();
+    final ArrayList<String> beerList = new ArrayList<>();
+    final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,24 +74,11 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
         }
     }
 
-    protected void addMarkers(){
-        MarkerOptions bayernMarker = new MarkerOptions().position(new LatLng(46.872688, -114.020256)).title("Bayern Brewing");
-        bayernMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-        mMap.addMarker(bayernMarker);
-
-        MarkerOptions madisonMarker = new MarkerOptions().position(new LatLng(45.771451, -111.168387)).title("Madison River Brewing");
-        madisonMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-        mMap.addMarker(madisonMarker);
-
-        MarkerOptions f06Marker = new MarkerOptions().position(new LatLng(45.692962, -111.034365)).title("406 Brewing Co");
-        f06Marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-        mMap.addMarker(f06Marker);
-    }
-
     protected void addBreweryMarkers(){
 
         String latitudeQuery = "SELECT+latitude+FROM+breweries";
         String longitudeQuery = "SELECT+longitude+FROM+breweries";
+        String nameQuery = "SELECT+_id+FROM+breweries";
 
         Connection conn = new Connection();
         JSONArray arr = conn.connect(latitudeQuery);
@@ -111,14 +106,72 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
             e.printStackTrace();
         }
 
+        JSONArray nameArr = conn2.connect(nameQuery);
+
+        try {
+            for (int i = 0; i < nameArr.length(); i++) {
+                JSONObject sys = nameArr.getJSONObject(i);
+                String nameTemp = sys.getString("_id");
+                nameList.add(nameTemp);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         for(int i = 0; i < latList.size(); i++){
             LatLng brewLatLng = new LatLng(latList.get(i), longList.get(i));
 
-            MarkerOptions brewMarker = new MarkerOptions().position(brewLatLng).title("temp");
+            MarkerOptions brewMarker = new MarkerOptions().position(brewLatLng).title(nameList.get(i));
             brewMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
             mMap.addMarker(brewMarker);
         }
 
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                String title = null;
+                try {
+                    title = URLEncoder.encode(marker.getTitle(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+                String beerQuery = "SELECT+*++FROM++%60beer%60++WHERE+brewery_name%3D%27" + title + "%27";
+
+
+                Connection conn = new Connection();
+                JSONArray beerArr = conn.connect(beerQuery);
+
+                if (beerArr == null) {
+                    beerList.add("No Beer Found for Brewery");
+                }
+                else {
+                    for (int i = 0; i < beerArr.length(); i++) {
+                        JSONObject sys = null;
+                        try {
+                            sys = beerArr.getJSONObject(i);
+                            String temp = sys.getString("_id");
+                            beerList.add(temp);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                Intent i = new Intent(context, beerList.class);
+                if (beerList.isEmpty()) {
+                    beerList.add("No Beer Found for Brewery");
+                    i.putStringArrayListExtra("beer", beerList);
+                    startActivity(i);
+                    beerList.clear();
+                }
+                else {
+                    i.putStringArrayListExtra("beer", beerList);
+                    startActivity(i);
+                    beerList.clear();
+                }
+            }
+        });
     }
 
     protected void onStart() {

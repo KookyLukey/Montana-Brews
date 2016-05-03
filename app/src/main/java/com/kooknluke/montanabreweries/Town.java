@@ -1,5 +1,6 @@
 package com.kooknluke.montanabreweries;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -31,6 +32,7 @@ import java.util.Arrays;
 public class Town extends ActionBarActivity {
 
     String town;
+    ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class Town extends ActionBarActivity {
         final Context context = this;
         final ListView lv = (ListView) findViewById(R.id.lvTown);
         final ArrayList<String> list = new ArrayList<>();
+        progress = new ProgressDialog(this);
 
         ArrayList<String> townList = new ArrayList<>();
         townList.add(0, "Belgrade");
@@ -76,6 +79,9 @@ public class Town extends ActionBarActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                progress.setTitle("Loading");
+                progress.setMessage("Fetching your town");
+                progress.show();
                 try {
                     String town = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
 
@@ -138,5 +144,11 @@ public class Town extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        progress.dismiss();
     }
 }

@@ -1,5 +1,6 @@
 package com.kooknluke.montanabreweries;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -26,7 +28,9 @@ import java.util.Arrays;
 
 public class Breweries extends ActionBarActivity {
 
-    private Button btnShowBeers;
+      private Button btnShowBeers;
+      ProgressDialog progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,7 @@ public class Breweries extends ActionBarActivity {
         final ArrayList<String> list = new ArrayList<>();
 
         final Context context = this;
+        progress = new ProgressDialog(this);
 
         btnShowBeers = (Button) findViewById(R.id.btnShowBeers);
         final Button btnShowAddress = (Button) findViewById(R.id.btnShowAddress);
@@ -46,6 +51,9 @@ public class Breweries extends ActionBarActivity {
         btnShowBeers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progress.setTitle("Loading");
+                progress.setMessage("Fetching your brewery");
+                progress.show();
 
                 String userInput = etSearchBreweries.getText().toString();
 
@@ -118,6 +126,7 @@ public class Breweries extends ActionBarActivity {
     @Override
     public void onResume() {
         super.onResume();
+        progress.dismiss();
 
         if (btnShowBeers.isEnabled() == false) {
             btnShowBeers.setEnabled(true);

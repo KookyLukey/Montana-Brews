@@ -1,5 +1,6 @@
 package com.kooknluke.montanabreweries;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -23,6 +25,8 @@ import java.util.List;
 
 public class beerList extends ActionBarActivity {
 
+    ProgressDialog progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,7 @@ public class beerList extends ActionBarActivity {
 
         final Context context = this;
         final ListView lv = (ListView) findViewById(R.id.lvBeerList);
+        progress = new ProgressDialog(this);
 
         ArrayList<String> beerList;
         if (getIntent().getStringArrayListExtra("beer") == null) {
@@ -64,12 +69,16 @@ public class beerList extends ActionBarActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                progress.setTitle("Loading");
+                progress.setMessage("Fetching your beer");
+                progress.show();
                 try {
                     String beer = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
 
                     Intent i = new Intent(context, beerInfo.class);
                     i.putExtra("beerName", beer);
                     startActivity(i);
+                    //progress.dismiss();
 
 //                    beerList.clear();
                 } catch (UnsupportedEncodingException e) {
@@ -100,5 +109,11 @@ public class beerList extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        progress.dismiss();
     }
 }

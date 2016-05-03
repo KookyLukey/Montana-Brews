@@ -1,5 +1,6 @@
 package com.kooknluke.montanabreweries;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -26,6 +27,8 @@ import java.util.List;
 
 public class townBeerList extends ActionBarActivity {
 
+    ProgressDialog progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,7 @@ public class townBeerList extends ActionBarActivity {
 
         final ListView lv = (ListView) findViewById(R.id.lvTown);
         List<String> beerList = getIntent().getStringArrayListExtra("beer");
+        progress = new ProgressDialog(this);
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,
@@ -61,6 +65,9 @@ public class townBeerList extends ActionBarActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                progress.setTitle("Loading");
+                progress.setMessage("Fetching your brewery");
+                progress.show();
                 String brewery = ((TextView)view).getText().toString();
                 String[] temporary = brewery.split(" ");
                 String input = temporary[0];
@@ -119,5 +126,11 @@ public class townBeerList extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        progress.dismiss();
     }
 }

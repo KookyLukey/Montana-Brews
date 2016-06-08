@@ -10,7 +10,7 @@
     <string name="title_activity_nutrition">Nutritional Information</string>
     <string name="title_activity_beer_list">List of Beers</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="beer_title">Search By Type</string>
     <string name="title_activity_brewery_beer_list">Beer List by Brewery</string>
     <string name="title_activity_seasons_beer_list">Beer List by Season</string>
     <string name="title_activity_town_beer_list">Breweries by Town</string>
@@ -23,4 +23,20 @@
     <string name="title_activity_beer_info">Beer Info</string>
     <string name="title_activity_connection">Connection</string>
     <string name="title_activity_map">Map</string>
+    <string name="Name">Name</string>
+
+    <string-array name="type_of_beer">
+        <item>Dubbel</item>
+        <item>Tripel</item>
+        <item>Ale</item>
+        <item>Lager</item>
+        <item>Pale Ale</item>
+        <item>Porter</item>
+        <item>Barley Wine</item>
+        <item>Witbier</item>
+        <item>IPA</item>
+        <item>Pilsener</item>
+        <item>Stout</item>
+        <item>Hefeweizen</item>
+    </string-array>
 </resources>

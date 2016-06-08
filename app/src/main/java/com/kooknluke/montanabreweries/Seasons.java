@@ -1,5 +1,6 @@
 package com.kooknluke.montanabreweries;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -32,6 +33,7 @@ public class Seasons extends ActionBarActivity {
 
     private String season;
     private Button btnSearch;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class Seasons extends ActionBarActivity {
         final Context context = this;
         final ListView lv = (ListView) findViewById(R.id.lvSeasons);
         final ArrayList<String> list = new ArrayList<>();
+
+        progress = new ProgressDialog(this);
 
         ArrayList<String> townList = new ArrayList<>();
         townList.add(0, "Spring");
@@ -73,6 +77,11 @@ public class Seasons extends ActionBarActivity {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
+
+                    progress.setTitle("Loading");
+                    progress.setMessage("Fetching your beer");
+                    progress.show();
+
                     String season = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
 
                     String query = "SELECT+*+FROM+seasons+WHERE+season+%3D+%27"+season+"%27";
@@ -134,5 +143,11 @@ public class Seasons extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        progress.dismiss();
     }
 }

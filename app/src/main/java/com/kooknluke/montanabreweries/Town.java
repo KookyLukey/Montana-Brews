@@ -31,8 +31,8 @@ import java.util.Arrays;
 
 public class Town extends ActionBarActivity {
 
-    String town;
-    ProgressDialog progress;
+    private String town;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

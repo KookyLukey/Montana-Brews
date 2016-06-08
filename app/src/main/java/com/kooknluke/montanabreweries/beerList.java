@@ -25,7 +25,7 @@ import java.util.List;
 
 public class beerList extends ActionBarActivity {
 
-    ProgressDialog progress;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

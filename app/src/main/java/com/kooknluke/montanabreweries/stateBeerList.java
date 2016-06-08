@@ -1,5 +1,6 @@
 package com.kooknluke.montanabreweries;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,12 +13,17 @@ import java.util.List;
 //Todo: Remove because of Dead Code
 public class stateBeerList extends ActionBarActivity {
 
+    private ProgressDialog progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_state_beer_list);
 
         final ListView lv = (ListView) findViewById(R.id.lvState);
+
+        progress = new ProgressDialog(this);
+
         List<String> beerList = getIntent().getStringArrayListExtra("beer");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
@@ -48,5 +54,11 @@ public class stateBeerList extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        progress.dismiss();
     }
 }

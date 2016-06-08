@@ -1,15 +1,21 @@
 package com.kooknluke.montanabreweries;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -19,6 +25,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,10 +34,7 @@ import java.util.Arrays;
 
 public class Beer extends ActionBarActivity {
 
-    String str;
-    String str2;
-    String type;
-    String abv;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,137 +45,78 @@ public class Beer extends ActionBarActivity {
 
         final Context context = this;
 
-        final Button btnBeerSearch = (Button) findViewById(R.id.btnBeerSearch);
+        progress = new ProgressDialog(this);
+        final ListView lv = (ListView) findViewById(R.id.typeBeerlv);
 
-        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.pbBeer);
+        String[] types = getResources().getStringArray(R.array.type_of_beer);
 
-        progressBar.setVisibility(View.GONE);
 
-        btnBeerSearch.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+            this,
+            R.layout.beerlistview,
+            R.id.firstLine,
+            types
+        ) {
+                @Override
+                public View getView(int position, View convertView,
+                                    ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+                    TextView textView = (TextView) view.findViewById(R.id.firstLine);
 
-                if (progressBar.getVisibility() == View.GONE) {
-                    progressBar.setVisibility(View.VISIBLE);
+                    textView.setTextColor(Color.WHITE);
+
+                    return view;
                 }
+        };
 
-                String query = "SELECT+*+FROM+beer+WHERE+type_of_beer+LIKE+%27%25" + type + "%25%27+AND+ABV+%3C%3D"+ abv;
+        lv.setAdapter(arrayAdapter);
 
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    btnBeerSearch.setEnabled(false);
+
+                    progress.setTitle("Loading");
+                    progress.setMessage("Fetching your beer");
+                    progress.show();
+
+                    TextView tv = (TextView) view.findViewById(R.id.firstLine);
+                    String type = URLEncoder.encode(tv.getText().toString(), "UTF-8");
+                    String query = "SELECT+*+FROM+beer+WHERE+type_of_beer+LIKE+%27%25" + type + "%25%27";
+
                     Connection conn = new Connection();
                     JSONArray arr = conn.connect(query);
                     if (arr == null) {
                         list.add("No Beer Found");
-                    }
-                    else {
+                    } else {
                         for (int i = 0; i < arr.length(); i++) {
                             JSONObject sys = arr.getJSONObject(i);
                             String temp = sys.getString("_id");
                             list.add(temp);
                         }
                     }
-                }
-                catch (JSONException e){
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-                finally {
+
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
                     Intent i = new Intent(context, beerList.class);
                     if (list.isEmpty()) {
                         list.add("No Beer Found");
                         i.putStringArrayListExtra("beer", list);
-                        progressBar.setVisibility(View.GONE);
                         startActivity(i);
                         list.clear();
                     } else {
                         i.putStringArrayListExtra("beer", list);
                         startActivity(i);
-                        progressBar.setVisibility(View.GONE);
                         list.clear();
                     }
                 }
-            }
-        });
-    }
-
-    public void onRadioButtonClicked(View view) {
-        boolean checked = ((RadioButton) view).isChecked();
-
-        switch(view.getId()) {
-            case R.id.rbAle:
-                if (checked) {
-                    type = "Ale";
                 }
-                break;
-            case R.id.rbStout:
-                if (checked) {
-                    type = "Stout";
-                }
-                break;
-            case R.id.rbLager:
-                if (checked) {
-                    type = "Lager";
-                }
-                break;
-            case R.id.rbWeizen:
-                if (checked) {
-                    type = "Weizen";
-                }
-                break;
-            case R.id.rbIPA:
-                if (checked) {
-                    type = "IPA";
-                }
-                break;
-            case R.id.rbOktoberfest:
-                if (checked) {
-                    type = "Oktoberest";
-                }
-                break;
-            case R.id.rbPorter:
-                if (checked) {
-                    type = "Porter";
-                }
-                break;
-            case R.id.rbHelles:
-                if (checked) {
-                    type = "Helles";
-                }
-                break;
-            case R.id.rb5:
-                if (checked) {
-                    abv = "5.0";
-                }
-                break;
-            case R.id.rb6:
-                if (checked) {
-                    abv = "6.0";
-                }
-                break;
-            case R.id.rb7:
-                if (checked) {
-                    abv = "7.0";
-                }
-                break;
-            case R.id.rb8:
-                if (checked) {
-                    abv = "8.0";
-                }
-                break;
-            case R.id.rb9:
-                if (checked) {
-                    abv = "9.0";
-                }
-                break;
-            case R.id.rb10:
-                if (checked) {
-                    abv = "9.9";
-                }
-                break;
+            });
         }
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

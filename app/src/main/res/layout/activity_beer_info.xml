@@ -15,7 +15,9 @@
         android:textColor="#ffffff"
         android:layout_below="@+id/ivBeerImage"
         android:layout_alignLeft="@+id/tvBeerDescription"
-        android:layout_alignStart="@+id/tvBeerDescription" />
+        android:layout_alignStart="@+id/tvBeerDescription"
+        android:textStyle="bold"
+        android:textSize="20dp" />
 
     <ImageView
         android:layout_width="@android:dimen/thumbnail_width"

@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -29,7 +30,7 @@ import java.util.Arrays;
 public class Breweries extends ActionBarActivity {
 
       private Button btnShowBeers;
-      ProgressDialog progress;
+      private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class Breweries extends ActionBarActivity {
                 progress.setMessage("Fetching your brewery");
                 progress.show();
 
-                String userInput = etSearchBreweries.getText().toString();
+                String userInput = URLEncoder.encode(etSearchBreweries.getText().toString());
 
                 String query = "SELECT+*+FROM+beer+WHERE+brewery_name+LIKE+%27%25" + userInput + "%25%27";
 
@@ -104,7 +105,7 @@ public class Breweries extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-            String userInput = etSearchBreweries.getText().toString();
+            String userInput = URLEncoder.encode(etSearchBreweries.getText().toString());
 
             String query = "SELECT+*+FROM+breweries+WHERE+_id+LIKE+%27%25" + userInput + "%25%27";
 

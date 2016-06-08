@@ -1,5 +1,6 @@
 package com.kooknluke.montanabreweries;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
@@ -34,20 +35,23 @@ import java.util.List;
 public class Map extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    GoogleApiClient mGoogleApiClient = null;
-    Double latLoc;
-    Double longLoc;
-    final ArrayList<Double> latList = new ArrayList<>();
-    final ArrayList<Double> longList = new ArrayList<>();
-    final ArrayList<String> nameList = new ArrayList<>();
-    final ArrayList<String> beerList = new ArrayList<>();
-    final Context context = this;
+    private GoogleApiClient mGoogleApiClient = null;
+    private Double latLoc;
+    private Double longLoc;
+    private final ArrayList<Double> latList = new ArrayList<>();
+    private final ArrayList<Double> longList = new ArrayList<>();
+    private final ArrayList<String> nameList = new ArrayList<>();
+    private final ArrayList<String> beerList = new ArrayList<>();
+    private final Context context = this;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         setUpMapIfNeeded();
+
+        progress = new ProgressDialog(context);
 
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -131,11 +135,16 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
             public void onInfoWindowClick(Marker marker) {
                 String title = null;
                 try {
+                    progress.setTitle("Loading");
+                    progress.setMessage("Fetching your beer");
+                    progress.show();
+
                     title = URLEncoder.encode(marker.getTitle(), "UTF-8");
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
 
+                Toast.makeText(context, title, Toast.LENGTH_SHORT);
                 String beerQuery = "SELECT+*++FROM++%60beer%60++WHERE+brewery_name%3D%27" + title + "%27";
 
 
@@ -188,6 +197,7 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+        progress.dismiss();
     }
 
     private void setUpMapIfNeeded() {

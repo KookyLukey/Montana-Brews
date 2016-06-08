@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class beerHistory extends ActionBarActivity {
 
-    String beerType;
+    private String beerType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

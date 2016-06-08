@@ -1,5 +1,6 @@
 package com.kooknluke.montanabreweries;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -30,7 +31,9 @@ import java.util.Arrays;
 
 public class State extends ActionBarActivity {
 
-    String state;
+    private String state;
+    private ProgressDialog progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,8 @@ public class State extends ActionBarActivity {
         final Context context = this;
         final ListView lv = (ListView) findViewById(R.id.lvState);
         final ArrayList<String> list = new ArrayList<>();
+
+        progress = new ProgressDialog(this);
 
         ArrayList<String> townList = new ArrayList<>();
         townList.add(0, "Montana");
@@ -69,6 +74,11 @@ public class State extends ActionBarActivity {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
+
+                    progress.setTitle("Loading");
+                    progress.setMessage("Fetching your beer from" + ((TextView) view).getText().toString());
+                    progress.show();
+
                     String state = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
 
                     String query = "SELECT+breweries._id+FROM+breweries+JOIN+towns+ON+breweries.name_of_town+%3D+towns._id+WHERE+towns.state+%3D+%27"+state+"%27";
@@ -130,5 +140,11 @@ public class State extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        progress.dismiss();
     }
 }

@@ -11,184 +11,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Search By Beer"
+        android:text="@string/beer_title"
         android:id="@+id/txtSearchBeer"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textColor="#ffffff" />
 
-    <RadioGroup
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    <ListView
+        android:entries="@array/type_of_beer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/txtSearchBeer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="42dp"
-        android:id="@+id/radioGroup"
-        android:layout_alignRight="@+id/txtSearchBeer"
-        android:layout_alignEnd="@+id/txtSearchBeer">
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ale"
-            android:id="@+id/rbAle"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="#ffffff" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Stout"
-            android:id="@+id/rbStout"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="#ffffff" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lager"
-            android:id="@+id/rbLager"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="#ffffff" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Weizen"
-            android:id="@+id/rbWeizen"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="#ffffff" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="India Pale Ale"
-            android:id="@+id/rbIPA"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="#ffffff" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Oktoberfest"
-            android:id="@+id/rbOktoberfest"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="#ffffff" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Porter"
-            android:id="@+id/rbPorter"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="#ffffff" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Helles"
-            android:id="@+id/rbHelles"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="#ffffff" />
-    </RadioGroup>
-
-    <RadioGroup
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignTop="@+id/radioGroup"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="200dp">
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&lt;5% ABV"
-            android:id="@+id/rb5"
-            android:layout_gravity="right"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="#ffffff" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&lt;6% ABV"
-            android:id="@+id/rb6"
-            android:layout_gravity="right"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="#ffffff" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&lt;7%ABV"
-            android:id="@+id/rb7"
-            android:layout_gravity="right"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="#ffffff" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&lt;8% ABV"
-            android:id="@+id/rb8"
-            android:layout_gravity="right"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="#ffffff" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&lt;9% ABV"
-            android:id="@+id/rb9"
-            android:layout_gravity="right"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="#ffffff" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&lt;10% ABV"
-            android:id="@+id/rb10"
-            android:layout_gravity="right"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="#ffffff" />
-
-    </RadioGroup>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:id="@+id/btnBeerSearch"
-        android:layout_gravity="right"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/custom_button" />
-
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/pbBeer"
-        android:layout_alignBottom="@+id/radioGroup"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="75dp" />
+        android:id="@+id/typeBeerlv"
+        android:headerDividersEnabled="false"
+        android:footerDividersEnabled="false"
+        android:background="#00ffffff" />
 
 </RelativeLayout>

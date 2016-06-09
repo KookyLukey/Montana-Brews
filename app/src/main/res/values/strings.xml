@@ -25,6 +25,8 @@
     <string name="title_activity_map">Map</string>
     <string name="Name">Name</string>
 
+    <string name="ok">OK</string>
+
     <string-array name="type_of_beer">
         <item>Dubbel</item>
         <item>Tripel</item>

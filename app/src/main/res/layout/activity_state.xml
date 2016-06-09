@@ -7,11 +7,23 @@
     tools:context="com.kooknluke.montanabreweries.State"
     android:background="#3B5998">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/title_activity_state_beer_list"
+        android:id="@+id/txtSearchBeer"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#ffffff" />
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lvState"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/txtSearchBeer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+    />
 </RelativeLayout>

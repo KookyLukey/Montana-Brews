@@ -57,7 +57,8 @@ public class Town extends ActionBarActivity {
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,
-                android.R.layout.simple_list_item_1,
+                R.layout.beerlistview,
+                R.id.firstLine,
                 townList){
 
             @Override
@@ -65,7 +66,7 @@ public class Town extends ActionBarActivity {
                                 ViewGroup parent) {
                 View view =super.getView(position, convertView, parent);
 
-                TextView textView=(TextView) view.findViewById(android.R.id.text1);
+                TextView textView=(TextView) view.findViewById(R.id.firstLine);
 
             /*YOUR CHOICE OF COLOR*/
                 textView.setTextColor(Color.WHITE);
@@ -79,11 +80,13 @@ public class Town extends ActionBarActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                progress.setTitle("Loading");
-                progress.setMessage("Fetching your town");
-                progress.show();
                 try {
-                    String town = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
+                    TextView tv =(TextView) view.findViewById(R.id.firstLine);
+                    String town = URLEncoder.encode(tv.getText().toString(), "UTF-8");
+
+                    progress.setTitle("Loading");
+                    progress.setMessage("Fetching your town");
+                    progress.show();
 
                     String query = "SELECT+*+FROM+breweries+WHERE+name_of_town+%3D+%27" + town + "%27";
 

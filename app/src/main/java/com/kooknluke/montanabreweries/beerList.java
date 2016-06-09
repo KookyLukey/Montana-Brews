@@ -17,6 +17,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kooknluke.montanabreweries.targets.ViewTarget;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -53,7 +55,7 @@ public class beerList extends ActionBarActivity {
             @Override
             public View getView(int position, View convertView,
                                 ViewGroup parent) {
-                View view =super.getView(position, convertView, parent);
+                View view = super.getView(position, convertView, parent);
 
                 TextView textView=(TextView) view.findViewById(android.R.id.text1);
 
@@ -72,6 +74,7 @@ public class beerList extends ActionBarActivity {
                 progress.setTitle("Loading");
                 progress.setMessage("Fetching your beer");
                 progress.show();
+
                 try {
                     String beer = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
 

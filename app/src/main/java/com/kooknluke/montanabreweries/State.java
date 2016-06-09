@@ -51,17 +51,16 @@ public class State extends ActionBarActivity {
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,
-                android.R.layout.simple_list_item_1,
-                townList){
-
+                R.layout.beerlistview,
+                R.id.firstLine,
+                townList
+        ) {
             @Override
             public View getView(int position, View convertView,
                                 ViewGroup parent) {
-                View view =super.getView(position, convertView, parent);
+                View view = super.getView(position, convertView, parent);
+                TextView textView = (TextView) view.findViewById(R.id.firstLine);
 
-                TextView textView=(TextView) view.findViewById(android.R.id.text1);
-
-            /*YOUR CHOICE OF COLOR*/
                 textView.setTextColor(Color.WHITE);
 
                 return view;
@@ -75,11 +74,12 @@ public class State extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
 
-                    progress.setTitle("Loading");
-                    progress.setMessage("Fetching your beer from" + ((TextView) view).getText().toString());
-                    progress.show();
+                    TextView tv = (TextView) view.findViewById(R.id.firstLine);
+                    String state = URLEncoder.encode(tv.getText().toString(), "UTF-8");
 
-                    String state = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
+                    progress.setTitle("Loading");
+                    progress.setMessage("Fetching your beer from " + (state));
+                    progress.show();
 
                     String query = "SELECT+breweries._id+FROM+breweries+JOIN+towns+ON+breweries.name_of_town+%3D+towns._id+WHERE+towns.state+%3D+%27"+state+"%27";
 

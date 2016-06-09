@@ -3,9 +3,8 @@ package com.kooknluke.montanabreweries;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
-import android.os.StrictMode;
+import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,12 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,14 +22,15 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
+import com.kooknluke.montanabreweries.ShowcaseView;
+import com.kooknluke.montanabreweries.targets.ViewTarget;
 
 public class Beer extends ActionBarActivity {
 
     private ProgressDialog progress;
+    private TextView tv = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +40,8 @@ public class Beer extends ActionBarActivity {
         final ArrayList<String> list = new ArrayList<>();
 
         final Context context = this;
+
+
 
         progress = new ProgressDialog(this);
         final ListView lv = (ListView) findViewById(R.id.typeBeerlv);
@@ -71,6 +69,13 @@ public class Beer extends ActionBarActivity {
         };
 
         lv.setAdapter(arrayAdapter);
+
+//        new ShowcaseView.Builder(this)
+//                .setTarget(new ViewTarget(lv.getChildAt(0).findViewById(R.id.firstLine)))
+//                .setContentText("Blah blah blah")
+//                .hideOnTouchOutside()
+//                .build();
+
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -116,7 +121,7 @@ public class Beer extends ActionBarActivity {
                 }
                 }
             });
-        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -138,5 +143,11 @@ public class Beer extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        progress.dismiss();
     }
 }

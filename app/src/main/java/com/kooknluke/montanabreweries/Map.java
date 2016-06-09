@@ -167,8 +167,6 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
                     }
                 }
 
-                beerList.add(title);
-
                 Intent i = new Intent(context, beerList.class);
                 if (beerList.isEmpty()) {
                     beerList.add("No Beer Found for Brewery");

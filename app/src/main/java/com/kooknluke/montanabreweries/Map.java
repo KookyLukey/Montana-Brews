@@ -145,7 +145,7 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
                 }
 
                 Toast.makeText(context, title, Toast.LENGTH_SHORT);
-                String beerQuery = "SELECT+*++FROM++%60beer%60++WHERE+brewery_name%3D%27" + title + "%27";
+                String beerQuery = "SELECT+*++FROM++%60beer%60++WHERE+brewery_name%3D%22" + title + "%22";
 
 
                 Connection conn = new Connection();
@@ -166,6 +166,8 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
                         }
                     }
                 }
+
+                beerList.add(title);
 
                 Intent i = new Intent(context, beerList.class);
                 if (beerList.isEmpty()) {

@@ -23,11 +23,6 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.TimerTask;
-
-import com.kooknluke.montanabreweries.ShowcaseView;
-import com.kooknluke.montanabreweries.targets.PointTarget;
-import com.kooknluke.montanabreweries.targets.ViewTarget;
 
 public class Beer extends ActionBarActivity {
 
@@ -114,10 +109,6 @@ public class Beer extends ActionBarActivity {
                 }
                 }
             });
-    }
-
-    public void createTooltip(ListView lv){
-
     }
 
     @Override

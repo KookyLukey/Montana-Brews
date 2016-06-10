@@ -3,7 +3,10 @@ package com.kooknluke.montanabreweries;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kooknluke.montanabreweries.targets.PointTarget;
 import com.kooknluke.montanabreweries.targets.ViewTarget;
 
 import java.io.UnsupportedEncodingException;
@@ -67,6 +71,24 @@ public class beerList extends ActionBarActivity {
         };
 
         lv.setAdapter(arrayAdapter);
+
+        SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
+
+        boolean isFirstRun = wmbPreference.getBoolean("FIRSTRUN", true);
+
+        if (isFirstRun) {
+            new ShowcaseView.Builder(this)
+                    .setTarget(new PointTarget(325, 400))
+                    .setContentTitle("Accessing more Information")
+                    .setContentText("If you would like to know more about this brew, you can click this text and it will show you more.")
+                    .hideOnTouchOutside()
+                    .setStyle(0)
+                    .build();
+
+            SharedPreferences.Editor editor = wmbPreference.edit();
+            editor.putBoolean("FIRSTRUN", false);
+            editor.commit();
+        }
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

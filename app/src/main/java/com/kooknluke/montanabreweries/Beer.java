@@ -23,14 +23,15 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.TimerTask;
 
 import com.kooknluke.montanabreweries.ShowcaseView;
+import com.kooknluke.montanabreweries.targets.PointTarget;
 import com.kooknluke.montanabreweries.targets.ViewTarget;
 
 public class Beer extends ActionBarActivity {
 
     private ProgressDialog progress;
-    private TextView tv = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,18 +71,10 @@ public class Beer extends ActionBarActivity {
 
         lv.setAdapter(arrayAdapter);
 
-//        new ShowcaseView.Builder(this)
-//                .setTarget(new ViewTarget(lv.getChildAt(0).findViewById(R.id.firstLine)))
-//                .setContentText("Blah blah blah")
-//                .hideOnTouchOutside()
-//                .build();
-
-
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
-
                     progress.setTitle("Loading");
                     progress.setMessage("Fetching your beer");
                     progress.show();
@@ -121,6 +114,10 @@ public class Beer extends ActionBarActivity {
                 }
                 }
             });
+    }
+
+    public void createTooltip(ListView lv){
+
     }
 
     @Override

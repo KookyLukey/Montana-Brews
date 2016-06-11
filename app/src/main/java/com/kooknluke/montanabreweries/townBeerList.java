@@ -21,6 +21,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,20 +67,19 @@ public class townBeerList extends ActionBarActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                progress.setTitle("Loading");
-                progress.setMessage("Fetching your brewery");
-                progress.show();
-                String brewery = ((TextView)view).getText().toString();
-                String[] temporary = brewery.split(" ");
-                String input = temporary[0];
-
-                String query = "SELECT%20*%20FROM%20beer%20WHERE%20brewery_name%20LIKE%20%27%25" + input + "%25%27";
-
                 try {
+                    progress.setTitle("Loading");
+                    progress.setMessage("Fetching your brewery");
+                    progress.show();
+
+                    String title = URLEncoder.encode(((TextView)view).getText().toString(), "UTF-8");
+
+                    String query = "%20SELECT%20*%20FROM%20%60beer%60%20WHERE%20brewery_name%20%3D%20%22" + title + "%22";
+
                     Connection conn = new Connection();
                     JSONArray arr = conn.connect(query);
                     if (arr == null) {
-                        list.add("NULL");
+                        list.add("No beers found");
                     } else {
                         for (int i = 0; i < arr.length(); i++) {
                             JSONObject sys = arr.getJSONObject(i);
@@ -88,6 +89,8 @@ public class townBeerList extends ActionBarActivity {
                     }
                 } catch (JSONException e){
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                 }
 
                 Intent i = new Intent(context, beerList.class);

@@ -26,6 +26,26 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/tvABV"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:layout_below="@+id/tvBeerDescriptionName"-->
+        <!--android:layout_alignLeft="@+id/ivBeerImage"-->
+        <!--android:layout_alignStart="@+id/ivBeerImage"-->
+        <!--android:text="@string/ABV" />-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/tvBreweryName"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:text="@string/Brewery"-->
+        <!--android:layout_below="@+id/tvABV"-->
+        <!--android:layout_alignLeft="@+id/tvABV"-->
+        <!--android:layout_alignStart="@+id/tvABV" />-->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

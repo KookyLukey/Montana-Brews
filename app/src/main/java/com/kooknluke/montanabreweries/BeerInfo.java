@@ -15,6 +15,7 @@ import java.net.URLDecoder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class beerInfo extends ActionBarActivity {
@@ -24,8 +25,10 @@ public class beerInfo extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beer_info);
 
-        final TextView name = (TextView) findViewById(R.id.tvBeerDescriptionName);
         final ImageView imageView = (ImageView) findViewById(R.id.ivBeerImage);
+        final TextView name = (TextView) findViewById(R.id.tvBeerDescriptionName);
+//        final TextView ABV = (TextView) findViewById(R.id.tvABV);
+//        final TextView Brewery = (TextView) findViewById(R.id.tvBreweryName);
         final TextView description = (TextView) findViewById(R.id.tvBeerDescription);
 
         String beerName = getIntent().getStringExtra("beerName");
@@ -60,7 +63,20 @@ public class beerInfo extends ActionBarActivity {
                 imageView.setImageBitmap(decodedByte);
 
                 description.setText(arr.getString(2));
-
+//
+//                String query = "SELECT%20ABV,%20brewery_name%20FROM%20beer%20WHERE%20_id%20=%20%27" + beerName + "%27";
+//
+//                arr = conn.connect(query);
+//
+//                if (arr == null) {
+//                    ABV.append(" Not Found");
+//                    Brewery.append(" Not Found");
+//                }
+//                else {
+//                    JSONObject obj = arr.getJSONObject(0);
+//                    ABV.append(" " + obj.getString("ABV"));
+//                    Brewery.append(" " + obj.getString("brewery_name"));
+//                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

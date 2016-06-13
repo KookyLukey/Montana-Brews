@@ -24,6 +24,9 @@
     <string name="title_activity_connection">Connection</string>
     <string name="title_activity_map">Map</string>
     <string name="Name">Name</string>
+    <string name="ABV">Alcohol By Volume: </string>
+    <string name="Description">Description Unavailable</string>
+    <string name="Brewery">Brewery: </string>
 
     <string name="ok">OK</string>
 

@@ -137,7 +137,7 @@ public class beerList extends ActionBarActivity {
     }
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         progress.dismiss();
     }

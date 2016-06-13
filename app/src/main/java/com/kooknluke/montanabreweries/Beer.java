@@ -36,9 +36,6 @@ public class Beer extends ActionBarActivity {
         final ArrayList<String> list = new ArrayList<>();
 
         final Context context = this;
-
-
-
         progress = new ProgressDialog(this);
         final ListView lv = (ListView) findViewById(R.id.typeBeerlv);
 
@@ -134,7 +131,7 @@ public class Beer extends ActionBarActivity {
     }
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         progress.dismiss();
     }

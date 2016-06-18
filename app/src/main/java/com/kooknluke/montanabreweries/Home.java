@@ -11,6 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 
 public class Home extends ActionBarActivity {
 
@@ -31,6 +34,10 @@ public class Home extends ActionBarActivity {
         final Button btnState = (Button) findViewById(R.id.btn_state);
         final Button btnSeason = (Button) findViewById(R.id.btn_season);
         final Button btnMap = (Button) findViewById(R.id.btnMap);
+        final AdView adView = (AdView) findViewById(R.id.adView);
+
+        AdRequest adReq = new AdRequest.Builder().build();
+        adView.loadAd(adReq);
 
         btnBeer.setOnClickListener(new View.OnClickListener() {
 

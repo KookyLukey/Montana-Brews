@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,8 +30,9 @@ import java.util.Arrays;
 
 public class Breweries extends ActionBarActivity {
 
-      private Button btnShowBeers;
-      private ProgressDialog progress;
+    private Button btnShowBeers;
+    private ProgressDialog progress;
+    private String query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,52 +54,59 @@ public class Breweries extends ActionBarActivity {
         btnShowBeers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progress.setTitle("Loading");
-                progress.setMessage("Fetching your brewery");
-                progress.show();
 
-                String userInput = URLEncoder.encode(etSearchBreweries.getText().toString());
+            String userInput = URLEncoder.encode(etSearchBreweries.getText().toString());
 
-                String query = "SELECT+*+FROM+beer+WHERE+brewery_name+LIKE+%27%25" + userInput + "%25%27";
+            query = "SELECT+*+FROM+beer+WHERE+brewery_name+LIKE+%27%25" + userInput + "%25%27";
 
+            new AsyncTask<Void, Void, Void>() {
 
-                if (btnShowBeers.isEnabled() == true) {
-                    btnShowBeers.setEnabled(false);
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    progress.setTitle("Loading");
+                    progress.setMessage("Fetching your Beer...");
+                    progress.show();
                 }
 
-                Connection conn = new Connection();
-                JSONArray arr = conn.connect(query);
 
-                if (arr == null) {
-                    list.add("No Beer Found for Brewery");
-                }
-                else {
-                    for (int i = 0; i < arr.length(); i++) {
-                        JSONObject sys = null;
-                        try {
-                            sys = arr.getJSONObject(i);
-                            String temp = sys.getString("_id");
-                            list.add(temp);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                @Override
+                protected Void doInBackground(Void... params) {
+                    try {
+                        Connection conn = new Connection();
+                        JSONArray arr = conn.connect(query);
+                        if (arr == null) {
+                            list.add("No Beer Found for Brewery");
+                        } else {
+                            for (int i = 0; i < arr.length(); i++) {
+                                JSONObject sys = arr.getJSONObject(i);
+                                String temp = sys.getString("_id");
+                                list.add(temp);
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } finally {
+                        Intent i = new Intent(context, beerList.class);
+                        if (list.isEmpty()) {
+                            list.add("No Beer Found for Brewery");
+                            i.putStringArrayListExtra("beer", list);
+                            startActivity(i);
+                            list.clear();
+                        } else {
+                            i.putStringArrayListExtra("beer", list);
+                            startActivity(i);
+                            list.clear();
                         }
                     }
+                    return null;
                 }
 
-
-                Intent i = new Intent(context, beerList.class);
-                if (list.isEmpty()) {
-                    list.add("No Beer Found for Brewery");
-                    i.putStringArrayListExtra("beer", list);
-                    startActivity(i);
-                    list.clear();
+                @Override
+                protected void onPostExecute(Void result) {
+                    progress.dismiss();
                 }
-                else {
-                    i.putStringArrayListExtra("beer", list);
-                    startActivity(i);
-                    list.clear();
-                }
-                
+            }.execute();
             }
         });
 

@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 
 public class Home extends ActionBarActivity {
@@ -36,7 +37,14 @@ public class Home extends ActionBarActivity {
         final Button btnMap = (Button) findViewById(R.id.btnMap);
         final AdView adView = (AdView) findViewById(R.id.adView);
 
-        AdRequest adReq = new AdRequest.Builder().build();
+//        AdRequest adReq = new AdRequest.Builder().build();
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-6225081440194649~2118773217");
+        AdRequest adReq = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("502949AF1DC4C38881283DD133E9F4A1")
+                .build();
+
         adView.loadAd(adReq);
 
         btnBeer.setOnClickListener(new View.OnClickListener() {

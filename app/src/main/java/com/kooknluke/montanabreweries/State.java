@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -33,6 +34,7 @@ public class State extends ActionBarActivity {
 
     private String state;
     private ProgressDialog progress;
+    private String query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,45 +79,60 @@ public class State extends ActionBarActivity {
                     TextView tv = (TextView) view.findViewById(R.id.firstLine);
                     String state = URLEncoder.encode(tv.getText().toString(), "UTF-8");
 
-                    progress.setTitle("Loading");
-                    progress.setMessage("Fetching your beer from " + (state));
-                    progress.show();
+                    query = "SELECT+breweries._id+FROM+breweries+JOIN+towns+ON+breweries.name_of_town+%3D+towns._id+WHERE+towns.state+%3D+%27"+state+"%27";
 
-                    String query = "SELECT+breweries._id+FROM+breweries+JOIN+towns+ON+breweries.name_of_town+%3D+towns._id+WHERE+towns.state+%3D+%27"+state+"%27";
-
-                    try {
-                        Connection conn = new Connection();
-                        JSONArray arr = conn.connect(query);
-                        if (arr == null) {
-                            list.add("No Brewery Found");
-                        }
-                        else {
-                            for (int i = 0; i < arr.length(); i++) {
-                                JSONObject sys = arr.getJSONObject(i);
-                                String temp = sys.getString("_id");
-                                list.add(temp);
-                            }
-                        }
-                    }
-                    catch (JSONException e){
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                    Intent i = new Intent(context, townBeerList.class);
-                    if (list.isEmpty()) {
-                        list.add("No Brewery Found");
-                        i.putStringArrayListExtra("beer", list);
-                        startActivity(i);
-                        list.clear();
-                    }
-                    else {
-                        i.putStringArrayListExtra("beer", list);
-                        startActivity(i);
-                        list.clear();
-                    }
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
+
+                new AsyncTask<Void, Void, Void>() {
+
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                        progress.setTitle("Loading");
+                        progress.setMessage("Fetching your Beer...");
+                        progress.show();
+                    }
+
+
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        try {
+                            Connection conn = new Connection();
+                            JSONArray arr = conn.connect(query);
+                            if (arr == null) {
+                                list.add("No Brewery Found");
+                            } else {
+                                for (int i = 0; i < arr.length(); i++) {
+                                    JSONObject sys = arr.getJSONObject(i);
+                                    String temp = sys.getString("_id");
+                                    list.add(temp);
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } finally {
+                            Intent i = new Intent(context, beerList.class);
+                            if (list.isEmpty()) {
+                                list.add("No Brewery Found");
+                                i.putStringArrayListExtra("beer", list);
+                                startActivity(i);
+                                list.clear();
+                            } else {
+                                i.putStringArrayListExtra("beer", list);
+                                startActivity(i);
+                                list.clear();
+                            }
+                        }
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void result) {
+                        progress.dismiss();
+                    }
+                }.execute();
             }
         });
     }

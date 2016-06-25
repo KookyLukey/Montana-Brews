@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -34,6 +35,7 @@ public class Seasons extends ActionBarActivity {
     private String season;
     private Button btnSearch;
     private ProgressDialog progress;
+    private String query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,48 +79,62 @@ public class Seasons extends ActionBarActivity {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
-
-                    progress.setTitle("Loading");
-                    progress.setMessage("Fetching your beer");
-                    progress.show();
-
                     String season = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
 
-                    String query = "SELECT+*+FROM+seasons+WHERE+season+%3D+%27"+season+"%27";
+                    query = "SELECT+*+FROM+seasons+WHERE+season+%3D+%27"+season+"%27";
 
-                    try {
-                        Connection conn = new Connection();
-                        JSONArray arr = conn.connect(query);
-                        if (arr == null) {
-                            list.add("No Season Found");
-                        }
-                        else {
-                            for (int i = 0; i < arr.length(); i++) {
-                                JSONObject sys = arr.getJSONObject(i);
-                                String temp = sys.getString("_id");
-                                list.add(temp);
-                            }
-                        }
-                    }
-                    catch (JSONException e){
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                    Intent i = new Intent(context, beerList.class);
-                    if (list.isEmpty()) {
-                        list.add("No Season Found");
-                        i.putStringArrayListExtra("beer", list);
-                        startActivity(i);
-                        list.clear();
-                    }
-                    else {
-                        i.putStringArrayListExtra("beer", list);
-                        startActivity(i);
-                        list.clear();
-                    }
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
+
+                new AsyncTask<Void, Void, Void>() {
+
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                        progress.setTitle("Loading");
+                        progress.setMessage("Fetching your Beer...");
+                        progress.show();
+                    }
+
+
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        try {
+                            Connection conn = new Connection();
+                            JSONArray arr = conn.connect(query);
+                            if (arr == null) {
+                                list.add("No Beer Found");
+                            } else {
+                                for (int i = 0; i < arr.length(); i++) {
+                                    JSONObject sys = arr.getJSONObject(i);
+                                    String temp = sys.getString("_id");
+                                    list.add(temp);
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } finally {
+                            Intent i = new Intent(context, beerList.class);
+                            if (list.isEmpty()) {
+                                list.add("No Beer Found");
+                                i.putStringArrayListExtra("beer", list);
+                                startActivity(i);
+                                list.clear();
+                            } else {
+                                i.putStringArrayListExtra("beer", list);
+                                startActivity(i);
+                                list.clear();
+                            }
+                        }
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void result) {
+                        progress.dismiss();
+                    }
+                }.execute();
             }
         });
     }

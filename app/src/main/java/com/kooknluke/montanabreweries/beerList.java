@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
@@ -32,6 +33,7 @@ import java.util.List;
 public class beerList extends ActionBarActivity {
 
     private ProgressDialog progress;
+    private String beer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,22 +95,35 @@ public class beerList extends ActionBarActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                progress.setTitle("Loading");
-                progress.setMessage("Fetching your beer");
-                progress.show();
-
                 try {
-                    String beer = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
-
-                    Intent i = new Intent(context, beerInfo.class);
-                    i.putExtra("beerName", beer);
-                    startActivity(i);
-                    //progress.dismiss();
-
-//                    beerList.clear();
+                    beer = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
+                new AsyncTask<Void, Void, Void>() {
+
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                        progress.setTitle("Loading");
+                        progress.setMessage("Fetching your Beer...");
+                        progress.show();
+                    }
+
+
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        Intent i = new Intent(context, beerInfo.class);
+                        i.putExtra("beerName", beer);
+                        startActivity(i);
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void result) {
+                        progress.dismiss();
+                    }
+                }.execute();
             }
         });
     }
@@ -140,5 +155,10 @@ public class beerList extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         progress.dismiss();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

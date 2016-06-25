@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -66,46 +67,66 @@ public class Beer extends ActionBarActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                TextView tv = (TextView) view.findViewById(R.id.firstLine);
+                String type = null;
                 try {
-                    progress.setTitle("Loading");
-                    progress.setMessage("Fetching your beer");
-                    progress.show();
-
-                    TextView tv = (TextView) view.findViewById(R.id.firstLine);
-                    String type = URLEncoder.encode(tv.getText().toString(), "UTF-8");
-                    String query = "SELECT+*+FROM+beer+WHERE+type_of_beer+LIKE+%27%25" + type + "%25%27";
-
-                    Connection conn = new Connection();
-                    JSONArray arr = conn.connect(query);
-                    if (arr == null) {
-                        list.add("No Beer Found");
-                    } else {
-                        for (int i = 0; i < arr.length(); i++) {
-                            JSONObject sys = arr.getJSONObject(i);
-                            String temp = sys.getString("_id");
-                            list.add(temp);
-                        }
-                    }
-
+                    type = URLEncoder.encode(tv.getText().toString(), "UTF-8");
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } finally {
-                    Intent i = new Intent(context, beerList.class);
-                    if (list.isEmpty()) {
-                        list.add("No Beer Found");
-                        i.putStringArrayListExtra("beer", list);
-                        startActivity(i);
-                        list.clear();
-                    } else {
-                        i.putStringArrayListExtra("beer", list);
-                        startActivity(i);
-                        list.clear();
+                }
+                final String query = "SELECT+*+FROM+beer+WHERE+type_of_beer+LIKE+%27%25" + type + "%25%27";
+
+                new AsyncTask<Void, Void, Void>() {
+
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                        progress.setTitle("Loading");
+                        progress.setMessage("Fetching your Beer...");
+                        progress.show();
                     }
-                }
-                }
-            });
+
+
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        try {
+                            Connection conn = new Connection();
+                            JSONArray arr = conn.connect(query);
+                            if (arr == null) {
+                                list.add("No Beer Found");
+                            } else {
+                                for (int i = 0; i < arr.length(); i++) {
+                                    JSONObject sys = arr.getJSONObject(i);
+                                    String temp = sys.getString("_id");
+                                    list.add(temp);
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } finally {
+                            Intent i = new Intent(context, beerList.class);
+                            if (list.isEmpty()) {
+                                list.add("No Beer Found");
+                                i.putStringArrayListExtra("beer", list);
+                                startActivity(i);
+                                list.clear();
+                            } else {
+                                i.putStringArrayListExtra("beer", list);
+                                startActivity(i);
+                                list.clear();
+                            }
+                        }
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void result) {
+                        progress.dismiss();
+                    }
+                }.execute();
+            }
+        });
     }
 
     @Override
@@ -133,6 +154,6 @@ public class Beer extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        progress.dismiss();
+//        progress.dismiss();
     }
 }

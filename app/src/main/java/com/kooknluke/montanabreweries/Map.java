@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -44,6 +45,8 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
     private final ArrayList<String> beerList = new ArrayList<>();
     private final Context context = this;
     private ProgressDialog progress;
+    private String query;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,12 +136,7 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                String title = null;
                 try {
-                    progress.setTitle("Loading");
-                    progress.setMessage("Fetching your beer");
-                    progress.show();
-
                     title = URLEncoder.encode(marker.getTitle(), "UTF-8");
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
@@ -147,38 +145,57 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
                 Toast.makeText(context, title, Toast.LENGTH_SHORT);
                 String beerQuery = "SELECT+*++FROM++%60beer%60++WHERE+brewery_name%3D%22" + title + "%22";
 
-
                 Connection conn = new Connection();
                 JSONArray beerArr = conn.connect(beerQuery);
 
-                if (beerArr == null) {
-                    beerList.add("No Beer Found for Brewery");
-                }
-                else {
-                    for (int i = 0; i < beerArr.length(); i++) {
-                        JSONObject sys = null;
+                new AsyncTask<Void, Void, Void>() {
+
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                        progress.setTitle("Loading");
+                        progress.setMessage("Fetching Beer from " + title + "...");
+                        progress.show();
+                    }
+
+
+                    @Override
+                    protected Void doInBackground(Void... params) {
                         try {
-                            sys = beerArr.getJSONObject(i);
-                            String temp = sys.getString("_id");
-                            beerList.add(temp);
+                            Connection conn = new Connection();
+                            JSONArray arr = conn.connect(query);
+                            if (arr == null) {
+                                beerList.add("No Beer Found for Brewery");
+                            } else {
+                                for (int i = 0; i < arr.length(); i++) {
+                                    JSONObject sys = arr.getJSONObject(i);
+                                    String temp = sys.getString("_id");
+                                    beerList.add(temp);
+                                }
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                        } finally {
+                            Intent i = new Intent(context, beerList.class);
+                            if (beerList.isEmpty()) {
+                                beerList.add("No Beer Found for Brewery");
+                                i.putStringArrayListExtra("beer", beerList);
+                                startActivity(i);
+                                beerList.clear();
+                            } else {
+                                i.putStringArrayListExtra("beer", beerList);
+                                startActivity(i);
+                                beerList.clear();
+                            }
                         }
+                        return null;
                     }
-                }
 
-                Intent i = new Intent(context, beerList.class);
-                if (beerList.isEmpty()) {
-                    beerList.add("No Beer Found for Brewery");
-                    i.putStringArrayListExtra("beer", beerList);
-                    startActivity(i);
-                    beerList.clear();
-                }
-                else {
-                    i.putStringArrayListExtra("beer", beerList);
-                    startActivity(i);
-                    beerList.clear();
-                }
+                    @Override
+                    protected void onPostExecute(Void result) {
+                        progress.dismiss();
+                    }
+                }.execute();
             }
         });
     }

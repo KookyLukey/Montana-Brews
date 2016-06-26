@@ -30,33 +30,22 @@
         android:layout_alignParentEnd="true"
         android:textColor="#FFFFFF" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show Beers"
-        android:id="@+id/btnShowBeers"
-        android:layout_below="@+id/etSearchBreweries"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/custom_button" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show Address"
-        android:id="@+id/btnShowAddress"
-        android:layout_below="@+id/etSearchBreweries"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/custom_button" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txtTestBreweries"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Beers"
+        android:id="@+id/btnShowBeers"
+        android:background="@drawable/custom_button"
+        android:layout_below="@+id/etSearchBreweries"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

@@ -45,9 +45,7 @@ public class Breweries extends ActionBarActivity {
         progress = new ProgressDialog(this);
 
         btnShowBeers = (Button) findViewById(R.id.btnShowBeers);
-        final Button btnShowAddress = (Button) findViewById(R.id.btnShowAddress);
         final EditText etSearchBreweries = (EditText) findViewById(R.id.etSearchBreweries);
-        final TextView txtTestBreweries = (TextView) findViewById(R.id.txtTestBreweries);
 
         btnShowBeers.setEnabled(true);
 
@@ -107,27 +105,6 @@ public class Breweries extends ActionBarActivity {
                     progress.dismiss();
                 }
             }.execute();
-            }
-        });
-
-        btnShowAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            String userInput = URLEncoder.encode(etSearchBreweries.getText().toString());
-
-            String query = "SELECT+*+FROM+breweries+WHERE+_id+LIKE+%27%25" + userInput + "%25%27";
-
-            Connection conn = new Connection();
-            JSONArray arr = conn.connect(query);
-
-            try {
-                JSONObject sys = arr.getJSONObject(0);
-                String temp = sys.getString("address");
-                txtTestBreweries.setText(temp);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
             }
         });
     }

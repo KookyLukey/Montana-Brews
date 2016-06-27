@@ -128,36 +128,12 @@
                 android:value="com.kooknluke.montanabreweries.Nutrition" />
         </activity>
         <activity
-            android:name=".beerHistory"
-            android:label="@string/title_activity_beer_history"
-            android:parentActivityName=".Home" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kooknluke.montanabreweries.Home" />
-        </activity>
-        <activity
-            android:name=".beerHistoryList"
-            android:label="@string/title_activity_beer_history_list"
-            android:parentActivityName=".beerHistory" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kooknluke.montanabreweries.beerHistory" />
-        </activity>
-        <activity
             android:name=".beerInfo"
             android:label="@string/title_activity_beer_info"
             android:parentActivityName=".beerList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.kooknluke.montanabreweries.beerList" />
-        </activity>
-        <activity
-            android:name=".Connection"
-            android:label="@string/title_activity_connection"
-            android:parentActivityName=".Home" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kooknluke.montanabreweries.Home" />
         </activity>
 
         <meta-data

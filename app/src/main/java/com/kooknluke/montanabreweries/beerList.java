@@ -47,6 +47,19 @@ public class beerList extends ActionBarActivity {
         final ListView lv = (ListView) findViewById(R.id.lvBeerList);
         progress = new ProgressDialog(this);
 
+        Integer checker = 1;
+
+        checker = getIntent().getIntExtra("Breweries", 0);
+
+        switch (checker) {
+            case 0:
+                setTitle("List of Breweries");
+                break;
+            case 1:
+                setTitle("List of Beer");
+                break;
+        }
+
         ArrayList<String> beerList;
         if (getIntent().getStringArrayListExtra("beer") == null) {
             beerList = ((StaticStore)this.getApplication()).getArray();

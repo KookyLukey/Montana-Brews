@@ -177,6 +177,7 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
                             e.printStackTrace();
                         } finally {
                             Intent i = new Intent(context, beerList.class);
+                            i.putExtra("Breweries", 1);
                             if (beerList.isEmpty()) {
                                 beerList.add("No Beer Found for Brewery");
                                 i.putStringArrayListExtra("beer", beerList);

@@ -8,7 +8,7 @@
     <string name="title_activity_state">State</string>
     <string name="title_activity_seasons">Seasons</string>
     <string name="title_activity_nutrition">Nutritional Information</string>
-    <string name="title_activity_beer_list">List of Beers</string>
+    <string name="title_activity_beer_list">List of Beer</string>
 
     <string name="beer_title">Search By Type</string>
     <string name="title_activity_brewery_beer_list">Beer List by Brewery</string>

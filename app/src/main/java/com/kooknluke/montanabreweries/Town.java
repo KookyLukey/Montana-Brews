@@ -133,6 +133,7 @@ public class Town extends ActionBarActivity {
                             e.printStackTrace();
                         } finally {
                             Intent i = new Intent(context, beerList.class);
+                            i.putExtra("Breweries", 0);
                             if (list.isEmpty()) {
                                 list.add("No Brewery Found");
                                 i.putStringArrayListExtra("beer", list);

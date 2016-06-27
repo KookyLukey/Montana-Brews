@@ -129,6 +129,7 @@ public class Seasons extends ActionBarActivity {
                             e.printStackTrace();
                         } finally {
                             Intent i = new Intent(context, beerList.class);
+                            i.putExtra("Breweries", 1);
                             if (list.isEmpty()) {
                                 list.add("No Beer Found");
                                 i.putStringArrayListExtra("beer", list);

@@ -55,8 +55,6 @@ public class Beer extends ActionBarActivity {
 
         String[] types = getResources().getStringArray(R.array.type_of_beer);
 
-
-
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
             this,
             R.layout.beerlistview,
@@ -119,6 +117,7 @@ public class Beer extends ActionBarActivity {
                             e.printStackTrace();
                         } finally {
                             Intent i = new Intent(context, beerList.class);
+                            i.putExtra("Breweries", 1);
                             if (list.isEmpty()) {
                                 list.add("No Beer Found");
                                 i.putStringArrayListExtra("beer", list);

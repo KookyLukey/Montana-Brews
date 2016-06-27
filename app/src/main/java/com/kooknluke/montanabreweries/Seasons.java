@@ -20,6 +20,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,26 +51,34 @@ public class Seasons extends ActionBarActivity {
         final ArrayList<String> list = new ArrayList<>();
 
         progress = new ProgressDialog(this);
+        final AdView adView = (AdView) findViewById(R.id.SeasonsAV);
 
-        ArrayList<String> townList = new ArrayList<>();
-        townList.add(0, "Spring");
-        townList.add(1, "Summer");
-        townList.add(2, "Fall");
-        townList.add(3, "Winter");
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-6225081440194649~2118773217");
+        AdRequest adReq = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("502949AF1DC4C38881283DD133E9F4A1")
+                .build();
+
+        adView.loadAd(adReq);
+
+        ArrayList<String> seasonList = new ArrayList<>();
+        seasonList.add(0, "Spring");
+        seasonList.add(1, "Summer");
+        seasonList.add(2, "Fall");
+        seasonList.add(3, "Winter");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,
-                android.R.layout.simple_list_item_1,
-                townList){
-
+                R.layout.beerlistview,
+                R.id.firstLine,
+                seasonList
+        ) {
             @Override
             public View getView(int position, View convertView,
                                 ViewGroup parent) {
-                View view =super.getView(position, convertView, parent);
+                View view = super.getView(position, convertView, parent);
+                TextView textView = (TextView) view.findViewById(R.id.firstLine);
 
-                TextView textView=(TextView) view.findViewById(android.R.id.text1);
-
-            /*YOUR CHOICE OF COLOR*/
                 textView.setTextColor(Color.WHITE);
 
                 return view;
@@ -79,9 +91,10 @@ public class Seasons extends ActionBarActivity {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    String season = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
+                    TextView tv = (TextView) view.findViewById(R.id.firstLine);
+                    String season = URLEncoder.encode(tv.getText().toString(), "UTF-8");
 
-                    query = "SELECT+*+FROM+seasons+WHERE+season+%3D+%27"+season+"%27";
+                    query = "SELECT+*+FROM+seasons+WHERE+season+%3D+%27" + season + "%27";
 
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();

@@ -10,6 +10,10 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
@@ -30,6 +34,15 @@ public class beerInfo extends ActionBarActivity {
 //        final TextView ABV = (TextView) findViewById(R.id.tvABV);
 //        final TextView Brewery = (TextView) findViewById(R.id.tvBreweryName);
         final TextView description = (TextView) findViewById(R.id.tvBeerDescription);
+        final AdView adView = (AdView) findViewById(R.id.BeerInfoAV);
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-6225081440194649~2118773217");
+        AdRequest adReq = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("502949AF1DC4C38881283DD133E9F4A1")
+                .build();
+
+        adView.loadAd(adReq);
 
         String beerName = getIntent().getStringExtra("beerName");
 

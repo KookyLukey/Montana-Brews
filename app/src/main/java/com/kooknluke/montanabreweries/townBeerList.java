@@ -17,6 +17,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +46,15 @@ public class townBeerList extends ActionBarActivity {
         final ListView lv = (ListView) findViewById(R.id.lvTown);
         List<String> beerList = getIntent().getStringArrayListExtra("beer");
         progress = new ProgressDialog(this);
+        final AdView adView = (AdView) findViewById(R.id.TownBreweryListAV);
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-6225081440194649~2118773217");
+        AdRequest adReq = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("502949AF1DC4C38881283DD133E9F4A1")
+                .build();
+
+        adView.loadAd(adReq);
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,

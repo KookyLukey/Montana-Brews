@@ -4,6 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     tools:context="com.kooknluke.montanabreweries.Seasons"
     android:background="#3B5998">
 
@@ -22,8 +23,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lvSeasons"
-        android:layout_below="@+id/txtSearchBySeason"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/SeasonsAV"
+        android:layout_below="@+id/txtSearchBySeason" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/SeasonsAV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-6225081440194649/9131532411">
+    </com.google.android.gms.ads.AdView>
 
 </RelativeLayout>

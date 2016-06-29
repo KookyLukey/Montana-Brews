@@ -88,14 +88,6 @@
                 android:value="com.kooknluke.montanabreweries.Seasons" />
         </activity>
         <activity
-            android:name=".townBeerList"
-            android:label="@string/title_activity_town_beer_list"
-            android:parentActivityName=".Town" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kooknluke.montanabreweries.Town" />
-        </activity>
-        <activity
             android:name=".beerInfo"
             android:label="@string/title_activity_beer_info"
             android:parentActivityName=".beerList" >

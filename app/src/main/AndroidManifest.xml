@@ -72,28 +72,12 @@
                 android:value="com.kooknluke.montanabreweries.Home" />
         </activity>
         <activity
-            android:name=".Nutrition"
-            android:label="@string/title_activity_nutrition"
-            android:parentActivityName=".Home" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kooknluke.montanabreweries.Home" />
-        </activity>
-        <activity
             android:name=".beerList"
             android:label="@string/title_activity_beer_list"
             android:parentActivityName=".Beer" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.kooknluke.montanabreweries.Beer" />
-        </activity>
-        <activity
-            android:name=".breweryBeerList"
-            android:label="@string/title_activity_brewery_beer_list"
-            android:parentActivityName=".Breweries" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kooknluke.montanabreweries.Breweries" />
         </activity>
         <activity
             android:name=".seasonsBeerList"
@@ -118,14 +102,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.kooknluke.montanabreweries.State" />
-        </activity>
-        <activity
-            android:name=".nutritionBeerList"
-            android:label="@string/title_activity_nutrition_beer_list"
-            android:parentActivityName=".Nutrition" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kooknluke.montanabreweries.Nutrition" />
         </activity>
         <activity
             android:name=".beerInfo"

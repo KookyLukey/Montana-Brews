@@ -50,7 +50,7 @@ public class beerList extends ActionBarActivity {
 
         Integer checker = 1;
 
-        checker = getIntent().getIntExtra("Breweries", 0);
+        checker = getIntent().getIntExtra("Breweries", 1);
 
         switch (checker) {
             case 0:

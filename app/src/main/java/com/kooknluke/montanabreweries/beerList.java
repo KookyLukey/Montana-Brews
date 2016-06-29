@@ -28,6 +28,8 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class beerList extends ActionBarActivity {
@@ -70,6 +72,14 @@ public class beerList extends ActionBarActivity {
             ((StaticStore)this.getApplication()).setArrayList(beerList);
         }
 
+        Collections.sort(beerList, new Comparator<String>() {
+
+            @Override
+            public int compare(String One, String Two) {
+                return (One).compareTo(Two);
+            }
+        });
+
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
@@ -93,122 +103,124 @@ public class beerList extends ActionBarActivity {
 
         SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if (!breweries) {
-            boolean isFirstRun = wmbPreference.getBoolean("FIRSTRUN", true);
+        if (!beerList.get(0).contains("No")) {
 
-            if (isFirstRun) {
-                new ShowcaseView.Builder(this)
-                        .setTarget(new PointTarget(325, 400))
-                        .setContentTitle("Accessing more Information")
-                        .setContentText("If you would like to know more about this brew, you can click this text and it will show you more.")
-                        .hideOnTouchOutside()
-                        .setStyle(0)
-                        .build();
+            if (!breweries) {
+                boolean isFirstRun = wmbPreference.getBoolean("FIRSTRUN", true);
 
-                SharedPreferences.Editor editor = wmbPreference.edit();
-                editor.putBoolean("FIRSTRUN", false);
-                editor.commit();
-            }
+                if (isFirstRun) {
+                    new ShowcaseView.Builder(this)
+                            .setTarget(new PointTarget(325, 400))
+                            .setContentTitle("Accessing more Information")
+                            .setContentText("If you would like to know more about this brew, you can click this text and it will show you more.")
+                            .hideOnTouchOutside()
+                            .setStyle(0)
+                            .build();
 
-            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    try {
-                        beer = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                    new AsyncTask<Void, Void, Void>() {
-
-                        @Override
-                        protected void onPreExecute() {
-                            super.onPreExecute();
-                            progress.setTitle("Loading");
-                            progress.setMessage("Fetching your Beer...");
-                            progress.show();
-                        }
-
-
-                        @Override
-                        protected Void doInBackground(Void... params) {
-                            Intent i = new Intent(context, beerInfo.class);
-                            i.putExtra("beerName", beer);
-                            startActivity(i);
-                            return null;
-                        }
-
-                        @Override
-                        protected void onPostExecute(Void result) {
-                            progress.dismiss();
-                        }
-                    }.execute();
+                    SharedPreferences.Editor editor = wmbPreference.edit();
+                    editor.putBoolean("FIRSTRUN", false);
+                    editor.commit();
                 }
-            });
-        }
-        else {
-            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-                    final ArrayList<String> list = new ArrayList<>();
-                    try {
-                        beer = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                    query = "SELECT+*++FROM++%60beer%60++WHERE+brewery_name%3D%22" + beer + "%22";
-
-                    new AsyncTask<Void, Void, Void>() {
-
-                        @Override
-                        protected void onPreExecute() {
-                            super.onPreExecute();
-                            progress.setTitle("Loading");
-                            progress.setMessage("Fetching your Beer...");
-                            progress.show();
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        try {
+                            beer = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
                         }
+                        new AsyncTask<Void, Void, Void>() {
+
+                            @Override
+                            protected void onPreExecute() {
+                                super.onPreExecute();
+                                progress.setTitle("Loading");
+                                progress.setMessage("Fetching your Beer...");
+                                progress.show();
+                            }
 
 
-                        @Override
-                        protected Void doInBackground(Void... params) {
-                            try {
-                                Connection conn = new Connection();
-                                JSONArray arr = conn.connect(query);
-                                if (arr == null) {
-                                    list.add("No Beer Found for Brewery");
-                                } else {
-                                    for (int i = 0; i < arr.length(); i++) {
-                                        JSONObject sys = arr.getJSONObject(i);
-                                        String temp = sys.getString("_id");
-                                        list.add(temp);
+                            @Override
+                            protected Void doInBackground(Void... params) {
+                                Intent i = new Intent(context, beerInfo.class);
+                                i.putExtra("beerName", beer);
+                                startActivity(i);
+                                return null;
+                            }
+
+                            @Override
+                            protected void onPostExecute(Void result) {
+                                progress.dismiss();
+                            }
+                        }.execute();
+                    }
+                });
+            } else {
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        final ArrayList<String> list = new ArrayList<>();
+                        try {
+                            beer = URLEncoder.encode(((TextView) view).getText().toString(), "UTF-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        query = "SELECT+*++FROM++%60beer%60++WHERE+brewery_name%3D%22" + beer + "%22";
+
+                        new AsyncTask<Void, Void, Void>() {
+
+                            @Override
+                            protected void onPreExecute() {
+                                super.onPreExecute();
+                                progress.setTitle("Loading");
+                                progress.setMessage("Fetching your Beer...");
+                                progress.show();
+                            }
+
+
+                            @Override
+                            protected Void doInBackground(Void... params) {
+                                try {
+                                    Connection conn = new Connection();
+                                    JSONArray arr = conn.connect(query);
+                                    if (arr == null) {
+                                        list.add("No Beer Found for Brewery");
+                                    } else {
+                                        for (int i = 0; i < arr.length(); i++) {
+                                            JSONObject sys = arr.getJSONObject(i);
+                                            String temp = sys.getString("_id");
+                                            list.add(temp);
+                                        }
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                } finally {
+                                    Intent i = new Intent(context, beerList.class);
+                                    i.putExtra("Breweries", 1);
+                                    if (list.isEmpty()) {
+                                        list.add("No Beer Found for Brewery");
+                                        i.putStringArrayListExtra("beer", list);
+                                        startActivity(i);
+                                        list.clear();
+                                    } else {
+                                        i.putStringArrayListExtra("beer", list);
+                                        startActivity(i);
+                                        list.clear();
                                     }
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } finally {
-                                Intent i = new Intent(context, beerList.class);
-                                i.putExtra("Breweries", 1);
-                                if (list.isEmpty()) {
-                                    list.add("No Beer Found for Brewery");
-                                    i.putStringArrayListExtra("beer", list);
-                                    startActivity(i);
-                                    list.clear();
-                                } else {
-                                    i.putStringArrayListExtra("beer", list);
-                                    startActivity(i);
-                                    list.clear();
-                                }
+                                return null;
                             }
-                            return null;
-                        }
 
-                        @Override
-                        protected void onPostExecute(Void result) {
-                            progress.dismiss();
-                        }
-                    }.execute();
-                }
-            });
+                            @Override
+                            protected void onPostExecute(Void result) {
+                                progress.dismiss();
+                            }
+                        }.execute();
+                    }
+                });
+            }
         }
     }
 

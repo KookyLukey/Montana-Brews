@@ -45,7 +45,7 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
     private final ArrayList<String> beerList = new ArrayList<>();
     private final Context context = this;
     private ProgressDialog progress;
-    private String query;
+    private String beerQuery;
     private String title;
 
     @Override
@@ -143,7 +143,7 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
                 }
 
                 Toast.makeText(context, title, Toast.LENGTH_SHORT);
-                String beerQuery = "SELECT+*++FROM++%60beer%60++WHERE+brewery_name%3D%22" + title + "%22";
+                beerQuery = "SELECT+*++FROM++%60beer%60++WHERE+brewery_name%3D%22" + title + "%22";
 
                 Connection conn = new Connection();
                 JSONArray beerArr = conn.connect(beerQuery);
@@ -163,7 +163,7 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
                     protected Void doInBackground(Void... params) {
                         try {
                             Connection conn = new Connection();
-                            JSONArray arr = conn.connect(query);
+                            JSONArray arr = conn.connect(beerQuery);
                             if (arr == null) {
                                 beerList.add("No Beer Found for Brewery");
                             } else {

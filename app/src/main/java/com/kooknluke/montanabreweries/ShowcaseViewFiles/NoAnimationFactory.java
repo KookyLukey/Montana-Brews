@@ -1,4 +1,4 @@
-package com.kooknluke.montanabreweries;
+package com.kooknluke.montanabreweries.ShowcaseViewFiles;
 
 import android.graphics.Point;
 import android.view.View;

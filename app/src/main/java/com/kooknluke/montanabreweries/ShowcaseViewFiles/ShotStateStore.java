@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kooknluke.montanabreweries;
+package com.kooknluke.montanabreweries.ShowcaseViewFiles;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package com.kooknluke.montanabreweries;
+package com.kooknluke.montanabreweries.ShowcaseViewFiles;
 
 import android.view.MotionEvent;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kooknluke.montanabreweries;
+package com.kooknluke.montanabreweries.ShowcaseViewFiles;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -24,6 +24,9 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.res.ResourcesCompat;
+
+import com.kooknluke.montanabreweries.R;
+import com.kooknluke.montanabreweries.ShowcaseViewFiles.ShowcaseDrawer;
 
 class StandardShowcaseDrawer implements ShowcaseDrawer {
 

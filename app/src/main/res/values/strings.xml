@@ -7,28 +7,16 @@
     <string name="title_activity_town">Town</string>
     <string name="title_activity_state">State</string>
     <string name="title_activity_seasons">Seasons</string>
-    <string name="title_activity_nutrition">Nutritional Information</string>
     <string name="title_activity_beer_list">List of Beer</string>
 
     <string name="beer_title">Search By Type</string>
-    <string name="title_activity_brewery_beer_list">Beer List by Brewery</string>
     <string name="title_activity_seasons_beer_list">Beer List by Season</string>
-    <string name="title_activity_town_beer_list">Breweries by Town</string>
     <string name="title_activity_state_beer_list">Breweries by State</string>
-    <string name="title_activity_nutrition_beer_list">Nutritional Info of Beer</string>
 
-    <color name="background">#F7941E</color>
-    <string name="title_activity_beer_history">Beer History</string>
-    <string name="title_activity_beer_history_list">History Info of Beer</string>
     <string name="title_activity_beer_info">Beer Info</string>
-    <string name="title_activity_connection">Connection</string>
     <string name="title_activity_map">Map</string>
-    <string name="Name">Name</string>
     <string name="ABV">Alcohol By Volume: </string>
-    <string name="Description">Description Unavailable</string>
     <string name="Brewery">Brewery: </string>
-
-    <string name="ok">OK</string>
 
     <string name="banner_ad_unit_id">ca-app-pub-6225081440194649/5072239612</string>
 

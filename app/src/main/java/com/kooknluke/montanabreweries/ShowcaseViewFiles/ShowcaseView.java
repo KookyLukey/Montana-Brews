@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kooknluke.montanabreweries;
+package com.kooknluke.montanabreweries.ShowcaseViewFiles;
 
 import android.app.Activity;
 import android.content.Context;
@@ -37,13 +37,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.kooknluke.montanabreweries.R;
+import com.kooknluke.montanabreweries.ShowcaseViewFiles.TextDrawer;
 import com.kooknluke.montanabreweries.targets.Target;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import static com.kooknluke.montanabreweries.AnimationFactory.AnimationEndListener;
-import static com.kooknluke.montanabreweries.AnimationFactory.AnimationStartListener;
+import static com.kooknluke.montanabreweries.ShowcaseViewFiles.AnimationFactory.AnimationEndListener;
+import static com.kooknluke.montanabreweries.ShowcaseViewFiles.AnimationFactory.AnimationStartListener;
 
 /**
  * A view which allows you to showcase areas of your app with an explanation.

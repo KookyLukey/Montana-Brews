@@ -14,23 +14,18 @@
  * limitations under the License.
  */
 
-package com.kooknluke.montanabreweries;
+package com.kooknluke.montanabreweries.ShowcaseViewFiles;
 
-import android.graphics.Point;
-import android.view.View;
+import android.os.Build;
 
-interface AnimationFactory {
-    void fadeInView(View target, long duration, AnimationStartListener listener);
+class ApiUtils {
 
-    void fadeOutView(View target, long duration, AnimationEndListener listener);
-
-    void animateTargetToPoint(ShowcaseView showcaseView, Point point);
-
-    interface AnimationStartListener {
-        void onAnimationStart();
+    public boolean isCompatWith(int versionCode) {
+        return Build.VERSION.SDK_INT >= versionCode;
     }
 
-    interface AnimationEndListener {
-        void onAnimationEnd();
+    public boolean isCompatWithHoneycomb() {
+        return isCompatWith(Build.VERSION_CODES.HONEYCOMB);
     }
+
 }

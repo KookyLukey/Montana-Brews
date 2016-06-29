@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package com.kooknluke.montanabreweries;
+package com.kooknluke.montanabreweries.ShowcaseViewFiles;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.support.annotation.ColorInt;
+
+import com.kooknluke.montanabreweries.ShowcaseViewFiles.StandardShowcaseDrawer;
 
 /**
  * Class to implement your own drawing of a showcase view, should you want more

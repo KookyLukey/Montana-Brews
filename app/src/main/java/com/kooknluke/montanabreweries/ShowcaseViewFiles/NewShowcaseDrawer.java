@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-package com.kooknluke.montanabreweries;
+package com.kooknluke.montanabreweries.ShowcaseViewFiles;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+
+import com.kooknluke.montanabreweries.R;
+import com.kooknluke.montanabreweries.ShowcaseViewFiles.StandardShowcaseDrawer;
 
 class NewShowcaseDrawer extends StandardShowcaseDrawer {
 

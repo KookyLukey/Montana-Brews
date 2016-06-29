@@ -1,4 +1,4 @@
-package com.kooknluke.montanabreweries;
+package com.kooknluke.montanabreweries.ShowcaseViewFiles;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -6,6 +6,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+
+import com.kooknluke.montanabreweries.R;
 
 public class MaterialShowcaseDrawer implements ShowcaseDrawer {
 

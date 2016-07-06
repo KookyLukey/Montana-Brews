@@ -14,26 +14,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Montana MicroBreweries"
+        android:text="@string/app_name"
         android:id="@+id/homeTitle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:textSize="35dp"
         android:textColor="#ffffff" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Breweries"
+        android:text="@string/home_breweries"
         android:id="@+id/btn_breweries"
         android:layout_below="@+id/homeTitle"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/custom_button" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Beer"
+        android:text="@string/home_beer"
         android:id="@+id/btn_beer"
         android:background="@drawable/custom_button"
         android:layout_marginTop="20dp"
@@ -44,7 +45,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="State"
+        android:text="@string/home_state"
         android:id="@+id/btn_state"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/btn_beer"
@@ -55,7 +56,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Town"
+        android:text="@string/home_town"
         android:id="@+id/btn_town"
         android:layout_below="@+id/btn_state"
         android:layout_alignParentLeft="true"
@@ -66,7 +67,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Season"
+        android:text="@string/home_season"
         android:id="@+id/btn_season"
         android:layout_below="@+id/btn_town"
         android:layout_centerHorizontal="true"
@@ -76,7 +77,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Map"
+        android:text="@string/home_map"
         android:id="@+id/btnMap"
         android:layout_below="@+id/btn_season"
         android:layout_centerHorizontal="true"

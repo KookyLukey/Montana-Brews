@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Montana Breweries</string>
+    <string name="app_name">A Brew for You</string>
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_beer">Beer</string>
@@ -17,6 +17,15 @@
     <string name="title_activity_map">Map</string>
     <string name="ABV">Alcohol By Volume: </string>
     <string name="Brewery">Brewery: </string>
+
+    <string name="home_breweries">Breweries</string>
+    <string name="home_beer">Beer</string>
+    <string name="home_state">State</string>
+    <string name="home_town">Town</string>
+    <string name="home_season">Season</string>
+    <string name="home_map">Map</string>
+
+    <string name="sortingTypeAlphabetic">A - Z</string>
 
     <string name="banner_ad_unit_id">ca-app-pub-6225081440194649/5072239612</string>
 

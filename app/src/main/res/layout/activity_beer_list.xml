@@ -4,7 +4,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.kooknluke.montanabreweries.beerList"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    tools:context="com.kooknluke.abrewforyou.beerList"
     android:background="#3B5998">
 
     <ListView
@@ -13,6 +14,15 @@
         android:id="@+id/lvBeerList"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_above="@+id/BreweriesAV" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/BreweriesAV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        />
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-6225081440194649/4701332811">
+    </com.google.android.gms.ads.AdView>
 </RelativeLayout>

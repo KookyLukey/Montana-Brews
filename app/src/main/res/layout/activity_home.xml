@@ -18,71 +18,76 @@
         android:id="@+id/homeTitle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="35dp"
+        android:textSize="35sp"
         android:textColor="#ffffff" />
 
-    <Button
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/home_breweries"
-        android:id="@+id/btn_breweries"
         android:layout_below="@+id/homeTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/custom_button" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/home_beer"
-        android:id="@+id/btn_beer"
-        android:background="@drawable/custom_button"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/btn_breweries"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/home_state"
-        android:id="@+id/btn_state"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/btn_beer"
+        android:layout_above="@+id/adView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/custom_button"/>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:weightSum="6">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/home_town"
-        android:id="@+id/btn_town"
-        android:layout_below="@+id/btn_state"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/custom_button"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".9"
+            android:text="@string/home_breweries"
+            android:id="@+id/btn_breweries"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/custom_button" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/home_season"
-        android:id="@+id/btn_season"
-        android:layout_below="@+id/btn_town"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/custom_button"
-        android:layout_marginTop="20dp" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".9"
+            android:text="@string/home_beer"
+            android:id="@+id/btn_beer"
+            android:background="@drawable/custom_button"
+            android:layout_marginTop="20dp" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/home_map"
-        android:id="@+id/btnMap"
-        android:layout_below="@+id/btn_season"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/custom_button"
-        android:layout_marginTop="20dp" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".9"
+            android:text="@string/home_town"
+            android:id="@+id/btn_town"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_button"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".9"
+            android:text="@string/home_state"
+            android:id="@+id/btn_state"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_button"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".9"
+            android:text="@string/home_season"
+            android:id="@+id/btn_season"
+            android:background="@drawable/custom_button"
+            android:layout_marginTop="20dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".9"
+            android:text="@string/home_map"
+            android:id="@+id/btnMap"
+            android:background="@drawable/custom_button"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
+    </LinearLayout>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

@@ -18,6 +18,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.kooknluke.abrewforyou.ShowcaseViewFiles.ShowcaseView;
 import com.kooknluke.abrewforyou.targets.PointTarget;
 
@@ -47,6 +50,13 @@ public class beerList extends ActionBarActivity {
         final Context context = this;
         final ListView lv = (ListView) findViewById(R.id.lvBeerList);
         progress = new ProgressDialog(this);
+
+        final AdView adView = (AdView) findViewById(R.id.BeerListAV);
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-6225081440194649~2118773217");
+        AdRequest adReq = new AdRequest.Builder().build();
+
+        adView.loadAd(adReq);
 
         Integer checker = 1;
 

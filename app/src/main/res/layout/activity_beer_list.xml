@@ -14,15 +14,16 @@
         android:id="@+id/lvBeerList"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/BreweriesAV" />
+        android:layout_above="@+id/BeerListAV" />
 
     <com.google.android.gms.ads.AdView
-        android:id="@+id/BreweriesAV"
+        android:id="@+id/BeerListAV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-6225081440194649/4701332811">
+        ads:adUnitId="ca-app-pub-6225081440194649/5153390811"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
     </com.google.android.gms.ads.AdView>
+
 </RelativeLayout>

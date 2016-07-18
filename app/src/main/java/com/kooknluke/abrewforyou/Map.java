@@ -1,12 +1,16 @@
 package com.kooknluke.abrewforyou;
 
+import android.*;
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
@@ -44,6 +48,8 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
     private ProgressDialog progress;
     private String beerQuery;
     private String title;
+    private static final int MY_PERMISSION_ACCESS_COARSE_LOCATION = 11;
+    private static final int MY_PERMISSION_ACESS_FINE_LOCATION = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,18 +70,22 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
-
-            latLoc = mLastLocation.getLatitude();
-            longLoc = mLastLocation.getLongitude();
-            LatLng location = new LatLng(latLoc, longLoc);
-
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(location, 6);
-            mMap.animateCamera(cameraUpdate);
-            mMap.addMarker(new MarkerOptions().position(new LatLng(latLoc, longLoc)).title("You"));
-            addBreweryMarkers();
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION},
+                    MY_PERMISSION_ACCESS_COARSE_LOCATION);
         }
+        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (mLastLocation != null) {
+
+                latLoc = mLastLocation.getLatitude();
+                longLoc = mLastLocation.getLongitude();
+                LatLng location = new LatLng(latLoc, longLoc);
+
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(location, 6);
+                mMap.animateCamera(cameraUpdate);
+                mMap.addMarker(new MarkerOptions().position(new LatLng(latLoc, longLoc)).title("You"));
+                addBreweryMarkers();
+            }
     }
 
     protected void addBreweryMarkers(){

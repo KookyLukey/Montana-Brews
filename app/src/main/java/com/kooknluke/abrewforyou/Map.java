@@ -75,17 +75,17 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
                     MY_PERMISSION_ACCESS_COARSE_LOCATION);
         }
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            if (mLastLocation != null) {
+        if (mLastLocation != null) {
 
-                latLoc = mLastLocation.getLatitude();
-                longLoc = mLastLocation.getLongitude();
-                LatLng location = new LatLng(latLoc, longLoc);
+            latLoc = mLastLocation.getLatitude();
+            longLoc = mLastLocation.getLongitude();
+            LatLng location = new LatLng(latLoc, longLoc);
 
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(location, 6);
-                mMap.animateCamera(cameraUpdate);
-                mMap.addMarker(new MarkerOptions().position(new LatLng(latLoc, longLoc)).title("You"));
-                addBreweryMarkers();
-            }
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(location, 6);
+            mMap.animateCamera(cameraUpdate);
+            mMap.addMarker(new MarkerOptions().position(new LatLng(latLoc, longLoc)).title("You"));
+            addBreweryMarkers();
+        }
     }
 
     protected void addBreweryMarkers(){

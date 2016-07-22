@@ -1,0 +1,94 @@
+{
+  "project_info": {
+    "project_number": "385919677327",
+    "firebase_url": "https://montana-brews.firebaseio.com",
+    "project_id": "montana-brews",
+    "storage_bucket": "montana-brews.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385919677327:android:5a93753ff7bc8013",
+        "android_client_info": {
+          "package_name": "com.kooknluke.montanabreweries"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385919677327-pcglbed524oltnbc532erq0gjve7dsng.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kooknluke.montanabreweries",
+            "certificate_hash": "5120BAFA5AC5C13B675EBAAD13D5C66532BA89E5"
+          }
+        },
+        {
+          "client_id": "385919677327-mstm1inkeqtmbt95t6a5ttgamen5c32e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX0gZ8zFk11QBkvNABU37rJra7rkEYJIg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385919677327-mstm1inkeqtmbt95t6a5ttgamen5c32e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385919677327:android:599755a6810fd9c2",
+        "android_client_info": {
+          "package_name": "com.kooknluke.abrewforyou"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385919677327-gn70d5e8vbresu5jmq49hs9rnaov4aiu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kooknluke.abrewforyou",
+            "certificate_hash": "624ABDF684B48BBFB984E9CDA75CD2002EF7E729"
+          }
+        },
+        {
+          "client_id": "385919677327-mstm1inkeqtmbt95t6a5ttgamen5c32e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX0gZ8zFk11QBkvNABU37rJra7rkEYJIg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

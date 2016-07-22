@@ -55,15 +55,23 @@ public class Town extends ActionBarActivity {
         adView.loadAd(adReq);
 
         ArrayList<String> townList = new ArrayList<>();
-        townList.add(0, "Belgrade");
-        townList.add(1, "Billings");
-        townList.add(2, "Bozeman");
-        townList.add(3, "Hamilton");
-        townList.add(4, "Helena");
-        townList.add(5, "Livingston");
-        townList.add(6, "Missoula");
-        townList.add(7, "Stevensville");
-        townList.add(8, "Wibaux");
+        townList.add(0, "Aurora CO");
+        townList.add(1, "Belgrade MT");
+        townList.add(2, "Bigfork MT");
+        townList.add(3, "Billings MT");
+        townList.add(4, "Black Eagle MT");
+        townList.add(5, "Boulder CO");
+        townList.add(6, "Bozeman MT");
+        townList.add(7, "Colorado Springs CO");
+        townList.add(8, "Detroit MI");
+        townList.add(9, "Fort Collins CO");
+        townList.add(10, "Great Falls MT");
+        townList.add(11, "Hamilton MT");
+        townList.add(12, "Helena MT");
+        townList.add(13, "Livingston MT");
+        townList.add(14, "Missoula MT");
+        townList.add(15, "Stevensville MT");
+        townList.add(16, "Wibaux MT");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,

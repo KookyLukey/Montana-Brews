@@ -57,6 +57,8 @@ public class State extends ActionBarActivity {
 
         ArrayList<String> townList = new ArrayList<>();
         townList.add(0, "Montana");
+        townList.add(1, "Colorado");
+        townList.add(2, "Michigan");
 
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(

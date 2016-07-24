@@ -100,7 +100,14 @@ public class Town extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
                     TextView tv =(TextView) view.findViewById(R.id.firstLine);
-                    String town = URLEncoder.encode(tv.getText().toString(), "UTF-8");
+                    String[] temp = tv.getText().toString().split(" ");
+                    String town = temp[0];
+                    int i = 1;
+                    while(i < temp.length - 1) {
+                        town = town.concat(" " + temp[i]);
+                        i++;
+                    }
+                    town = URLEncoder.encode(town, "UTF-8");
 
                     query = "SELECT+*+FROM+breweries+WHERE+name_of_town+%3D+%27" + town + "%27";
 

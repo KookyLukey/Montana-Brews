@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * Created by Dan Poss on 4/17/2016.
  */
 public class StaticStore extends Application{
+
     private ArrayList<String> list;
 
     public ArrayList<String> getArray() {
@@ -20,6 +21,6 @@ public class StaticStore extends Application{
 
     @Override
     public void onCreate() {
-
+        super.onCreate();
     }
 }

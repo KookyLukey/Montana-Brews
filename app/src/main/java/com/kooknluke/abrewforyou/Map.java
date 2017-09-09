@@ -1,6 +1,5 @@
 package com.kooknluke.abrewforyou;
 
-import android.*;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,6 +19,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -34,7 +34,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class Map extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class Map extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback  {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private GoogleApiClient mGoogleApiClient = null;
@@ -56,6 +56,9 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         setUpMapIfNeeded();
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         progress = new ProgressDialog(context);
 
@@ -229,8 +232,8 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
+
+//                    .getMap();
         }
     }
 
@@ -241,6 +244,11 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
 
     }
 }

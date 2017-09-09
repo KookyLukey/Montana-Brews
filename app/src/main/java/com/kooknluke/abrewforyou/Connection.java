@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Connection {
@@ -25,7 +27,7 @@ public class Connection {
 
     public JSONArray connection(String query) throws MalformedURLException {
         URL url = null;
-        HttpURLConnection c = null;
+        HttpURLConnection connection = null;
         StringBuilder list = new StringBuilder();
         if (!query.contains("SELECT")) {
             url = new URL("http://www.mtbrews.net/images/getImage.php?q=" + query);
@@ -35,20 +37,20 @@ public class Connection {
         }
 
         try {
-            c = (HttpURLConnection) url.openConnection();
-            c.setRequestMethod("GET");
-            c.setRequestProperty("Content-length", "0");
-            c.setUseCaches(false);
-            c.setAllowUserInteraction(false);
-            c.setConnectTimeout(1000);
-            c.setReadTimeout(1000);
-            c.connect();
-            int status = c.getResponseCode();
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Content-length", "0");
+            connection.setUseCaches(false);
+            connection.setAllowUserInteraction(false);
+            connection.setConnectTimeout(1000);
+            connection.setReadTimeout(1000);
+            connection.connect();
+            int status = connection.getResponseCode();
 
             switch (status) {
                 case 200:
                 case 201:
-                    BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                    BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                     String line;
                     while ((line = br.readLine()) != null) {
                         list.append(line+"\n");
@@ -59,15 +61,15 @@ public class Connection {
 
             }
         } catch (IOException e) {
- //           Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
         } catch (Exception e) {
-//            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
         } finally {
-            if (c!= null) {
+            if (connection!= null) {
                 try {
-                    c.disconnect();
+                    connection.disconnect();
                 } catch(Exception e) {
-//                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
                 }
             }
         }

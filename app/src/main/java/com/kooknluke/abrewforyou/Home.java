@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,9 +14,10 @@ import android.widget.Button;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.kooknluke.abrewforyou.DB.sqlLite.SqlLiteDbHelper;
 
 
-public class Home extends ActionBarActivity {
+public class Home extends AppCompatActivity {
 
     private static final String BASE64_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjQuNKwjTMCAemNvJl0tK/xiybaJ3AsAZsAmezH3hmszIag9i74I47B7HmNbQiLAQCnqJdXVhTvE6yLK/58EpCsDO+62D6YSSQKW9VGDYPFiJQL1pzaeOS9W4SJmIWiX5+ABP/G9wuTY1qIoRt6sOeaVP6Q+iub9Aw3sM9E4pV6gbFWdi0CpCnOb00KV6cy7XUbI+XrRqa8PNhwIpbak3oCqcmtKb2OsG7fKXs5I/yB4l1JazN9F5YqGtr6stWEOVYvwHmU/5JjaS+/u9fF3ae2wI4YWjJBHH5TYoz1LricPHxtksCcfr//deFgJNzexy4BoTYoZ4P1g3ZKgldeZAoQIDAQAB";
 

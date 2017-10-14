@@ -3,32 +3,44 @@ package com.kooknluke.abrewforyou;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.kooknluke.abrewforyou.Constants.BeerResultCommonMessagesConstants;
+import com.kooknluke.abrewforyou.Constants.QueryConstants;
+import com.kooknluke.abrewforyou.DB.sqlLite.SqlLiteDbHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Breweries extends ActionBarActivity {
 
     private Button btnShowBeers;
-    private ProgressDialog progress;
     private String query;
+    private ArrayList<String> resultListToUse = new ArrayList<>();
+    private String userInput;
+    private BreweriesTask breweriesTask;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +49,8 @@ public class Breweries extends ActionBarActivity {
 
         final ArrayList<String> list = new ArrayList<>();
 
-        final Context context = this;
-        progress = new ProgressDialog(this);
+        context = this;
+        breweriesTask = new BreweriesTask();
         final AdView adView = (AdView) findViewById(R.id.BreweriesAV);
         btnShowBeers = (Button) findViewById(R.id.btnShowBeers);
         final EditText etSearchBreweries = (EditText) findViewById(R.id.etSearchBreweries);
@@ -57,68 +69,74 @@ public class Breweries extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-            String userInput = URLEncoder.encode(etSearchBreweries.getText().toString());
+                userInput = etSearchBreweries.getText().toString();
 
-            query = "SELECT+*+FROM+beer+WHERE+brewery_name+LIKE+%27%25" + userInput + "%25%27";
-
-            new AsyncTask<Void, Void, Void>() {
-
-                @Override
-                protected void onPreExecute() {
-                    super.onPreExecute();
-                    progress.setTitle("Loading");
-                    progress.setMessage("Fetching your Beer...");
-                    progress.show();
-                }
-
-
-                @Override
-                protected Void doInBackground(Void... params) {
-                    try {
-                        Connection conn = new Connection();
-                        JSONArray arr = conn.connect(query);
-                        if (arr == null) {
-                            list.add("No Beer Found for Brewery");
-                        } else {
-                            for (int i = 0; i < arr.length(); i++) {
-                                JSONObject sys = arr.getJSONObject(i);
-                                String temp = sys.getString("_id");
-                                list.add(temp);
-                            }
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } finally {
-                        Intent i = new Intent(context, beerList.class);
-                        i.putExtra("Breweries", 1);
-                        if (list.isEmpty()) {
-                            list.add("No Beer Found for Brewery");
-                            i.putStringArrayListExtra("beer", list);
-                            startActivity(i);
-                            list.clear();
-                        } else {
-                            i.putStringArrayListExtra("beer", list);
-                            startActivity(i);
-                            list.clear();
-                        }
-                    }
-                    return null;
-                }
-
-                @Override
-                protected void onPostExecute(Void result) {
-                    progress.dismiss();
-                }
-            }.execute();
+                new BreweriesTask().execute();
             }
         });
     }
 
+    private class BreweriesTask extends AsyncTask<Void, Void, ArrayList<String>> {
+
+        private ProgressDialog progress;
+
+        BreweriesTask() {
+            progress = new ProgressDialog(context);
+        }
+
+        @Override
+        protected void onPreExecute () {
+            super.onPreExecute();
+            progress.setTitle("Loading");
+            progress.setMessage("Fetching your Beer...");
+            progress.show();
+        }
+
+
+        @Override
+        protected ArrayList<String> doInBackground (Void...params){
+            ArrayList<String> list = new ArrayList<>();
+            SQLiteDatabase db = null;
+            SqlLiteDbHelper s = new SqlLiteDbHelper(context);
+            db = s.getReadableDatabase();
+            String[] userInputForQuery = new String[]{userInput + "%"};
+            Cursor resultSet = db.rawQuery(QueryConstants.BEERS_FROM_BREWERY_LIKE_NAME_QUERY, userInputForQuery);
+
+            Log.d("QUERY", "Query used :: " + QueryConstants.BEERS_FROM_BREWERY_LIKE_NAME_QUERY);
+            Log.d("PARAMETERS", "1 :: " + userInputForQuery[0]);
+
+            while (resultSet.moveToNext()) {
+                list.add(resultSet.getString(0));
+                for (String columnName : resultSet.getColumnNames()) {
+                    Log.d("RESULTS", columnName + " : " + resultSet.getString(resultSet.getColumnIndex(columnName)));
+                }
+            }
+            if (list.isEmpty()) {
+                list.add(BeerResultCommonMessagesConstants.NO_BEER_FOUND_FOR_BREWERY);
+            }
+
+            Log.d("RESULTS", list.toString());
+
+            s.close();
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute (ArrayList<String> result){
+            progress.dismiss();
+            Intent i = new Intent(context, beerList.class);
+            i.putExtra("beer", 1);
+            Log.d("In Task", " LIST :: " + result);
+            resultListToUse = result;
+            i.putStringArrayListExtra("beer", resultListToUse);
+            startActivity(i);
+        }
+
+    }
 
     @Override
     public void onResume() {
         super.onResume();
-        progress.dismiss();
 
         if (btnShowBeers.isEnabled() == false) {
             btnShowBeers.setEnabled(true);

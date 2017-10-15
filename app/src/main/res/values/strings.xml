@@ -43,4 +43,14 @@
         <item>Stout</item>
         <item>Hefeweizen</item>
     </string-array>
+
+    <string name="NO_BEER_FOUND_FOR_BREWERY">No Beer found for Brewery</string>
+    <string name="NO_BEER_FOUND_OF_GIVEN_TYPE">No Beer found of given type</string>
+    <string name="NO_BEER_FOUND_FOR_GIVEN_SEASON">No Beer found for given Season</string>
+    <string name="NO_BREWERIES_FOUND_FOR_TOWN">No Breweries found for given Town</string>
+
+    <string name="title_activity_loading_home_screen">LoadingHomeScreen</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
 </resources>

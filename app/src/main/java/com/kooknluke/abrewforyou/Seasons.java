@@ -3,10 +3,14 @@ package com.kooknluke.abrewforyou;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,13 +24,10 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.kooknluke.abrewforyou.Constants.BeerResultCommonMessagesConstants;
+import com.kooknluke.abrewforyou.Constants.QueryConstants;
+import com.kooknluke.abrewforyou.DB.sqlLite.SqlLiteDbHelper;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 
@@ -35,14 +36,15 @@ public class Seasons extends ActionBarActivity {
     private String season;
     private Button btnSearch;
     private ProgressDialog progress;
-    private String query;
+    private Context context;
+    private SeasonTask seasonTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seasons);
 
-        final Context context = this;
+        context = this;
         final ListView lv = (ListView) findViewById(R.id.lvSeasons);
         final ArrayList<String> list = new ArrayList<>();
 
@@ -86,66 +88,14 @@ public class Seasons extends ActionBarActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    TextView tv = (TextView) view.findViewById(R.id.firstLine);
-                    String season = URLEncoder.encode(tv.getText().toString(), "UTF-8");
 
-                    query = "SELECT+*+FROM+seasons+WHERE+season+%3D+%27" + season + "%27";
+                TextView tv = (TextView) view.findViewById(R.id.firstLine);
+                String season = tv.getText().toString();
 
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+                new SeasonTask().execute();
 
-                new AsyncTask<Void, Void, Void>() {
-
-                    @Override
-                    protected void onPreExecute() {
-                        super.onPreExecute();
-                        progress.setTitle("Loading");
-                        progress.setMessage("Fetching your Beer...");
-                        progress.show();
-                    }
-
-
-                    @Override
-                    protected Void doInBackground(Void... params) {
-                        try {
-                            Connection conn = new Connection();
-                            JSONArray arr = conn.connect(query);
-                            if (arr == null) {
-                                list.add("No Beer Found");
-                            } else {
-                                for (int i = 0; i < arr.length(); i++) {
-                                    JSONObject sys = arr.getJSONObject(i);
-                                    String temp = sys.getString("_id");
-                                    list.add(temp);
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } finally {
-                            Intent i = new Intent(context, beerList.class);
-                            i.putExtra("Breweries", 1);
-                            if (list.isEmpty()) {
-                                list.add("No Beer Found");
-                                i.putStringArrayListExtra("beer", list);
-                                startActivity(i);
-                                list.clear();
-                            } else {
-                                i.putStringArrayListExtra("beer", list);
-                                startActivity(i);
-                                list.clear();
-                            }
-                        }
-                        return null;
-                    }
-
-                    @Override
-                    protected void onPostExecute(Void result) {
-                        progress.dismiss();
-                    }
-                }.execute();
             }
+
         });
     }
 
@@ -175,5 +125,65 @@ public class Seasons extends ActionBarActivity {
     public void onResume() {
         super.onResume();
         progress.dismiss();
+    }
+
+    private class SeasonTask extends AsyncTask<Void, Void, ArrayList<String>> {
+
+        @Override
+        protected void onPreExecute() {
+            progress.setTitle("Loading");
+            progress.setMessage("Fetching your Beer...");
+            progress.show();
+        }
+
+        @Override
+        protected ArrayList<String> doInBackground(Void... voids) {
+            ArrayList<String> list = new ArrayList<>();
+
+            String query = QueryConstants.GET_BEER_FROM_SEASON;
+            SQLiteDatabase db = null;
+            SqlLiteDbHelper s = SqlLiteDbHelper.getInstance(context);
+            db = s.getReadableDatabase();
+            String[] userInputForQuery = new String[]{"%" + season + "%"};
+
+            try {
+                Cursor resultSet = db.rawQuery(query, userInputForQuery);
+                while (resultSet.moveToNext()) {
+                    list.add(resultSet.getString(0));
+                    for (String columnName : resultSet.getColumnNames()) {
+                        Log.d("RESULTS", columnName + " : " + resultSet.getString(resultSet.getColumnIndex(columnName)));
+                    }
+                }
+            } catch (SQLiteException e) {
+                Log.e("Error", "Error executing Seasons query :: " + e.getMessage());
+            } finally {
+                if (db != null) {
+                    db.close();
+                }
+                if (s != null) {
+                    s.close();
+                }
+            }
+
+            Log.d("QUERY", "Query used :: " + QueryConstants.BEERS_FROM_BREWERY_LIKE_NAME_QUERY);
+            Log.d("PARAMETERS", "1 :: " + userInputForQuery[0]);
+
+            if (list.isEmpty()) {
+                list.add(BeerResultCommonMessagesConstants.NO_BEER_FOUND_FOR_GIVEN_SEASON);
+            }
+
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> results) {
+            progress.dismiss();
+            Intent i = new Intent(context, beerList.class);
+            i.putExtra("Breweries", 1);
+            Log.d("In Task", " LIST :: " + results);
+            i.putStringArrayListExtra("beer", results);
+            startActivity(i);
+        }
+
     }
 }

@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,13 +41,14 @@ public class beerList extends ActionBarActivity {
     private String beer;
     private boolean breweries = false;
     private String query;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beer_list);
 
-        final Context context = this;
+        context = this;
         final ListView lv = (ListView) findViewById(R.id.lvBeerList);
         progress = new ProgressDialog(this);
 
@@ -266,5 +267,54 @@ public class beerList extends ActionBarActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    private class TaskOne extends AsyncTask<Void, Void, ArrayList<String>> {
+
+        @Override
+        protected void onPreExecute() {
+            progress.setTitle("Loading");
+            progress.setMessage("Fetching your Beer...");
+            progress.show();
+        }
+
+        @Override
+        protected ArrayList<String> doInBackground(Void... voids) {
+            ArrayList<String> list = new ArrayList<>();
+            try {
+                Connection conn = new Connection();
+                JSONArray arr = conn.connect(query);
+                if (arr == null) {
+                    list.add("No Beer Found for Brewery");
+                } else {
+                    for (int i = 0; i < arr.length(); i++) {
+                        JSONObject sys = arr.getJSONObject(i);
+                        String temp = sys.getString("_id");
+                        list.add(temp);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                Intent i = new Intent(context, beerList.class);
+                i.putExtra("Breweries", 1);
+                if (list.isEmpty()) {
+                    list.add("No Beer Found for Brewery");
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                } else {
+                    i.putStringArrayListExtra("beer", list);
+                    startActivity(i);
+                    list.clear();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> results) {
+            progress.dismiss();
+        }
     }
 }

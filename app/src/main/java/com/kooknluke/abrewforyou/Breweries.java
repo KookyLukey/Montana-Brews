@@ -30,7 +30,6 @@ public class Breweries extends ActionBarActivity {
 
     private Button btnShowBeers;
     private String query;
-    private ArrayList<String> resultListToUse = new ArrayList<>();
     private String userInput;
     private BreweriesTask breweriesTask;
     private Context context;
@@ -103,9 +102,14 @@ public class Breweries extends ActionBarActivity {
                     }
                 }
             } catch (SQLiteException e) {
-                Log.e("Error", e.getMessage());
+                Log.e("Error", "Error executing breweries query :: " + e.getMessage());
             } finally {
-                s.close();
+                if (db != null) {
+                    db.close();
+                }
+                if (s != null) {
+                    s.close();
+                }
             }
             Log.d("QUERY", "Query used :: " + QueryConstants.BEERS_FROM_BREWERY_LIKE_NAME_QUERY);
             Log.d("PARAMETERS", "1 :: " + userInputForQuery[0]);
@@ -126,8 +130,7 @@ public class Breweries extends ActionBarActivity {
             Intent i = new Intent(context, beerList.class);
             i.putExtra("beer", 1);
             Log.d("In Task", " LIST :: " + result);
-            resultListToUse = result;
-            i.putStringArrayListExtra("beer", resultListToUse);
+            i.putStringArrayListExtra("beer", result);
             startActivity(i);
         }
 

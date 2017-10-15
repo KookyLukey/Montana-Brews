@@ -7,8 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,19 +22,11 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.kooknluke.abrewforyou.Constants.BeerResultCommonMessagesConstants;
+import com.kooknluke.abrewforyou.DB.sqlLite.SqlLiteDbHelper;
 
-import java.io.UnsupportedEncodingException;
-import java.lang.ref.WeakReference;
-import java.net.URLEncoder;
-import java.sql.Array;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
-import com.kooknluke.abrewforyou.Constants.BeerResultCommonMessagesConstants;
-import com.kooknluke.abrewforyou.Constants.QueryConstants;
-import com.kooknluke.abrewforyou.DB.sqlLite.SqlLiteDbHelper;
-import com.kooknluke.abrewforyou.dto.BeerDto;
 
 public class Beer extends ActionBarActivity {
 
@@ -121,10 +113,8 @@ public class Beer extends ActionBarActivity {
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
             ArrayList<String> list = new ArrayList<>();
-            SQLiteDatabase db = null;
-            SqlLiteDbHelper s = new SqlLiteDbHelper(context);
-            s.onCreate(db);
-            db = s.getReadableDatabase();
+            SqlLiteDbHelper s = SqlLiteDbHelper.getInstance(context);
+            SQLiteDatabase db = s.getReadableDatabase();
             Cursor resultSet = db.query("beer",
                     new String[] {"beer_name"},
                     "type_of_beer LIKE ?",

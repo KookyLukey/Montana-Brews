@@ -5,16 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -23,14 +23,7 @@ import com.kooknluke.abrewforyou.Constants.BeerResultCommonMessagesConstants;
 import com.kooknluke.abrewforyou.Constants.QueryConstants;
 import com.kooknluke.abrewforyou.DB.sqlLite.SqlLiteDbHelper;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.ref.WeakReference;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Breweries extends ActionBarActivity {
@@ -97,27 +90,33 @@ public class Breweries extends ActionBarActivity {
         protected ArrayList<String> doInBackground (Void...params){
             ArrayList<String> list = new ArrayList<>();
             SQLiteDatabase db = null;
-            SqlLiteDbHelper s = new SqlLiteDbHelper(context);
+            SqlLiteDbHelper s = SqlLiteDbHelper.getInstance(context);
             db = s.getReadableDatabase();
-            String[] userInputForQuery = new String[]{userInput + "%"};
-            Cursor resultSet = db.rawQuery(QueryConstants.BEERS_FROM_BREWERY_LIKE_NAME_QUERY, userInputForQuery);
+            String[] userInputForQuery = new String[]{"%" + userInput + "%"};
 
+            try {
+                Cursor resultSet = db.rawQuery(QueryConstants.BEERS_FROM_BREWERY_LIKE_NAME_QUERY, userInputForQuery);
+                while (resultSet.moveToNext()) {
+                    list.add(resultSet.getString(0));
+                    for (String columnName : resultSet.getColumnNames()) {
+                        Log.d("RESULTS", columnName + " : " + resultSet.getString(resultSet.getColumnIndex(columnName)));
+                    }
+                }
+            } catch (SQLiteException e) {
+                Log.e("Error", e.getMessage());
+            } finally {
+                s.close();
+            }
             Log.d("QUERY", "Query used :: " + QueryConstants.BEERS_FROM_BREWERY_LIKE_NAME_QUERY);
             Log.d("PARAMETERS", "1 :: " + userInputForQuery[0]);
 
-            while (resultSet.moveToNext()) {
-                list.add(resultSet.getString(0));
-                for (String columnName : resultSet.getColumnNames()) {
-                    Log.d("RESULTS", columnName + " : " + resultSet.getString(resultSet.getColumnIndex(columnName)));
-                }
-            }
+
             if (list.isEmpty()) {
                 list.add(BeerResultCommonMessagesConstants.NO_BEER_FOUND_FOR_BREWERY);
             }
 
             Log.d("RESULTS", list.toString());
 
-            s.close();
             return list;
         }
 

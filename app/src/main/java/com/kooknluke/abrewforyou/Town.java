@@ -26,8 +26,6 @@ import com.google.android.gms.ads.MobileAds;
 import com.kooknluke.abrewforyou.Constants.QueryConstants;
 import com.kooknluke.abrewforyou.DB.sqlLite.SqlLiteDbHelper;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 
@@ -99,22 +97,15 @@ public class Town extends ActionBarActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    TextView tv = (TextView) view.findViewById(R.id.firstLine);
-                    String[] temp = tv.getText().toString().split(" ");
-                    String town = temp[0];
-                    int i = 1;
-                    while (i < temp.length - 1) {
-                        town = town.concat(" " + temp[i]);
-                        i++;
-                    }
-                    town = URLEncoder.encode(town, "UTF-8");
+            TextView tv = (TextView) view.findViewById(R.id.firstLine);
+            String[] temp = tv.getText().toString().split(" ");
+            int i = 1;
+            while (i < temp.length - 1) {
+                town = town.concat(" " + temp[i]);
+                i++;
+            }
 
-                    query = "SELECT+*+FROM+breweries+WHERE+name_of_town+%3D+%27" + town + "%27";
-
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+            new TownTask().execute();
             }
         });
     }
@@ -192,7 +183,7 @@ public class Town extends ActionBarActivity {
 
 
             if (list.isEmpty()) {
-                list.add(context.getString(R.string.NO_BEER_FOUND_FOR_BREWERY));
+                list.add(context.getString(R.string.NO_BREWERIES_FOUND_FOR_TOWN));
             }
 
             Log.d("RESULTS", list.toString());

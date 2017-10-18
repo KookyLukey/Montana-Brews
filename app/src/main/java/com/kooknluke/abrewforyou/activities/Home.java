@@ -1,10 +1,9 @@
-package com.kooknluke.abrewforyou;
+package com.kooknluke.abrewforyou.activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,7 +13,7 @@ import android.widget.Button;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.kooknluke.abrewforyou.DB.sqlLite.SqlLiteDbHelper;
+import com.kooknluke.abrewforyou.R;
 
 
 public class Home extends AppCompatActivity {

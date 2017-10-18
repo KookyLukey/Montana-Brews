@@ -8,6 +8,8 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
 
     <!--
  The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -15,7 +17,7 @@
     -->
 
     <application
-        android:name="com.kooknluke.abrewforyou.StaticStore"
+        android:name=".StaticStore"
         android:allowBackup="true"
         android:icon="@drawable/montanabrews"
         android:label="@string/app_name"
@@ -24,69 +26,64 @@
         <meta-data android:name="com.google.android.gms.version"
          android:value="@integer/google_play_services_version" />
         <activity
-            android:name="com.kooknluke.abrewforyou.Home"
+            android:name="com.kooknluke.abrewforyou.activities.Home"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
-            android:name="com.kooknluke.abrewforyou.Beer"
+            android:name="com.kooknluke.abrewforyou.activities.Beer"
             android:label="@string/title_activity_beer"
-            android:parentActivityName="com.kooknluke.abrewforyou.Home" >
+            android:parentActivityName="com.kooknluke.abrewforyou.activities.Home" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kooknluke.abrewforyou.Home" />
+                android:value="com.kooknluke.abrewforyou.activities.Home" />
         </activity>
         <activity
-            android:name="com.kooknluke.abrewforyou.Breweries"
+            android:name=".activities.Breweries"
             android:label="@string/title_activity_breweries"
-            android:parentActivityName="com.kooknluke.abrewforyou.Home" >
+            android:parentActivityName="com.kooknluke.abrewforyou.activities.Home" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kooknluke.abrewforyou.Home" />
+                android:value="com.kooknluke.abrewforyou.activities.Home" />
         </activity>
         <activity
-            android:name="com.kooknluke.abrewforyou.Town"
+            android:name=".activities.Town"
             android:label="@string/title_activity_town"
-            android:parentActivityName="com.kooknluke.abrewforyou.Home" >
+            android:parentActivityName="com.kooknluke.abrewforyou.activities.Home" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kooknluke.abrewforyou.Home" />
+                android:value="com.kooknluke.abrewforyou.activities.Home" />
         </activity>
         <activity
-            android:name="com.kooknluke.abrewforyou.State"
+            android:name=".activities.State"
             android:label="@string/title_activity_state"
-            android:parentActivityName="com.kooknluke.abrewforyou.Home" >
+            android:parentActivityName="com.kooknluke.abrewforyou.activities.Home" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kooknluke.abrewforyou.Home" />
+                android:value="com.kooknluke.abrewforyou.activities.Home" />
         </activity>
         <activity
-            android:name="com.kooknluke.abrewforyou.Seasons"
+            android:name=".activities.Seasons"
             android:label="@string/title_activity_seasons"
-            android:parentActivityName="com.kooknluke.abrewforyou.Home" >
+            android:parentActivityName="com.kooknluke.abrewforyou.activities.Home" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kooknluke.abrewforyou.Home" />
+                android:value="com.kooknluke.abrewforyou.activities.Home" />
         </activity>
         <activity
-            android:name="com.kooknluke.abrewforyou.beerList"
+            android:name="com.kooknluke.abrewforyou.activities.beerList"
             android:label="@string/title_activity_beer_list"
-            android:parentActivityName="com.kooknluke.abrewforyou.Beer" >
+            android:parentActivityName="com.kooknluke.abrewforyou.activities.Beer" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kooknluke.abrewforyou.Beer" />
+                android:value="com.kooknluke.abrewforyou.activities.Beer" />
         </activity>
         <activity
-            android:name="com.kooknluke.abrewforyou.beerInfo"
+            android:name=".activities.beerInfo"
             android:label="@string/title_activity_beer_info"
-            android:parentActivityName="com.kooknluke.abrewforyou.beerList" >
+            android:parentActivityName="com.kooknluke.abrewforyou.activities.beerList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kooknluke.abrewforyou.beerList" />
+                android:value=".activities.beerList" />
         </activity>
 
         <meta-data
@@ -97,11 +94,18 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="com.kooknluke.abrewforyou.Map"
+            android:name=".activities.Map"
             android:label="@string/title_activity_map" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kooknluke.abrewforyou.Home" />
+                android:value="com.kooknluke.abrewforyou.activities.Home" />
+        </activity>
+        <activity android:name=".activities.SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

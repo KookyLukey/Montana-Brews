@@ -1,4 +1,4 @@
-package com.kooknluke.abrewforyou;
+package com.kooknluke.abrewforyou.activities;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -25,6 +25,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.kooknluke.abrewforyou.Connection;
+import com.kooknluke.abrewforyou.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -186,7 +188,7 @@ public class Map extends FragmentActivity implements GoogleApiClient.ConnectionC
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } finally {
-                            Intent i = new Intent(context, beerList.class);
+                            Intent i = new Intent(context, com.kooknluke.abrewforyou.activities.beerList.class);
                             i.putExtra("Breweries", 1);
                             if (beerList.isEmpty()) {
                                 beerList.add("No Beer Found for Brewery");

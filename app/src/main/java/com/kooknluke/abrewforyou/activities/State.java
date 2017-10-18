@@ -1,12 +1,12 @@
-package com.kooknluke.abrewforyou;
+package com.kooknluke.abrewforyou.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.kooknluke.abrewforyou.Connection;
+import com.kooknluke.abrewforyou.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

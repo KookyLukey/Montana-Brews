@@ -1,4 +1,4 @@
-package com.kooknluke.abrewforyou;
+package com.kooknluke.abrewforyou.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -21,7 +21,10 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.kooknluke.abrewforyou.Connection;
+import com.kooknluke.abrewforyou.R;
 import com.kooknluke.abrewforyou.ShowcaseViewFiles.ShowcaseView;
+import com.kooknluke.abrewforyou.StaticStore;
 import com.kooknluke.abrewforyou.targets.PointTarget;
 
 import org.json.JSONArray;

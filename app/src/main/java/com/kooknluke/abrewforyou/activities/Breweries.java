@@ -1,4 +1,4 @@
-package com.kooknluke.abrewforyou;
+package com.kooknluke.abrewforyou.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -22,6 +22,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.kooknluke.abrewforyou.Constants.BeerResultCommonMessagesConstants;
 import com.kooknluke.abrewforyou.Constants.QueryConstants;
 import com.kooknluke.abrewforyou.DB.sqlLite.SqlLiteDbHelper;
+import com.kooknluke.abrewforyou.R;
 
 import java.util.ArrayList;
 
